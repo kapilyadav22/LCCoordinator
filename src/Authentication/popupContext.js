@@ -8,7 +8,6 @@ export const PopupProvider = ({ children }) => {
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUsername] = useState(() => {
-    // Initialize username from localStorage, default to "Login" if not found
     return localStorage.getItem('userName') || "Login";
   });
 
@@ -18,7 +17,6 @@ export const PopupProvider = ({ children }) => {
 
   const updateUserName = (name) => {
     setUsername(name);
-    // Save the updated username to localStorage
     localStorage.setItem('userName', name);
   };
 
@@ -30,7 +28,6 @@ export const PopupProvider = ({ children }) => {
     setLoginPopupOpen(false);
   };
 
-  // Ensure that the username is updated in localStorage when it changes
   useEffect(() => {
     localStorage.setItem('userName', userName);
   }, [userName]);

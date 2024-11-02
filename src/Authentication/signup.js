@@ -8,6 +8,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import { Link, useNavigate } from 'react-router-dom';
+import { postData } from '../utils/httpRequestUtils';
+import { SERVERURL } from '../constants/urlConstants';
+import { checkSignUpValidations, validateFields } from '../utils/checkValidations';
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -16,25 +19,27 @@ const SignupPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const handleSignUpDetails = async (data) => {
+    const res = await postData(SERVERURL + '/register',data);
+    if(res.success){
+      navigate('/');
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Basic validation
-    if (!name || !email || !password) {
-      setError('Please fill in all fields');
+   
+    const error = validateFields('signup', email, password, name);
+    if (error) {
+      setError(error);
       return;
     }
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setError('Please enter a valid email address');
-      return;
-    }
-    // You can add more validation or API call here
+    handleSignUpDetails({name,email,password});
 
-    // Clear fields and navigate on successful signup
     setName('');
     setEmail('');
     setPassword('');
     setError('');
-    navigate('/'); // Redirect after signup
   };
 
   return (
@@ -49,7 +54,6 @@ const SignupPage = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          {/* You can add an icon here, e.g., <LockOutlinedIcon /> */}
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign Up
@@ -68,18 +72,7 @@ const SignupPage = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="contact"
-            label="Contact Number (with Country Code)"
-            name="name"
-            autoComplete="name"
-            autoFocus
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+      
           <TextField
             margin="normal"
             required
@@ -103,6 +96,18 @@ const SignupPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+            {/* <TextField
+            margin="normal"
+            // required
+            fullWidth
+            id="contact"
+            label="Contact Number (with Country Code)"
+            name="name"
+            autoComplete="name"
+            autoFocus
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          /> */}
           <Button
             type="submit"
             fullWidth

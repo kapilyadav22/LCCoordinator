@@ -7,10 +7,11 @@ import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
-import { checkLoginValidations } from '../utils/checkValidations';
+import { checkLoginValidations, validateFields } from '../utils/checkValidations';
 import { Link, useNavigate } from 'react-router-dom';
 import SignIn from './signinwithgoogle';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { postData } from '../utils/httpRequestUtils';
+import { SERVERURL } from '../constants/urlConstants';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -18,17 +19,25 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const handleLoginDetails = async (data) => {
+    const res = await postData(SERVERURL + '/auth/login',data);
+    if(res.success){
+      navigate('/');
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const error = checkLoginValidations(email, password);
+    const error = validateFields('login', email, password);
     if (error) {
       setError(error);
       return;
     }
+    handleLoginDetails({email,password});
+    
     setEmail('');
     setPassword('');
     setError('');
-    navigate('/');
   };
 
   return (
@@ -43,7 +52,6 @@ const LoginPage = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          {/* <LockOutlinedIcon /> */}
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in

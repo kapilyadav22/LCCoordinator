@@ -24,36 +24,42 @@ const apiRequest = async (url, method, data = null, headers = {}) => {
   
   export const getData = async (url) => {
     try {
-      return await apiRequest(url, 'GET');
+      const response = await apiRequest(url, 'GET');
+      return { success: true, data: response };
     } catch (error) {
-      console.error(`Failed to GET data from ${url}:`, error);
-      return null; 
+      console.error(`Failed to GET data to ${url}:`, error);
+      return { success: false, error: `Unable to get data: ${error.message}` };
     }
   };
   
   export const postData = async (url, data) => {
     try {
-      return await apiRequest(url, 'POST', data);
+      const response = await apiRequest(url, 'POST', data);
+      return { success: true, data: response };
     } catch (error) {
       console.error(`Failed to POST data to ${url}:`, error);
-      return null;
+      return { success: false, error: `Unable to post data: ${error.message}` };
     }
   };
+  
   
   export const putData = async (url, data) => {
     try {
-      return await apiRequest(url, 'PUT', data);
+      const response = await apiRequest(url, 'PUT', data);
+      return { success: true, data: response };
     } catch (error) {
       console.error(`Failed to PUT data to ${url}:`, error);
-      return null;
+      return { success: false, error: `Unable to PUT data: ${error.message}` };
     }
   };
-  
-  export const deleteData = async (url) => {
+
+  export const deleteData = async (url, data) => {
     try {
-      return await apiRequest(url, 'DELETE');
+      const response = await apiRequest(url, 'DELETE');
+      return { success: true, data: response };
     } catch (error) {
-      console.error(`Failed to DELETE data from ${url}:`, error);
-      return null;
+      console.error(`Failed to DELETE data to ${url}:`, error);
+      return { success: false, error: `Unable to DELETE data: ${error.message}` };
     }
   };
+

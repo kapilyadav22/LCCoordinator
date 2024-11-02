@@ -7,7 +7,7 @@ const Footer = () => {
         <>
             <Container maxWidth={false} component="footer" sx={{ bgcolor: 'background.paper', mt: 8, py: 6 }}>
                 <Typography variant="body2" color="text.secondary" align="center">
-                    © {new Date().getFullYear()} ProgrammingHub. All rights reserved.
+                    © {new Date().getFullYear()} Kapil Yadav. All rights reserved.
                 </Typography>
             </Container>
         </>)

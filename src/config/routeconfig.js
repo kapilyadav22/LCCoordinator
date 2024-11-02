@@ -8,6 +8,7 @@ import ContactUsPage from "../components/contactus";
 import LC150ProblemsGrid from "../components/datagrid/lc150datagrid";
 import BlogsPage from "../components/blogsPage";
 import ArticleWriter from "../components/articleeditor/articlewriter";
+import ArticleDetail from "../components/articleeditor/viewArticles";
 
 export const RouteConfig = [
     {
@@ -73,8 +74,11 @@ export const RouteConfig = [
         element: <ArticleWriter/>,
 
     },
-    
     {
-
-    }
+        pageName: PAGES_NAME.VIEWARTICLE,
+        path: '/article/:id',
+        element: <ArticleDetail/>,
+    },
+    
+    
 ]

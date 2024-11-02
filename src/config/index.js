@@ -12,7 +12,8 @@ export const PAGES_NAME = {
     ABOUT : "About",
     CONTACT : "Contact Us",
     BLOG : "Blogs",
-    ADDARTICLE : "Add Article"
+    ADDARTICLE : "Add Article",
+    VIEWARTICLE : "View Article"
 }
 
 export const DISPLAY_NAME = {

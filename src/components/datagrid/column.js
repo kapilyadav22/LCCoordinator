@@ -3,7 +3,6 @@ import { Rating } from '@mui/material';
 import { GridCheckIcon, GridCloseIcon } from '@mui/x-data-grid';
 
 const columns = [
-  { field: 'id', headerName: 'Index', width: 80 },
   { field: 'problemId', headerName: 'Problem ID', width: 80 },
   {
     field: 'problemStatement', 

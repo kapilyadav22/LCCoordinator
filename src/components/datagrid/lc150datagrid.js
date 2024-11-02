@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { FormControlLabel, Grid, Switch, Typography } from '@mui/material';
+import { Box, Button, FormControlLabel, Grid, Stack, Switch, Typography } from '@mui/material';
 import columns from './column';
-import { lc150RowData } from '../../data/lc150data';
 import TopicFilterChips from '../../utils/TopicFilterChips';
 import { topics } from '../../data/topics';
 import CustomIcon from '../../icons/customicon';
+import { SERVERURL, V1 } from '../../constants/urlConstants';
+import { getData, postData } from '../../utils/httpRequestUtils';
 
 const LC150ProblemsGrid = () => {
-  const [rows, setRows] = useState(lc150RowData);
+  const [rows, setRows] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
-  const [filteredRows, setFilteredRows] = useState(lc150RowData);
+  const [filteredRows, setFilteredRows] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const [file, setFile] = useState(null);
+  // const [csvupdated, setCSVUpdated] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+}, []);
+
+const fetchData = async () => {
+    const res = await getData(V1 + '/lc150');
+    if (res.success) {
+      setRows(res.data);
+      setFilteredRows(res.data);
+    }
+};
 
   const handleCellEditCommit = (params) => {
     const updatedRows = rows.map((row) => {
@@ -47,15 +62,37 @@ const LC150ProblemsGrid = () => {
     setFilteredRows(rows);
   };
 
-  // const handleCellClick = (params, event) => {
-  //   if (params.field === 'attempted') {
-  //     event.stopPropagation();
-  //     const newRows = [...rows];
-  //     const index = newRows.findIndex((row) => row.id === params.id);
-  //     newRows[index].attempted = !newRows[index].attempted;
-  //     setRows(newRows);
-  //   }
-  // };
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.type === 'text/csv') {
+      setFile(selectedFile);
+    } else {
+      alert('Please upload a valid CSV file.');
+    }
+  }
+
+  const handleUpload = async () => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const response = await fetch(V1 + '/lc150', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        alert('Upload successful');
+        await fetchData(); 
+        setFile(null);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+  };
 
   const handleSwitchChange = () => {
     setShowFilter((prev) => !prev);
@@ -64,9 +101,28 @@ const LC150ProblemsGrid = () => {
 
   return (
     <Grid container direction="column" alignItems="center" margin={"1%"} padding={"1%"}>
-      <Typography variant="h4" gutterBottom>
-        LeetCode DSA Problems
-      </Typography>
+      <Stack direction="row" spacing={2} width="80%" alignItems="center">
+        <Box flexGrow={1} display="flex" justifyContent="center">
+          <Typography variant="h4" align='center'>
+            LeetCode DSA Problems
+          </Typography>
+        </Box>
+        <input
+          type="file"
+          accept=".csv"
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+          id="csv-upload"
+        />
+        <label htmlFor="csv-upload">
+          <Button variant="contained" component="span">
+            Choose CSV File
+          </Button>
+        </label>
+        <Button variant="contained" color="primary" onClick={handleUpload}>
+          Upload CSV
+        </Button>
+      </Stack>
       {
         showFilter &&
         <TopicFilterChips
@@ -77,14 +133,14 @@ const LC150ProblemsGrid = () => {
           handleRefresh={handleRefresh}
         />
       }
-      <FormControlLabel control={ 
-      <Switch
-        checked={showFilter}
-        onChange={(event) => handleSwitchChange()}
-        color="primary"
-      />
+      <FormControlLabel control={
+        <Switch
+          checked={showFilter}
+          onChange={(event) => handleSwitchChange()}
+          color="primary"
+        />
       }
-      label="Filters" />
+        label="Filters" />
 
       <Grid item style={{ width: '80%', alignContent: "center" }}>
         <DataGrid
@@ -93,6 +149,7 @@ const LC150ProblemsGrid = () => {
           autoHeight
           columnBuffer={columns.length}
           // pageSize={5} 
+          getRowId={(row) => row.problemId}
           pageSizeOptions={[25, 50, 75, 100]}
           rowsPerPageOptions={[25]}
           checkboxSelection

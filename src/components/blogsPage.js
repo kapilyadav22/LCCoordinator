@@ -1,25 +1,35 @@
 // src/components/BlogsPage.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Button, Typography, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../utils/httpRequestUtils';
-
-const articles = [
-    { id: 1, title: 'Understanding React', link: '/articles/understanding-react' },
-    { id: 2, title: 'Getting Started with MUI', link: '/articles/getting-started-with-mui' },
-    { id: 3, title: 'Building a Blog with React', link: '/articles/building-a-blog' },
-];
+import { SERVERURL } from '../constants/urlConstants';
+import { Link } from 'react-router-dom';
 
 const BlogsPage = () => {
+    const [articles, setArticles] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchArticles();
+    }, []);
+
     const handleAddArticle = () => {
         navigate('/addarticle');
     };
 
     const fetchArticles = async () => {
-        const articles = await getData('/api/articles');
+        const res = await getData(SERVERURL + '/blogs');
+        if (res.success) {
+            setArticles(res.data);
+        }
     };
 
+    const handleArticleClick = (article) => {
+        console.log(encodeURIComponent(article.title));
+        navigate(`/article/${encodeURIComponent(article.title)}`, { state: { article } });
+    };
+    
 
     return (
         <Container sx={{ height: "900px" }}>
@@ -42,26 +52,25 @@ const BlogsPage = () => {
 
             <Grid container spacing={1}>
                 {articles.map((article) => (
-                    <Grid item xs={12} sm={6} key={article.id}>
-                        <Typography
-                            variant="body1"
-                            component="a"
-                            href={article.link}
-                            sx={{
-                                textDecoration: 'none',
-                                color: 'primary.main',
-                                display: 'block',
-                                padding: '4px 8px',
-                                borderRadius: '4px',
-                                '&:hover': {
-                                    backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                                },
-                            }}
-                        >
-                            {article.title}
-                        </Typography>
+                    <Grid item xs={12} sm={6} key={article.title} 
+                    onClick={() => handleArticleClick(article)}>
+                            {<Typography
+                                variant="body1"
+                                component="a"
+                                sx={{
+                                    textDecoration: 'none',
+                                    color: 'primary.main',
+                                    display: 'block',
+                                    padding: '4px 8px',
+                                    borderRadius: '4px',
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                                    },
+                                }}
+                            >
+                                {article.title}
+                            </Typography>}
                     </Grid>
-
                 ))}
             </Grid>
         </Container>
