@@ -1,16 +1,18 @@
-import { Link, Box } from '@mui/material';
+import { Link, Box, Checkbox } from '@mui/material';
 import { Rating } from '@mui/material';
+import { GridCheckIcon, GridCloseIcon } from '@mui/x-data-grid';
 
 const columns = [
   { field: 'id', headerName: 'Index', width: 80 },
   { field: 'problemId', headerName: 'Problem ID', width: 80 },
-  { field: 'problemStatement', headerName: 'Problem Statement', width: 250 },
   {
-    field: 'problemLink',
-    headerName: 'Problem Link',
-    width: 250,
+    field: 'problemStatement', 
+    headerName: 'Problem Statement',
+    width: 350,
+    align: 'center',
+    headerAlign: 'center',
     renderCell: (params) => (
-      <Link href={params.value} target="_blank" rel="noopener">
+      <Link href={params.row.problemLink} target="_blank" rel="noopener">
         {params.value}
       </Link>
     ),
@@ -21,6 +23,21 @@ const columns = [
     type: 'boolean',
     width: 100,
     editable: true,
+    renderCell: (params) => {
+      return params.value ? (
+        <GridCheckIcon
+          style={{
+            color: "green",
+          }}
+        />
+      ) : (
+        <GridCloseIcon
+          style={{
+            color: "red",
+          }}
+        />
+      );
+    },
   },
   {
     field: 'revision',
@@ -36,15 +53,21 @@ const columns = [
           readOnly
           max={5}
           precision={1}
-          // onClick={(event) => event.stopPropagation()} 
+        // onClick={(event) => event.stopPropagation()} 
         />
-        
+
       </Box>
     ),
     editable: true,
     type: 'number',
   },
-  { field: 'topic', headerName: 'Topic', width: 130 },
+  {
+    field: 'topic', 
+    headerName: 'Topic', 
+    width: 200,
+    align: 'center',
+    headerAlign: 'center',
+  },
 ];
 
 export default columns;

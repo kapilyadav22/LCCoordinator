@@ -6,6 +6,8 @@ import SignupPage from "../Authentication/signup";
 import AboutPage from "../components/about";
 import ContactUsPage from "../components/contactus";
 import LC150ProblemsGrid from "../components/datagrid/lc150datagrid";
+import BlogsPage from "../components/blogsPage";
+import ArticleWriter from "../components/articleeditor/articlewriter";
 
 export const RouteConfig = [
     {
@@ -53,6 +55,25 @@ export const RouteConfig = [
         element: '',
 
     },
+    {
+        pageName: PAGES_NAME.BLOG,
+        path: '/blogs',
+        element: <BlogsPage/>,
+
+    },
+    {
+        pageName: PAGES_NAME.BLOG,
+        path: '/blogs',
+        element: <BlogsPage/>,
+
+    },
+    {
+        pageName: PAGES_NAME.ADDARTICLE,
+        path: '/addarticle',
+        element: <ArticleWriter/>,
+
+    },
+    
     {
 
     }

@@ -10,6 +10,4 @@ export const cardData = [
     { title: 'LLD25', content: ' 5', image: LCImage },
     { title: 'LLD50', content: ' 5', image: LCImage },
     { title: 'Resources', content: ' 5', image: LCImage },
-    { title: 'Card 5', content: ' 5', image: LCImage },
-    { title: 'Card 5', content: ' 5', image: LCImage },
   ];

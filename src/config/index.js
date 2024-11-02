@@ -10,7 +10,9 @@ export const PAGES_NAME = {
     LOGIN : "Login",
     SIGNUP : "SignUp",
     ABOUT : "About",
-    CONTACT : "Contact Us"
+    CONTACT : "Contact Us",
+    BLOG : "Blogs",
+    ADDARTICLE : "Add Article"
 }
 
 export const DISPLAY_NAME = {

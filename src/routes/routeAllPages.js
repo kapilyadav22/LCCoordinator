@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import { RouteConfig } from "../config/routeconfig"
 import React from "react"
+import { Grid } from "@mui/material"
 
 export const RouteAllPages = () => {
     return (
@@ -9,7 +10,7 @@ export const RouteAllPages = () => {
                 {
                     RouteConfig.map(item => {
                         return (
-                            <Route path={item.path} element={item.element} key={item.path} />
+                                <Route path={item.path} element={item.element} key={item.path} />
                         )
                     })
                 }

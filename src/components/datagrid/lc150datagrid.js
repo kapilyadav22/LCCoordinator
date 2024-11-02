@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Grid, Typography } from '@mui/material';
+import { FormControlLabel, Grid, Switch, Typography } from '@mui/material';
 import columns from './column';
 import { lc150RowData } from '../../data/lc150data';
 import TopicFilterChips from '../../utils/TopicFilterChips';
@@ -9,6 +9,7 @@ import CustomIcon from '../../icons/customicon';
 
 const LC150ProblemsGrid = () => {
   const [rows, setRows] = useState(lc150RowData);
+  const [showFilter, setShowFilter] = useState(false);
   const [filteredRows, setFilteredRows] = useState(lc150RowData);
   const [selectedTopics, setSelectedTopics] = useState([]);
 
@@ -38,37 +39,69 @@ const LC150ProblemsGrid = () => {
 
   const handleReset = () => {
     setSelectedTopics([]);
-    setFilteredRows(rows); 
+    setFilteredRows(rows);
   };
 
   const handleRefresh = () => {
     setSelectedTopics([]);
-    setFilteredRows(rows); 
+    setFilteredRows(rows);
   };
+
+  // const handleCellClick = (params, event) => {
+  //   if (params.field === 'attempted') {
+  //     event.stopPropagation();
+  //     const newRows = [...rows];
+  //     const index = newRows.findIndex((row) => row.id === params.id);
+  //     newRows[index].attempted = !newRows[index].attempted;
+  //     setRows(newRows);
+  //   }
+  // };
+
+  const handleSwitchChange = () => {
+    setShowFilter((prev) => !prev);
+  };
+
 
   return (
     <Grid container direction="column" alignItems="center" margin={"1%"} padding={"1%"}>
       <Typography variant="h4" gutterBottom>
         LeetCode DSA Problems
       </Typography>
-      <TopicFilterChips
-        uniqueTopics={topics}
-        selectedTopics={selectedTopics}
-        onChipClick={handleChipClick} 
-        onReset={handleReset} 
-        handleRefresh = {handleRefresh}
+      {
+        showFilter &&
+        <TopicFilterChips
+          uniqueTopics={topics}
+          selectedTopics={selectedTopics}
+          onChipClick={handleChipClick}
+          onReset={handleReset}
+          handleRefresh={handleRefresh}
         />
-           
-      <Grid item style={{ width: '90%' }}>
+      }
+      <FormControlLabel control={ 
+      <Switch
+        checked={showFilter}
+        onChange={(event) => handleSwitchChange()}
+        color="primary"
+      />
+      }
+      label="Filters" />
+
+      <Grid item style={{ width: '80%', alignContent: "center" }}>
         <DataGrid
-          rows={filteredRows} 
-          columns={columns} 
-          // pageSize={5} 
-          pageSizeOptions={[25,50,75,100]}
-          rowsPerPageOptions={[25]} 
-          checkboxSelection 
+          rows={filteredRows}
+          columns={columns}
           autoHeight
-          onCellEditCommit={handleCellEditCommit} 
+          columnBuffer={columns.length}
+          // pageSize={5} 
+          pageSizeOptions={[25, 50, 75, 100]}
+          rowsPerPageOptions={[25]}
+          checkboxSelection
+          autoHeight
+          // onCellClick={handleCellClick}
+          onCellEditCommit={handleCellEditCommit}
+        // disableMultipleRowSelection
+        // disableRowSelectionOnClick
+
         />
       </Grid>
     </Grid>
