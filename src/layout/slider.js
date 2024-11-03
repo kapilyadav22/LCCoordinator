@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import { Tabs, Tab, Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import { cardData } from '../data/carddata';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { RouteConfig } from '../config/routeconfig';
+
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 
 const SimpleSlider = () => {
   const [value, setValue] = useState(0);
@@ -18,7 +25,6 @@ const SimpleSlider = () => {
     const currentPage = RouteConfig.find(item => title===item.pageName);
     const url  = currentPage?.path;
     navigate(url);
-    //  navigate('/lc150');
   };
 
 
@@ -30,13 +36,6 @@ const SimpleSlider = () => {
         variant="scrollable"
         scrollButtons="auto"
         aria-label="scrollable auto tabs example"
-        // sx={{
-        //   '& .MuiTabs-scroller': {
-        //     overflowX: 'auto !important',
-        //     '::-webkit-scrollbar': { display: 'none' },
-        //     scrollbarWidth: 'none',
-        //   },
-        // } }
       >
         {cardData.map((card, index) => (
           <Tab

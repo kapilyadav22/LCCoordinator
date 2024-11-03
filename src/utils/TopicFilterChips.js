@@ -1,6 +1,8 @@
 import React from 'react';
-import { Chip, Grid, Box } from '@mui/material';
-import CustomIcon from '../icons/customicon';
+import Chip from '@mui/material/Chip';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+
 import CustomBox from '../layout/customBox';
 
 const TopicFilterChips = ({ uniqueTopics, selectedTopics, onChipClick, onReset, handleRefresh }) => {

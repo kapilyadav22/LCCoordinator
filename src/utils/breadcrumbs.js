@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "@mui/material"
+import Breadcrumbs  from "@mui/material/Breadcrumbs"
 import { Link, useNavigation } from "react-router-dom"
 import { RouteConfig } from "../config/routeconfig";
 import React from "react";

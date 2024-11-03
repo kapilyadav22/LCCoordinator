@@ -1,6 +1,7 @@
-import { Link, Box, Checkbox } from '@mui/material';
-import { Rating } from '@mui/material';
-import { GridCheckIcon, GridCloseIcon } from '@mui/x-data-grid';
+import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import { GridCheckIcon, GridCloseIcon } from '@mui/x-data-grid/';
 
 const columns = [
   { field: 'problemId', headerName: 'Problem ID', width: 80 },
@@ -22,21 +23,21 @@ const columns = [
     type: 'boolean',
     width: 100,
     editable: true,
-    renderCell: (params) => {
-      return params.value ? (
-        <GridCheckIcon
-          style={{
-            color: "green",
-          }}
-        />
-      ) : (
-        <GridCloseIcon
-          style={{
-            color: "red",
-          }}
-        />
-      );
-    },
+    // renderCell: (params) => {
+    //   return params.value ? (
+    //     <GridCheckIcon
+    //       style={{
+    //         color: "green",
+    //       }}
+    //     />
+    //   ) : (
+    //     <GridCloseIcon
+    //       style={{
+    //         color: "red",
+    //       }}
+    //     />
+    //   );
+    // },
   },
   {
     field: 'revision',

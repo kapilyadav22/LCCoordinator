@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { Box, Button, FormControlLabel, Grid, Stack, Switch, Typography } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid/DataGrid/DataGrid';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Switch from '@mui/material/Switch';
+import Typography from '@mui/material/Typography';
+
 import columns from './column';
 import TopicFilterChips from '../../utils/TopicFilterChips';
 import { topics } from '../../data/topics';
-import CustomIcon from '../../icons/customicon';
-import { SERVERURL, V1 } from '../../constants/urlConstants';
-import { getData, postData } from '../../utils/httpRequestUtils';
+import { V1 } from '../../constants/urlConstants';
+import { getData } from '../../utils/httpRequestUtils';
 
 const LC150ProblemsGrid = () => {
   const [rows, setRows] = useState([]);
@@ -14,7 +20,6 @@ const LC150ProblemsGrid = () => {
   const [filteredRows, setFilteredRows] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [file, setFile] = useState(null);
-  // const [csvupdated, setCSVUpdated] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -153,7 +158,6 @@ const fetchData = async () => {
           pageSizeOptions={[25, 50, 75, 100]}
           rowsPerPageOptions={[25]}
           checkboxSelection
-          autoHeight
           // onCellClick={handleCellClick}
           onCellEditCommit={handleCellEditCommit}
         // disableMultipleRowSelection

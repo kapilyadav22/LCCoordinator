@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { TextField, Button, Typography, Box, Modal } from '@mui/material';
-import { getData, postData } from '../../utils/httpRequestUtils';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import { postData } from '../../utils/httpRequestUtils';
 import { SERVERURL } from '../../constants/urlConstants';
 
 const ArticleWriter = () => {
@@ -11,7 +15,7 @@ const ArticleWriter = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const createArticle = async (article) => {
-    const res = await postData(SERVERURL + '/blogs', article);
+    await postData(SERVERURL + '/blogs', article);
   };
 
   const handleSubmit = (e) => {

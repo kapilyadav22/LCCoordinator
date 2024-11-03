@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
-import { checkLoginValidations, validateFields } from '../utils/checkValidations';
+import { validateFields } from '../utils/checkValidations';
 import { Link, useNavigate } from 'react-router-dom';
 import SignIn from './signinwithgoogle';
 import { postData } from '../utils/httpRequestUtils';

@@ -1,40 +1,36 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material';
-import { useTheme, ThemeProvider} from '@mui/material/styles';
-import SimpleSlider from '../layout/slider';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid2';
-// import { Breadcrumb } from '../utils/breadcrumbs';
+import useTheme from '@mui/material/styles/useTheme';
+import SimpleSlider from '../layout/slider';
+import { Breadcrumb } from '../utils/breadcrumbs';
 import { PAGES_NAME } from '../config';
-// import { useNavigate } from 'react-router-dom';
 
 function Landingpage() {
-    // const navigate = useNavigate();
     const theme = useTheme();
 
     return (
         <>
-        
                 <Container maxWidth="lg">
-                    <Grid container spacing={1} sx={{ mt: 4, mb: 4, alignContent: 'center', justifyContent:'center' }}>
+                {/* <Breadcrumb pageName={PAGES_NAME.HOMEPAGE}></Breadcrumb> */}
+                    <Grid container spacing={1} sx={{ mt: 1, mb: 1, alignContent: 'center', justifyContent:'center' }}>
                         
-                        <Grid 
-                        // item xs={12} md={12} 
-                        >
-                            <Typography variant="h2" component="h1" gutterBottom>
+                        <Grid>
+                            <Typography variant="h3" component="h1" gutterBottom>
                                 Welcome to LC Coordinator
                             </Typography>
-                            <Typography variant="h5" >
+                            <Typography variant="h5" component="h1" gutterBottom  align="center"> 
                                 One Stop Solution To Programming
                             </Typography>
                             
                         </Grid>
                     </Grid>
 
-                    {/* <Breadcrumb pageName={PAGES_NAME.HOMEPAGE}></Breadcrumb> */}
 
-                    <Typography variant="h3" component="h2" gutterBottom align="center" sx={{ mt: 8, mb: 4 }}>
+                    {/* <Typography variant="h3" component="h2" gutterBottom align="center" sx={{ mt: 2, mb: 2 }}>
                         DSA Sheets
-                    </Typography>
+                    </Typography> */}
                     <SimpleSlider></SimpleSlider>
                 </Container>
                

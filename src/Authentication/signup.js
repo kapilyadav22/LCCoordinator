@@ -10,7 +10,7 @@ import Alert from '@mui/material/Alert';
 import { Link, useNavigate } from 'react-router-dom';
 import { postData } from '../utils/httpRequestUtils';
 import { SERVERURL } from '../constants/urlConstants';
-import { checkSignUpValidations, validateFields } from '../utils/checkValidations';
+import { validateFields } from '../utils/checkValidations';
 
 const SignupPage = () => {
   const [name, setName] = useState('');

@@ -2,7 +2,11 @@ import React from 'react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from './firebase';
 import googleImage from '../assets/icons/google.png';
-import { Avatar, Box, Link, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+
 // import { usePopup } from './popupContext';
 
 const SignIn = () => {

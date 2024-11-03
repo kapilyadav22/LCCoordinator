@@ -1,10 +1,12 @@
-// src/components/BlogsPage.js
 import React, { useEffect, useState } from 'react';
-import { Grid, Button, Typography, Container } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../utils/httpRequestUtils';
 import { SERVERURL } from '../constants/urlConstants';
-import { Link } from 'react-router-dom';
 
 const BlogsPage = () => {
     const [articles, setArticles] = useState([]);
@@ -32,7 +34,9 @@ const BlogsPage = () => {
     
 
     return (
-        <Container sx={{ height: "900px" }}>
+        <Container 
+        sx={{ minHeight: "500px" }}
+        >
             <Grid item xs={12} md={6} display="flex" justifyContent="center"
                 marginTop={"1%"}>
                 <Typography variant="h4" >
