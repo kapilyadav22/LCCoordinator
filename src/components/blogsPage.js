@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../utils/httpRequestUtils';
-import { SERVERURL } from '../constants/urlConstants';
+import { BLOGSURL, SERVERURL } from '../constants/urlConstants';
 
 const BlogsPage = () => {
     const [articles, setArticles] = useState([]);
@@ -21,7 +21,7 @@ const BlogsPage = () => {
     };
 
     const fetchArticles = async () => {
-        const res = await getData(SERVERURL + '/blogs');
+        const res = await getData(BLOGSURL);
         if (res.success) {
             setArticles(res.data);
         }

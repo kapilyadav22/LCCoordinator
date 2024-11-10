@@ -9,36 +9,40 @@ import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import { Link, useNavigate } from 'react-router-dom';
 import { postData } from '../utils/httpRequestUtils';
-import { SERVERURL } from '../constants/urlConstants';
+import { REGISTERURL, SERVERURL } from '../constants/urlConstants';
 import { validateFields } from '../utils/checkValidations';
+import CustomAvatar from '../layout/customavatar';
+import { SignUpFormData } from '../data/formData';
 
 const SignupPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState(SignUpFormData);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSignUpDetails = async (data) => {
-    const res = await postData(SERVERURL + '/register',data);
+    const res = await postData(REGISTERURL,data);
     if(res.success){
       navigate('/');
     }
   };
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
    
-    const error = validateFields('signup', email, password, name);
+    const error = validateFields('signup', formData.email, formData.password, formData.name);
     if (error) {
       setError(error);
       return;
     }
-    handleSignUpDetails({name,email,password});
-
-    setName('');
-    setEmail('');
-    setPassword('');
+    handleSignUpDetails(formData);
+    setFormData(SignUpFormData);
     setError('');
   };
 
@@ -53,8 +57,8 @@ const SignupPage = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        </Avatar>
+       
+       <CustomAvatar/>
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
@@ -69,8 +73,8 @@ const SignupPage = () => {
             name="name"
             autoComplete="name"
             autoFocus
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={formData.name}
+            onChange={handleChange}
           />
       
           <TextField
@@ -81,8 +85,8 @@ const SignupPage = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -93,8 +97,8 @@ const SignupPage = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
           />
             {/* <TextField
             margin="normal"

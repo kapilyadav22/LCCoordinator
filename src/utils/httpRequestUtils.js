@@ -13,6 +13,7 @@ const apiRequest = async (url, method, data = null, headers = {}) => {
   
     try {
       const response = await fetch(url, config);
+      console.log(response)
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }

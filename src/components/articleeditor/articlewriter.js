@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { postData } from '../../utils/httpRequestUtils';
-import { SERVERURL } from '../../constants/urlConstants';
+import { BLOGSURL, SERVERURL } from '../../constants/urlConstants';
 
 const ArticleWriter = () => {
   const [title, setTitle] = useState('');
@@ -15,7 +15,7 @@ const ArticleWriter = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const createArticle = async (article) => {
-    await postData(SERVERURL + '/blogs', article);
+    await postData(BLOGSURL, article);
   };
 
   const handleSubmit = (e) => {

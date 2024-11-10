@@ -5,38 +5,54 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
-import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import { validateFields } from '../utils/checkValidations';
 import { Link, useNavigate } from 'react-router-dom';
 import SignIn from './signinwithgoogle';
 import { postData } from '../utils/httpRequestUtils';
-import { SERVERURL } from '../constants/urlConstants';
+import { HOMEROUTE, LOGINURL } from '../constants/urlConstants';
+import CustomAvatar from '../layout/customavatar';
+import { LoginFormData } from '../data/formData';
+import { useMyContext } from '../Context/globalContext';
+import CustomAlert from '../layout/customAlerts';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState(LoginFormData);
   const [error, setError] = useState('');
+  
+  const { updateUserName, updateLogin, showAlert } = useMyContext();
+
   const navigate = useNavigate();
 
   const handleLoginDetails = async (data) => {
-    const res = await postData(SERVERURL + '/auth/login',data);
-    if(res.success){
-      navigate('/');
+    // showAlert("info", "You have been logged in.");
+    const res = await postData(LOGINURL, data);
+    if (res.success) {
+      updateUserName("kapil");
+      // showAlert("info", "You have been logged in.");
+      updateLogin(true);
+      navigate(HOMEROUTE);
+    } else {
+      showAlert("error", "Please try again");
     }
   };
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const error = validateFields('login', email, password);
+    const error = validateFields('login', formData.email, formData.password);
     if (error) {
       setError(error);
       return;
     }
-    handleLoginDetails({email,password});
-    
-    setEmail('');
-    setPassword('');
+    handleLoginDetails(formData);
+    setFormData(LoginFormData);
     setError('');
   };
 
@@ -51,8 +67,7 @@ const LoginPage = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        </Avatar>
+        <CustomAvatar />
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
@@ -67,8 +82,8 @@ const LoginPage = () => {
             name="email"
             autoComplete="email"
             autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -79,8 +94,8 @@ const LoginPage = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
           />
           <Button
             type="submit"
@@ -88,10 +103,10 @@ const LoginPage = () => {
             variant="contained"
             sx={{ mt: 2, mb: 2 }}
           >
-            Sign In
+            LogIn
           </Button>
         </Box>
-          
+
       </Box>
       <Box display="flex" alignItems="center" justifyContent={'center'}>
         <Typography variant="body1">New User?</Typography>
@@ -101,10 +116,11 @@ const LoginPage = () => {
           </Typography>
         </Link>
       </Box>
-      <Typography align= "center" variant="body1" color="black" sx={{margin: '10%'}}>
-            OR
-          </Typography>
-      <SignIn/>
+      <Typography align="center" variant="body1" color="black" sx={{ margin: '3%' }}>
+        OR
+      </Typography>
+      <SignIn />
+       <CustomAlert />
     </Container>
   );
 };

@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import columns from './column';
 import TopicFilterChips from '../../utils/TopicFilterChips';
 import { topics } from '../../data/topics';
-import { V1 } from '../../constants/urlConstants';
+import { LC150, V1 } from '../../constants/urlConstants';
 import { getData } from '../../utils/httpRequestUtils';
 
 const LC150ProblemsGrid = () => {
@@ -26,7 +26,7 @@ const LC150ProblemsGrid = () => {
 }, []);
 
 const fetchData = async () => {
-    const res = await getData(V1 + '/lc150');
+    const res = await getData(LC150);
     if (res.success) {
       setRows(res.data);
       setFilteredRows(res.data);

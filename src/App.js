@@ -6,6 +6,7 @@ import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { createTheme } from '@mui/material';
 import Theme from './theme/theme';
 import { RouteAllPages } from './routes/routeAllPages';
+import { ContextProvider } from './Context/globalContext';
 
 function App() {
   const theme = createTheme(Theme);
@@ -14,11 +15,13 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+      <ContextProvider>
       <BrowserRouter>
         <Header />
         <RoutesMemo/>
         <Footer />
       </BrowserRouter>
+      </ContextProvider>
     </ThemeProvider >
     </>
      

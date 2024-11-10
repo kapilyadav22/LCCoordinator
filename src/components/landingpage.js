@@ -14,7 +14,7 @@ function Landingpage() {
         <>
                 <Container maxWidth="lg">
                 {/* <Breadcrumb pageName={PAGES_NAME.HOMEPAGE}></Breadcrumb> */}
-                    <Grid container spacing={1} sx={{ mt: 1, mb: 1, alignContent: 'center', justifyContent:'center' }}>
+                    <Grid container spacing={1} sx={{ mt: 9, mb: 1, alignContent: 'center', justifyContent:'center' }}>
                         
                         <Grid>
                             <Typography variant="h3" component="h1" gutterBottom>

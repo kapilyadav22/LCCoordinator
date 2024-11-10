@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
+import { contactFormData } from '../data/formData';
+import { SENDEMAIL, SERVERURL } from '../constants/urlConstants';
+import { postData } from '../utils/httpRequestUtils';
 
 const ContactUsPage = () => {
-  const handleSubmit = (event) => {
+  const [formData, setFormData] = useState(contactFormData);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const res = await postData(SENDEMAIL,formData);
+    if(res.success){
+      console.log("success", formData);
+    }
+
   };
 
   return (
@@ -18,7 +37,7 @@ const ContactUsPage = () => {
           Contact Us
         </Typography>
         <Typography variant="body1" paragraph>
-          We would love to hear from you! Please fill out the form below or reach us at our contact details.
+          We would love to hear from you! Please Help us grow and share your Valuable FeedBack and Suggestions.
         </Typography>
       </Box>
       <form onSubmit={handleSubmit} >
@@ -27,27 +46,36 @@ const ContactUsPage = () => {
             <TextField
               required
               fullWidth
+              name="name" 
               label="Your Name"
+              value={formData.name}
               variant="outlined"
+              onChange={handleChange}
             />
           </Grid>
           <Grid size={8}>
             <TextField
               required
               fullWidth
+              name="email"
               label="Email Address"
+              value={formData.email}
               variant="outlined"
               type="email"
+              onChange={handleChange}
             />
           </Grid>
           <Grid size={8}>
             <TextField
               required
               fullWidth
+              name="message" 
               label="Message"
+              value={formData.message}
               variant="outlined"
               multiline
               rows={4}
+              onChange={handleChange}
             />
           </Grid>
           <Grid size={8}>
@@ -62,7 +90,6 @@ const ContactUsPage = () => {
           Contact Information
         </Typography>
         <Typography variant="body1">Email: singhkapil347@gmail.com</Typography>
-        <Typography variant="body1">Phone: (+91) xxxxxxxxxx</Typography>
       </Box>
     </Container>
   );
