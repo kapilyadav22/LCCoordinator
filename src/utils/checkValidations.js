@@ -8,4 +8,9 @@ const validateFields = (type, email, password, name = '') => {
     return null;
 };
 
-export { validateFields };
+const responseStatus = (status)=> {
+    if(status=="success"){ return true;
+    }
+}
+
+export { validateFields, responseStatus };

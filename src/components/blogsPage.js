@@ -5,12 +5,20 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import { useNavigate } from 'react-router-dom';
-import { getData } from '../utils/httpRequestUtils';
-import { BLOGSURL, SERVERURL } from '../constants/urlConstants';
+import { deleteData, getData } from '../utils/httpRequestUtils';
+import { ADDBLOGSURL, BLOGSURL, DeleteBLOGSURL, SERVERURL } from '../constants/urlConstants';
 import ListView from '../layout/CustomListView';
+import useCustomAlert from '../customHooks/customAlertHook';
+import CustomAlert1 from '../layout/CustomAlert1';
+import { useMyContext } from '../Context/ContextProvider';
+import { responseStatus } from '../utils/checkValidations';
 
 const BlogsPage = () => {
     const [articles, setArticles] = useState([]);
+    const [selectedItem, setSelectedItem] = useState({});
+    const { adminStatus } = useMyContext();
+
+    const { alert, showAlert } = useCustomAlert();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,22 +29,38 @@ const BlogsPage = () => {
         navigate('/addarticle');
     };
 
+    const handleDeleteArticle = async () => {
+        if (Object.keys(selectedItem).length === 0) {
+            showAlert("error", "Please select an article");
+        } else {
+            const res = await deleteData(`${DeleteBLOGSURL}/${selectedItem.title}`);
+            if(responseStatus(res.status)){
+                showAlert("success", "Article Deleted Successfully");
+                fetchArticles();
+            }
+        }
+    };
+
     const fetchArticles = async () => {
         const res = await getData(BLOGSURL);
-        if (res.success) {
+        if(res.status=="success") {
             setArticles(res.data);
         }
     };
 
     const handleArticleClick = (article) => {
-        navigate(`/article/${encodeURIComponent(article.title)}`, { state: { article } });
+        setSelectedItem(article);
+        if(adminStatus=="User"){
+            navigate(`/article/${encodeURIComponent(article.title)}`, { state: { article } });
+        }
+       
     };
-
 
     return (
         <Container
             sx={{ minHeight: "500px", minWidth: "100%" }}
         >
+            <CustomAlert1 alert={alert} />
             <Grid item xs={12} md={6} display="flex" justifyContent="center"
                 marginTop={"1%"}>
                 <Typography variant="h4" >
@@ -48,10 +72,21 @@ const BlogsPage = () => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleAddArticle}
+                    sx={{marginLeft : "5px"}}
+                    onClick={()=>handleAddArticle()}
                 >
                     Add Article
                 </Button>
+                {(adminStatus=="Admin_Kapil") &&
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{marginLeft : "5px"}}
+                    onClick={()=>handleDeleteArticle()}
+                >
+                    Delete Article
+                </Button>
+                }
             </Grid>
             <ListView items={articles} onItemClick={handleArticleClick} />
         </Container>

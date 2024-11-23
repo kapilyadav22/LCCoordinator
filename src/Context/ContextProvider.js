@@ -8,10 +8,12 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const storedAdminStatus = localStorage.getItem("adminStatus");
   
     if (storedIsLoggedIn) {
       updateUserName(storedUsername);
       updateLogin(true);
+      updateAdminStatus(storedAdminStatus);
     }
   }, []);
 
@@ -19,6 +21,7 @@ export const ContextProvider = ({ children }) => {
   const [userName, setUsername] = useState(() => {
     return "Login";
   });
+  const [adminStatus, setAdminStatus] = useState("User");
 
   const [alert, setAlert] = useState(alertInitialData);
 
@@ -32,6 +35,11 @@ export const ContextProvider = ({ children }) => {
     localStorage.setItem("isLoggedIn", true);
   };
 
+  const updateAdminStatus = (role) => {
+    setAdminStatus(role)
+    localStorage.setItem("adminStatus", role);
+  };
+
   const showAlert = (severity, message) => {
     setAlert({ open: true, severity, message });
   };
@@ -41,7 +49,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{userName, updateUserName, isLoggedIn, updateLogin, alert, showAlert, closeAlert }}>
+    <UserContext.Provider value={{userName, updateUserName, isLoggedIn, updateLogin, alert, showAlert, closeAlert, updateAdminStatus, adminStatus }}>
       {children}
     </UserContext.Provider>
   );

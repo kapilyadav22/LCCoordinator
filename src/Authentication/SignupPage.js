@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import { Link, useNavigate } from 'react-router-dom';
 import { postData } from '../utils/httpRequestUtils';
-import { REGISTERURL, SERVERURL } from '../constants/urlConstants';
+import { HOMEROUTE, navigationTimer, REGISTERURL, SERVERURL } from '../constants/urlConstants';
 import { validateFields } from '../utils/checkValidations';
 import CustomAvatar from '../layout/CustomAvatar';
 import { SignUpFormData } from '../dataFields/formData';
@@ -24,11 +24,12 @@ const SignupPage = () => {
 
   const handleSignUpDetails = async (data) => {
     const res = await postData(REGISTERURL,data);
-    console.log(res);
     if(res.success){
-      console.log(res);
       showAlert("success", "SignUp Successfully, Please Login to Continue");
-      // navigate('/');
+      
+      setTimeout(() => {
+        navigate(HOMEROUTE);
+      }, navigationTimer);
     } else {
       showAlert('error', res.error);
     }

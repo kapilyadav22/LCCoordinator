@@ -1,6 +1,6 @@
 
-// export const SERVERURL = "http://localhost:8080"
-export const SERVERURL = "http://165.22.223.85:8080"
+export const SERVERURL = "http://localhost:8080"
+// export const SERVERURL = "http://165.22.223.85:8080"
 
 export const V1 = SERVERURL + "/api/v1";
 export const PUBLIC =  V1 + "/public";
@@ -19,6 +19,8 @@ export const REGISTERURL = SERVERURL + '/register';
 
 //BLOGS
 export const BLOGSURL = SERVERURL + '/blogs';
+export const ADDBLOGSURL = BLOGSURL + '/addArticle';
+export const DeleteBLOGSURL = BLOGSURL + '/deleteArticle';
 
 
 //DATAGRIDURLS 
@@ -37,3 +39,5 @@ export const  SocialMediaLinks = {
     "telegram" : 'https://t.me/LCCoordinator',
     "discord" :'https://discord.gg/sPdtSpKk',
   }
+
+  export const navigationTimer = 300;

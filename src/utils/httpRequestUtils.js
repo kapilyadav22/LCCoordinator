@@ -18,7 +18,6 @@ const apiRequest = async (url, method, data = null, headers = {}) => {
       }
       return await response.json();
     } catch (error) {
-      console.log(error);
       throw error;
     }
   };
@@ -26,7 +25,7 @@ const apiRequest = async (url, method, data = null, headers = {}) => {
   const makeRequest = async (url, method, data = null, headers = {}) => {
     try {
       const response = await apiRequest(url, method, data, headers);
-      return { success: true, data: response };
+      return response;
     } catch (error) {
       return { success: false, error: `${error.message}` };
     }

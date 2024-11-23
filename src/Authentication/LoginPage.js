@@ -6,11 +6,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Alert from '@mui/material/Alert';
-import { validateFields } from '../utils/checkValidations';
+import { responseStatus, validateFields } from '../utils/checkValidations';
 import { Link, useNavigate } from 'react-router-dom';
 import SignIn from './Signinwithgoogle';
 import { postData } from '../utils/httpRequestUtils';
-import { HOMEROUTE, LOGINURL } from '../constants/urlConstants';
+import { HOMEROUTE, LOGINURL, navigationTimer } from '../constants/urlConstants';
 import CustomAvatar from '../layout/CustomAvatar';
 import { LoginFormData } from '../dataFields/formData';
 import { useMyContext } from '../Context/ContextProvider';
@@ -22,7 +22,7 @@ const LoginPage = () => {
   const [formData, setFormData] = useState(LoginFormData);
   const [error, setError] = useState('');
   
-  const { updateUserName, updateLogin } = useMyContext();
+  const { updateUserName, updateLogin, updateAdminStatus } = useMyContext();
   const { alert, showAlert } = useCustomAlert();
 
   const navigate = useNavigate();
@@ -30,8 +30,11 @@ const LoginPage = () => {
   const handleLoginDetails = async (data) => {
     const res = await postData(LOGINURL, data);
     const name = res?.data?.name!=null?res?.data?.name:"Alien";
-    if (res.success) {
+    const role = res?.data?.role!=null?res.data.role:"User";
+
+    if (responseStatus(res.status)) {
       showAlert("success", "Login Successfull");
+      updateAdminStatus(role);
       updateUserName(name);
       updateLogin(true);
       
@@ -39,7 +42,7 @@ const LoginPage = () => {
         setFormData(LoginFormData);
         setError('');
         navigate(HOMEROUTE);
-      }, 1000);
+      }, navigationTimer);
     } else {
       showAlert("error", "Please try again");
     }

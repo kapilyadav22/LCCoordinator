@@ -7,10 +7,11 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { postData } from '../../utils/httpRequestUtils';
-import { BLOGSURL, SERVERURL } from '../../constants/urlConstants';
+import { ADDBLOGSURL, BLOGSURL, navigationTimer, SERVERURL } from '../../constants/urlConstants';
 import { useMyContext } from '../../Context/ContextProvider';
 import useCustomAlert from '../../customHooks/customAlertHook';
 import CustomAlert1 from '../../layout/CustomAlert1';
+import { useNavigate } from 'react-router-dom';
 
 const ArticleWriter = () => {
   const [title, setTitle] = useState('');
@@ -20,12 +21,16 @@ const ArticleWriter = () => {
   const { updateUserName, updateLogin } = useMyContext();
   const { alert, showAlert } = useCustomAlert();
   
+  const navigate = useNavigate();
+
   const createArticle = async (article) => {
-    const res = await postData(BLOGSURL, article);
-    console.log(res);
-    if(res.success){
-      console.log("sf");
+    const res = await postData(ADDBLOGSURL, article);
+    if(res.status=="success"){
       showAlert("success", "Article saved successfully");
+
+      setTimeout(() => {
+        navigate('/blogs');
+      }, navigationTimer);
     }
   };
 

@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useMyContext } from '../Context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
-import { HOMEROUTE } from '../constants/urlConstants';
+import { HOMEROUTE, navigationTimer } from '../constants/urlConstants';
 import useCustomAlert from '../customHooks/customAlertHook';
 
 
@@ -28,7 +28,7 @@ const SignIn = () => {
 
             setTimeout(() => {
                 navigate(HOMEROUTE);
-              }, 1000);
+              }, navigationTimer);
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;

@@ -6,7 +6,7 @@ const useCustomAlert = () => {
 
   const showAlert = (severity, message) => {
     setAlert({ open: true, severity, message });
-    setTimeout(() => setAlert(alertInitialData), 5000); 
+    setTimeout(() => setAlert(alertInitialData), 2000); 
   };
 
   return {

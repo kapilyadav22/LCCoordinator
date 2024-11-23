@@ -6,7 +6,7 @@ import NavButton from '../layout/CustomNavButton';
 import { useMyContext } from '../Context/ContextProvider';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { HOMEROUTE } from '../constants/urlConstants';
+import { HOMEROUTE, navigationTimer } from '../constants/urlConstants';
 import CustomAlert from '../layout/CustomAlert';
 import useCustomAlert from '../customHooks/customAlertHook';
 import CustomAlert1 from '../layout/CustomAlert1';
@@ -18,13 +18,14 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleSignOut = () => {
+        showAlert("success", "User SignOut Successfully");
         localStorage.removeItem("username");
         localStorage.removeItem("isLoggedIn");
-        showAlert("success", "User SignOut Successfully");
+        
         setTimeout(() => {
             updateLogin(false);
             navigate(HOMEROUTE);
-          }, 1000);
+          }, navigationTimer);
     };
 
     return (<>
