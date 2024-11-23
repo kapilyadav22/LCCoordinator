@@ -8,14 +8,15 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { postData } from '../../utils/httpRequestUtils';
 import { BLOGSURL, SERVERURL } from '../../constants/urlConstants';
+import { useMyContext } from '../../Context/globalContext';
 
 const ArticleWriter = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-  const { showAlert } = useMyContext();
-
+  const { updateUserName, updateLogin, showAlert } = useMyContext();
+  
   const createArticle = async (article) => {
     const res = await postData(BLOGSURL, article);
     if(res.success){
@@ -34,6 +35,9 @@ const ArticleWriter = () => {
 
   return (
     <Box sx={{ padding: '20px' }}>
+      {/* <Typography variant="h4" gutterBottom>
+        Write an Article
+      </Typography> */}
       <form onSubmit={handleSubmit}>
         <TextField
           label="Title"
