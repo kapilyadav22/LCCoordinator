@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography/Typography"
 import React from "react";
-import SocialMediaBar from "../utils/SocialMediaBar";
+import SocialMediaBar from "../layout/SocialMediaBar";
 
 const Footer = () => {
     return (

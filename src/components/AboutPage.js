@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
-import SocialMediaBar from '../utils/SocialMediaBar';
+import SocialMediaBar from '../layout/SocialMediaBar';
 import { Divider } from '@mui/material';
 
 const AboutPage = () => {

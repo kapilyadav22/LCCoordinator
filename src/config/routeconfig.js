@@ -1,16 +1,16 @@
 import React from "react";
 import { PAGES_NAME } from ".";
-import LoginPage from "../Authentication/login";
-import Landingpage from "../components/landingpage";
-import SignupPage from "../Authentication/signup";
-import AboutPage from "../components/about";
-import ContactUsPage from "../components/contactus";
-import LC150ProblemsGrid from "../components/datagrid/lc150datagrid";
-import BlogsPage from "../components/blogsPage";
-import ArticleWriter from "../components/articleeditor/articlewriter";
-import ArticleDetail from "../components/articleeditor/viewArticle";
-import Resources from "../components/resources";
-import LC300ProblemsGrid from "../components/datagrid/lc300datagrid";
+import LoginPage from "../Authentication/LoginPage";
+import Landingpage from "../components/LandingPage";
+import SignupPage from "../Authentication/SignupPage";
+import AboutPage from "../components/AboutPage";
+import ContactUsPage from "../components/ContactUsPage";
+import LC150ProblemsGrid from "../components/datagrid/LC150ProblemsGrid";
+import BlogsPage from "../components/BlogsPage";
+import ArticleWriter from "../components/articleeditor/ArticleWriter";
+import ArticleDetail from "../components/articleeditor/ArticleDetail";
+import Resources from "../components/Resources";
+import LC300ProblemsGrid from "../components/datagrid/LC300ProblemsGrid";
 
 export const RouteConfig = [
     {

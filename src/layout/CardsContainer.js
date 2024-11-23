@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { cardData } from '../dataFields/carddata';
 import { useNavigate } from 'react-router-dom';
-import { RouteConfig } from '../config/routeconfig';
+import { RouteConfig } from '../config/RouteConfig';
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 
-const SimpleSlider = () => {
+const CardsContainer = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -66,4 +66,4 @@ const SimpleSlider = () => {
   );
 };
 
-export default SimpleSlider;
+export default CardsContainer;

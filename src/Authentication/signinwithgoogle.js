@@ -6,26 +6,39 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import { useMyContext } from '../Context/ContextProvider';
+import { useNavigate } from 'react-router-dom';
+import { HOMEROUTE } from '../constants/urlConstants';
+import useCustomAlert from '../customHooks/customAlertHook';
 
 
 const SignIn = () => {
+    const { updateUserName, updateLogin } = useMyContext();
+    const { alert, showAlert } = useCustomAlert();
+
+    const navigate = useNavigate();
+
     const signInWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
-            console.log('Google user signed in:', user);
-            // updateLogin();
-            // updateUserName(user.displayName);
+            showAlert("success",`Hi :, ${user}`);
+            updateLogin(true);
+            updateUserName(user.displayName);
+
+            setTimeout(() => {
+                navigate(HOMEROUTE);
+              }, 1000);
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.error('Google Sign-In Error:', errorCode, errorMessage);
+            showAlert("error",`Google Sign-In Error:', ${errorMessage}`);
         }
     };
 
     return (
         <Box
-            onClick={signInWithGoogle}
+            onClick={()=>signInWithGoogle()}
             sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' , justifyContent:'center'}}
         >
             <Avatar

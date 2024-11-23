@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import CustomIcon from '../icons/customicon';
+import CustomIcon from '../icons/CustomIcon';
 import { useNavigate } from 'react-router-dom';
 import { SocialMediaLinks } from '../constants/urlConstants';
 

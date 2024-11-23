@@ -1,25 +1,36 @@
-import React from 'react';
-import { auth } from './firebase';
+// import React from 'react';
+// import { auth } from './firebase';
+// import { HOMEROUTE } from '../constants/urlConstants';
 
-const SignOutButton = ({ updateLogin, updateUserName }) => {
-  const signOutWithGoogle = async () => {
-    try {
-      await auth.signOut();
-      updateLogin();
-      updateUserName("Login");
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
+// const SignOutButton = ({ updateLogin, updateUserName }) => {
 
-  return (
-    <li style={{ cursor: 'pointer' }} className='mr-4' onClick={() => signOutWithGoogle()}>
-      Sign Out
-    </li>
-  );
-};
+//   const { alert, showAlert } = useCustomAlert();
 
-export default SignOutButton;
+//   const signOutWithGoogle = async () => {
+//     try {
+//       await auth.signOut();
+//       showAlert("success", "Signout Successfull");
+//       localStorage.removeItem("username");
+//       localStorage.removeItem("isLoggedIn");
+//       setTimeout(() => {
+//         updateLogin();
+//         updateUserName("Login");
+//         navigate(HOMEROUTE);
+//       }, 1000);
+
+//     } catch (error) {
+//       showAlert("error", "Error signing out");
+//     }
+//   };
+
+//   return (
+//     <li style={{ cursor: 'pointer' }} className='mr-4' onClick={() => signOutWithGoogle()}>
+//       Sign Out
+//     </li>
+//   );
+// };
+
+// export default SignOutButton;
 
 
 

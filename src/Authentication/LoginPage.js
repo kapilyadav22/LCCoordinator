@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -8,32 +8,43 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Alert from '@mui/material/Alert';
 import { validateFields } from '../utils/checkValidations';
 import { Link, useNavigate } from 'react-router-dom';
-import SignIn from './signinwithgoogle';
+import SignIn from './Signinwithgoogle';
 import { postData } from '../utils/httpRequestUtils';
 import { HOMEROUTE, LOGINURL } from '../constants/urlConstants';
-import CustomAvatar from '../layout/customavatar';
+import CustomAvatar from '../layout/CustomAvatar';
 import { LoginFormData } from '../dataFields/formData';
-import { useMyContext } from '../Context/globalContext';
-import CustomAlert from '../layout/customAlerts';
+import { useMyContext } from '../Context/ContextProvider';
+import CustomAlert from '../layout/CustomAlert';
+import CustomAlert1 from '../layout/CustomAlert1';
+import useCustomAlert from '../customHooks/customAlertHook';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState(LoginFormData);
   const [error, setError] = useState('');
   
-  const { updateUserName, updateLogin, showAlert } = useMyContext();
+  const { updateUserName, updateLogin } = useMyContext();
+  const { alert, showAlert } = useCustomAlert();
 
   const navigate = useNavigate();
 
   const handleLoginDetails = async (data) => {
     const res = await postData(LOGINURL, data);
+    const name = res?.data?.name!=null?res?.data?.name:"Alien";
     if (res.success) {
-      updateUserName("kapil");
+      showAlert("success", "Login Successfull");
+      updateUserName(name);
       updateLogin(true);
-      navigate(HOMEROUTE);
+      
+      setTimeout(() => {
+        setFormData(LoginFormData);
+        setError('');
+        navigate(HOMEROUTE);
+      }, 1000);
     } else {
       showAlert("error", "Please try again");
     }
   };
+
 
   const handleChange = (e) => {
     setFormData({
@@ -50,13 +61,13 @@ const LoginPage = () => {
       return;
     }
     handleLoginDetails(formData);
-    setFormData(LoginFormData);
-    setError('');
+  
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <CustomAlert1 alert={alert} />
       <Box
         sx={{
           marginTop: 8,
@@ -118,7 +129,7 @@ const LoginPage = () => {
         OR
       </Typography>
       <SignIn />
-       <CustomAlert />
+     
     </Container>
   );
 };

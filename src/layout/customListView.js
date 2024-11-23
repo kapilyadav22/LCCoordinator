@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography, Box, Card, CardContent, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 
-const ListView = ({ items, onItemClick, renderTitle }) => {
+const CustomListView = ({ items, onItemClick, renderTitle }) => {
   return (
     <Card
       sx={{
@@ -53,4 +53,4 @@ const ListView = ({ items, onItemClick, renderTitle }) => {
   );
 };
 
-export default ListView;
+export default CustomListView;

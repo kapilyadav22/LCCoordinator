@@ -7,9 +7,11 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
-import TopicFilterChips from '../utils/TopicFilterChips';
+import TopicFilterChips from './TopicFilterChips';
 import columns from '../dataFields/column';
 import { getData } from '../utils/httpRequestUtils';
+import useCustomAlert from '../customHooks/customAlertHook';
+import CustomAlert1 from './CustomAlert1';
 
 const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) => {
   const [rows, setRows] = useState([]);
@@ -17,6 +19,8 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
   const [filteredRows, setFilteredRows] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [file, setFile] = useState(null);
+
+  const { alert, showAlert } = useCustomAlert();
 
   useEffect(() => {
     fetchData();
@@ -28,7 +32,9 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
     if (res.success) {
         setRows(res.data);
         setFilteredRows(res.data);
-      } 
+      } else {
+        showAlert("error", "Unable to fetch the data, Please try again");
+      }
 };
 
   const handleCellEditCommit = (params) => {
@@ -99,6 +105,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
 
   return (
     <Grid container direction="column" alignItems="center" margin="1%" padding="1%">
+      <CustomAlert1 alert={alert} />
       <Stack direction="row" spacing={2} width="80%" alignItems="center">
         <Box flexGrow={1} display="flex" justifyContent="center">
           <Typography variant="h4" align="center">
@@ -153,6 +160,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
           onCellEditCommit={handleCellEditCommit}
         />
       </Grid>
+      
     </Grid>
   );
 };

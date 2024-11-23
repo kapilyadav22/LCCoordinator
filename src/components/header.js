@@ -2,25 +2,29 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React from "react";
-import NavButton from '../utils/navButton';
-import { useMyContext } from '../Context/globalContext';
+import NavButton from '../layout/CustomNavButton';
+import { useMyContext } from '../Context/ContextProvider';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { HOMEROUTE } from '../constants/urlConstants';
-import CustomAlert from '../layout/customAlerts';
+import CustomAlert from '../layout/CustomAlert';
+import useCustomAlert from '../customHooks/customAlertHook';
+import CustomAlert1 from '../layout/CustomAlert1';
 
 
 const Header = () => {
-    const { userName, isLoggedIn, showAlert, updateLogin  } = useMyContext();
+    const { userName, isLoggedIn, updateLogin  } = useMyContext();
+    const { alert, showAlert } = useCustomAlert();
     const navigate = useNavigate();
 
     const handleSignOut = () => {
+        localStorage.removeItem("username");
+        localStorage.removeItem("isLoggedIn");
         showAlert("success", "User SignOut Successfully");
-        localStorage.removeItem('authToken');
-        sessionStorage.removeItem('userData');
-        showAlert("success", "User SignOut Successfully");
-        updateLogin(false);
-        navigate(HOMEROUTE);
+        setTimeout(() => {
+            updateLogin(false);
+            navigate(HOMEROUTE);
+          }, 1000);
     };
 
     return (<>
@@ -49,8 +53,8 @@ const Header = () => {
                 {isLoggedIn && (
                     <>
                     <NavButton label={userName} to="/" style={{ fontWeight: 'bold' }}/>
-                    <Button onClick={handleSignOut}>Sign Out</Button>
-                    <CustomAlert></CustomAlert>
+                    <NavButton label="Sign Out" onClick={()=>handleSignOut()}/>
+                    <CustomAlert1 alert={alert} />
                   </>
                 )
                 }

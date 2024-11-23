@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import { RouteConfig } from "../config/routeconfig"
+import { RouteConfig } from "../config/RouteConfig"
 import React from "react"
 
 export const RouteAllPages = () => {

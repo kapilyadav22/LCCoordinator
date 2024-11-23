@@ -5,10 +5,21 @@ import { alertInitialData } from '../dataFields/alertData';
 
 export const ContextProvider = ({ children }) => {
   
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+    if (storedIsLoggedIn) {
+      updateUserName(storedUsername);
+      updateLogin(true);
+    }
+  }, []);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUsername] = useState(() => {
-    return localStorage.getItem('userName') || "Login";
+    return "Login";
   });
+
   const [alert, setAlert] = useState(alertInitialData);
 
   const updateLogin = (login) => {
@@ -17,22 +28,17 @@ export const ContextProvider = ({ children }) => {
 
   const updateUserName = (name) => {
     setUsername(name);
-    localStorage.setItem('userName', name);
+    localStorage.setItem("username",name);
+    localStorage.setItem("isLoggedIn", true);
   };
 
   const showAlert = (severity, message) => {
     setAlert({ open: true, severity, message });
   };
 
-
   const closeAlert = () => {
     setAlert(alertInitialData);
   };
-
-
-  useEffect(() => {
-    localStorage.setItem('userName', userName);
-  }, [userName]);
 
   return (
     <UserContext.Provider value={{userName, updateUserName, isLoggedIn, updateLogin, alert, showAlert, closeAlert }}>

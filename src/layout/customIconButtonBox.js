@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import React from "react";
-import CustomIcon from "../icons/customicon";
+import CustomIcon from "../icons/CustomIcon";
 
-const CustomBox = (props) =>{
+const CustomIconButtonBox = (props) =>{
     
     const {iconName, onClick, sx, arialabel} = props;
     return (
@@ -28,4 +28,4 @@ const CustomBox = (props) =>{
 
     )
 }
-export default CustomBox;
+export default CustomIconButtonBox;

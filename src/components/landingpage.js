@@ -3,11 +3,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid2';
 import useTheme from '@mui/material/styles/useTheme';
-import SimpleSlider from '../layout/slider';
-import { Breadcrumb } from '../utils/breadcrumbs';
+import SimpleSlider from '../layout/CardsContainer';
+import { Breadcrumb } from '../layout/Breadcrumb';
 import { PAGES_NAME } from '../config';
 
-function Landingpage() {
+function LandingPage() {
     const theme = useTheme();
 
     return (
@@ -34,4 +34,4 @@ function Landingpage() {
     )
 }
 
-export default Landingpage;
+export default LandingPage;

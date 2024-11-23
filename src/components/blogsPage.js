@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../utils/httpRequestUtils';
 import { BLOGSURL, SERVERURL } from '../constants/urlConstants';
-import ListView from '../layout/customListView';
+import ListView from '../layout/CustomListView';
 
 const BlogsPage = () => {
     const [articles, setArticles] = useState([]);

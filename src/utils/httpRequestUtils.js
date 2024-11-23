@@ -13,54 +13,27 @@ const apiRequest = async (url, method, data = null, headers = {}) => {
   
     try {
       const response = await fetch(url, config);
-      console.log(response)
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        throw new Error(`Error: ${response.status} ${response.text()}`);
       }
       return await response.json();
     } catch (error) {
+      console.log(error);
       throw error;
     }
   };
   
-  export const getData = async (url) => {
+  const makeRequest = async (url, method, data = null, headers = {}) => {
     try {
-      const response = await apiRequest(url, 'GET');
+      const response = await apiRequest(url, method, data, headers);
       return { success: true, data: response };
     } catch (error) {
-      console.error(`Failed to GET data to ${url}:`, error);
-      return { success: false, error: `Unable to get data: ${error.message}` };
-    }
-  };
-  
-  export const postData = async (url, data) => {
-    try {
-      const response = await apiRequest(url, 'POST', data);
-      return { success: true, data: response };
-    } catch (error) {
-      console.error(`Failed to POST data to ${url}:`, error);
-      return { success: false, error: `Unable to post data: ${error.message}` };
-    }
-  };
-  
-  
-  export const putData = async (url, data) => {
-    try {
-      const response = await apiRequest(url, 'PUT', data);
-      return { success: true, data: response };
-    } catch (error) {
-      console.error(`Failed to PUT data to ${url}:`, error);
-      return { success: false, error: `Unable to PUT data: ${error.message}` };
+      return { success: false, error: `${error.message}` };
     }
   };
 
-  export const deleteData = async (url, data) => {
-    try {
-      const response = await apiRequest(url, 'DELETE');
-      return { success: true, data: response };
-    } catch (error) {
-      console.error(`Failed to DELETE data to ${url}:`, error);
-      return { success: false, error: `Unable to DELETE data: ${error.message}` };
-    }
-  };
+export const getData = (url) => makeRequest(url, 'GET');
+export const postData = (url, data) => makeRequest(url, 'POST', data);
+export const putData = (url, data) => makeRequest(url, 'PUT', data);
+export const deleteData = (url) => makeRequest(url, 'DELETE');
 

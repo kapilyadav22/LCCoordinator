@@ -11,18 +11,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import { postData } from '../utils/httpRequestUtils';
 import { REGISTERURL, SERVERURL } from '../constants/urlConstants';
 import { validateFields } from '../utils/checkValidations';
-import CustomAvatar from '../layout/customavatar';
+import CustomAvatar from '../layout/CustomAvatar';
 import { SignUpFormData } from '../dataFields/formData';
+import useCustomAlert from '../customHooks/customAlertHook';
+import CustomAlert1 from '../layout/CustomAlert1';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState(SignUpFormData);
   const [error, setError] = useState('');
+  const { alert, showAlert } = useCustomAlert();
   const navigate = useNavigate();
 
   const handleSignUpDetails = async (data) => {
     const res = await postData(REGISTERURL,data);
+    console.log(res);
     if(res.success){
-      navigate('/');
+      console.log(res);
+      showAlert("success", "SignUp Successfully, Please Login to Continue");
+      // navigate('/');
+    } else {
+      showAlert('error', res.error);
     }
   };
 
@@ -127,6 +135,7 @@ const SignupPage = () => {
                 Log In
               </Typography>
             </Link>
+            <CustomAlert1 alert={alert}/>
           </Box>
         </Box>
       </Box>

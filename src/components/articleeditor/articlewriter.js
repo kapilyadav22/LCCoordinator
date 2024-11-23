@@ -8,18 +8,23 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { postData } from '../../utils/httpRequestUtils';
 import { BLOGSURL, SERVERURL } from '../../constants/urlConstants';
-import { useMyContext } from '../../Context/globalContext';
+import { useMyContext } from '../../Context/ContextProvider';
+import useCustomAlert from '../../customHooks/customAlertHook';
+import CustomAlert1 from '../../layout/CustomAlert1';
 
 const ArticleWriter = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-  const { updateUserName, updateLogin, showAlert } = useMyContext();
+  const { updateUserName, updateLogin } = useMyContext();
+  const { alert, showAlert } = useCustomAlert();
   
   const createArticle = async (article) => {
     const res = await postData(BLOGSURL, article);
+    console.log(res);
     if(res.success){
+      console.log("sf");
       showAlert("success", "Article saved successfully");
     }
   };
@@ -35,9 +40,6 @@ const ArticleWriter = () => {
 
   return (
     <Box sx={{ padding: '20px' }}>
-      {/* <Typography variant="h4" gutterBottom>
-        Write an Article
-      </Typography> */}
       <form onSubmit={handleSubmit}>
         <TextField
           label="Title"
@@ -92,6 +94,7 @@ const ArticleWriter = () => {
               Close
             </Button>
           </Box>
+          <CustomAlert1 alert={alert} />
         </Box>
       </Modal>
     </Box>

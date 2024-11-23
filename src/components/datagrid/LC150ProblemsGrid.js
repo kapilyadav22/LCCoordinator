@@ -2,7 +2,7 @@ import React from 'react';
 
 import { topics } from '../../dataFields/filterTopics';
 import { LC150 } from '../../constants/urlConstants';
-import CommonDataGrid from '../../layout/commonDataGrid';
+import CommonDataGrid from '../../layout/CommonDataGrid';
 
 const LC150ProblemsGrid = () => (
   <CommonDataGrid
