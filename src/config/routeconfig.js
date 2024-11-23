@@ -8,7 +8,9 @@ import ContactUsPage from "../components/contactus";
 import LC150ProblemsGrid from "../components/datagrid/lc150datagrid";
 import BlogsPage from "../components/blogsPage";
 import ArticleWriter from "../components/articleeditor/articlewriter";
-import ArticleDetail from "../components/articleeditor/viewArticles";
+import ArticleDetail from "../components/articleeditor/viewArticle";
+import Resources from "../components/resources";
+import LC300ProblemsGrid from "../components/datagrid/lc300datagrid";
 
 export const RouteConfig = [
     {
@@ -29,7 +31,7 @@ export const RouteConfig = [
     },
     {
         pageName: PAGES_NAME.ABOUT,
-        path: '/aboutus',
+        path: '/aboutme',
         element: <AboutPage />,
     },
     {
@@ -47,7 +49,7 @@ export const RouteConfig = [
     {
         pageName: PAGES_NAME.LC300,
         path: '/lc300',
-        element: '',
+        element: <LC300ProblemsGrid/>,
 
     },
     {
@@ -78,6 +80,11 @@ export const RouteConfig = [
         pageName: PAGES_NAME.VIEWARTICLE,
         path: '/article/:id',
         element: <ArticleDetail/>,
+    },
+    {
+        pageName: PAGES_NAME.RESOURCES,
+        path: '/resources',
+        element: <Resources/>,
     },
     
     

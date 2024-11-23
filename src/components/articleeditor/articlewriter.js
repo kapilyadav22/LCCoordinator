@@ -14,15 +14,19 @@ const ArticleWriter = () => {
   const [content, setContent] = useState('');
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
+  const { showAlert } = useMyContext();
+
   const createArticle = async (article) => {
-    await postData(BLOGSURL, article);
+    const res = await postData(BLOGSURL, article);
+    if(res.success){
+      showAlert("success", "Article saved successfully");
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const article = { title, content };
     createArticle(article);
-    alert('Article saved successfully!');
   };
 
   const handlePreviewOpen = () => setIsPreviewOpen(true);
@@ -30,9 +34,6 @@ const ArticleWriter = () => {
 
   return (
     <Box sx={{ padding: '20px' }}>
-      {/* <Typography variant="h4" gutterBottom>
-        Write an Article
-      </Typography> */}
       <form onSubmit={handleSubmit}>
         <TextField
           label="Title"

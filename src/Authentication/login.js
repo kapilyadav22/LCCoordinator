@@ -12,7 +12,7 @@ import SignIn from './signinwithgoogle';
 import { postData } from '../utils/httpRequestUtils';
 import { HOMEROUTE, LOGINURL } from '../constants/urlConstants';
 import CustomAvatar from '../layout/customavatar';
-import { LoginFormData } from '../data/formData';
+import { LoginFormData } from '../dataFields/formData';
 import { useMyContext } from '../Context/globalContext';
 import CustomAlert from '../layout/customAlerts';
 
@@ -25,11 +25,9 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLoginDetails = async (data) => {
-    // showAlert("info", "You have been logged in.");
     const res = await postData(LOGINURL, data);
     if (res.success) {
       updateUserName("kapil");
-      // showAlert("info", "You have been logged in.");
       updateLogin(true);
       navigate(HOMEROUTE);
     } else {
@@ -110,7 +108,7 @@ const LoginPage = () => {
       </Box>
       <Box display="flex" alignItems="center" justifyContent={'center'}>
         <Typography variant="body1">New User?</Typography>
-        <Link to="/signup" style={{ textDecoration: 'none', marginLeft: 4 }}>
+        <Link to="/signup" sx={{ textDecoration: 'none', marginLeft: 4 }}>
           <Typography variant="body1" color="primary">
             Sign Up
           </Typography>

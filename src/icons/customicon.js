@@ -1,5 +1,5 @@
 import React from "react";
-import iconsMap from "./muiicons";
+import iconsMap from "./iconmap";
 
 const CustomIcon = (props) =>{
     const Icon =  iconsMap.has(props.name)?iconsMap.get(props.name):iconsMap.get("default");

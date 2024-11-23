@@ -7,10 +7,8 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
-// import { usePopup } from './popupContext';
 
 const SignIn = () => {
-    // const {closeLoginPopup, updateUserName, updateLogin } = usePopup();
     const signInWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
@@ -18,7 +16,6 @@ const SignIn = () => {
             console.log('Google user signed in:', user);
             // updateLogin();
             // updateUserName(user.displayName);
-            // closeLoginPopup();
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -42,7 +39,6 @@ const SignIn = () => {
         </Box>
     );
 };
-
 
 
 export default SignIn;

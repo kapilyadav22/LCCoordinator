@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../utils/httpRequestUtils';
 import { BLOGSURL, SERVERURL } from '../constants/urlConstants';
+import ListView from '../layout/customListView';
 
 const BlogsPage = () => {
     const [articles, setArticles] = useState([]);
@@ -28,14 +29,13 @@ const BlogsPage = () => {
     };
 
     const handleArticleClick = (article) => {
-        console.log(encodeURIComponent(article.title));
         navigate(`/article/${encodeURIComponent(article.title)}`, { state: { article } });
     };
-    
+
 
     return (
-        <Container 
-        sx={{ minHeight: "500px" }}
+        <Container
+            sx={{ minHeight: "500px", minWidth: "100%" }}
         >
             <Grid item xs={12} md={6} display="flex" justifyContent="center"
                 marginTop={"1%"}>
@@ -53,30 +53,7 @@ const BlogsPage = () => {
                     Add Article
                 </Button>
             </Grid>
-
-            <Grid container spacing={1}>
-                {articles.map((article) => (
-                    <Grid item xs={12} sm={6} key={article.title} 
-                    onClick={() => handleArticleClick(article)}>
-                            {<Typography
-                                variant="body1"
-                                component="a"
-                                sx={{
-                                    textDecoration: 'none',
-                                    color: 'primary.main',
-                                    display: 'block',
-                                    padding: '4px 8px',
-                                    borderRadius: '4px',
-                                    '&:hover': {
-                                        backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                                    },
-                                }}
-                            >
-                                {article.title}
-                            </Typography>}
-                    </Grid>
-                ))}
-            </Grid>
+            <ListView items={articles} onItemClick={handleArticleClick} />
         </Container>
     );
 };

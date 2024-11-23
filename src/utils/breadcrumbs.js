@@ -42,8 +42,6 @@ export const Breadcrumb = (props) =>{
             ))
             }
                <Link to={`${currentPage?.pageName}`}>{props.pageName}</Link>
-            {/* <Link to={currentPage?.path}>{props.pageName}</Link> */}
-
 
         </Breadcrumbs>
     )

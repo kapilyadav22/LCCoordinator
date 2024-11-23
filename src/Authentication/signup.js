@@ -12,7 +12,7 @@ import { postData } from '../utils/httpRequestUtils';
 import { REGISTERURL, SERVERURL } from '../constants/urlConstants';
 import { validateFields } from '../utils/checkValidations';
 import CustomAvatar from '../layout/customavatar';
-import { SignUpFormData } from '../data/formData';
+import { SignUpFormData } from '../dataFields/formData';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState(SignUpFormData);

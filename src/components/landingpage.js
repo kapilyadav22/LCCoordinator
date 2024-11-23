@@ -26,11 +26,6 @@ function Landingpage() {
                             
                         </Grid>
                     </Grid>
-
-
-                    {/* <Typography variant="h3" component="h2" gutterBottom align="center" sx={{ mt: 2, mb: 2 }}>
-                        DSA Sheets
-                    </Typography> */}
                     <SimpleSlider></SimpleSlider>
                 </Container>
                

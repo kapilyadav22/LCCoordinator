@@ -23,9 +23,17 @@ export const BLOGSURL = SERVERURL + '/blogs';
 
 //DATAGRIDURLS 
 export const LC150 = V1 + '/lc150';
-
-
+export const LC300 = V1 + '/lc300';
 
 
 //ROUTES
 export const HOMEROUTE = '/';
+
+export const  SocialMediaLinks = {
+    "linkedin" :'https://www.linkedin.com/in/kapilyadav22/',
+    "github" : 'https://github.com/kapilyadav22',
+    "medium" :'https://kapilyadav22.medium.com/',
+    "youtube" : 'https://www.youtube.com/@kapilyadav0180',
+    "telegram" : 'https://t.me/LCCoordinator',
+    "discord" :'https://discord.gg/sPdtSpKk',
+  }

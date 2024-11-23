@@ -5,8 +5,6 @@ import { useMyContext } from '../Context/globalContext';
 const CustomAlert = () => {
   const { alert, closeAlert } = useMyContext();  
 
-  console.log(alert);
-
   return (
     <Snackbar
       open={alert.open}

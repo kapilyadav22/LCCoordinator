@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import UserContext from '../Authentication/UserContext';
-import { alertInitialData } from '../data/alertData';
+import UserContext from './UserContext';
+import { alertInitialData } from '../dataFields/alertData';
 
 
 export const ContextProvider = ({ children }) => {
@@ -21,7 +21,6 @@ export const ContextProvider = ({ children }) => {
   };
 
   const showAlert = (severity, message) => {
-    console.log(severity, message);
     setAlert({ open: true, severity, message });
   };
 

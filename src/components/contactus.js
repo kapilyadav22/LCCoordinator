@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
-import { contactFormData } from '../data/formData';
+import { contactFormData } from '../dataFields/formData';
 import { SENDEMAIL, SERVERURL } from '../constants/urlConstants';
 import { postData } from '../utils/httpRequestUtils';
 

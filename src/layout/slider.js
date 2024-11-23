@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { cardData } from '../data/carddata';
+import { cardData } from '../dataFields/carddata';
 import { useNavigate } from 'react-router-dom';
 import { RouteConfig } from '../config/routeconfig';
 

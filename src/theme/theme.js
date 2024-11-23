@@ -4,7 +4,8 @@ import { createTheme } from '@mui/material/styles';
 const Theme = {
   palette: {
     primary: {
-      main: '#ffb115',  //lccolor (Yellow)
+      // main: '#ffb115',  //lccolor (Yellow)
+      main: '#4a148c',
       light: '#ff8f00',
       dark: '#000000', //black
       contrastText: '#FFFFFF', //white
@@ -44,7 +45,6 @@ const Theme = {
     fontFamily: 'Roboto, Arial, sans-serif',
     h1: { fontSize: '2.5rem', fontWeight: 500, color: 'text.primary' },
     h2: { fontSize: '2rem', fontWeight: 500, color: 'text.secondary' },
-    // h8: {  color: 'black' },
     body1: { fontSize: '1rem', color: 'text.primary' },
     body2: { fontSize: '0.875rem', color: 'text.secondary' },
 
