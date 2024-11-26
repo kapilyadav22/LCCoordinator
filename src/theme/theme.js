@@ -37,14 +37,15 @@ const Theme = {
       main: '#4caf50',
     },
     appbar:{
-        main: "#000000",
+        main: "#212121",
     }
   },
 
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
-    h1: { fontSize: '2.5rem', fontWeight: 500, color: 'text.primary' },
-    h2: { fontSize: '2rem', fontWeight: 500, color: 'text.secondary' },
+  //  fontFamily: "'Parkinson', serif",
+    h1: { fontSize: '4.5rem', fontWeight: 500, color: 'text.primary' },
+    h2: { fontSize: '3.5rem', fontWeight: 500, color: 'text.secondary' },
+    h2: { fontSize: '3rem', fontWeight: 500, color: 'text.secondary' },
     body1: { fontSize: '1rem', color: 'text.primary' },
     body2: { fontSize: '0.875rem', color: 'text.secondary' },
 

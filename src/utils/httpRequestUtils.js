@@ -25,7 +25,7 @@ const apiRequest = async (url, method, data = null, headers = {}) => {
   const makeRequest = async (url, method, data = null, headers = {}) => {
     try {
       const response = await apiRequest(url, method, data, headers);
-      return response;
+      return {success: true, data:response};
     } catch (error) {
       return { success: false, error: `${error.message}` };
     }

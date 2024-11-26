@@ -21,6 +21,7 @@ iconsMap.set("medium", MediumIcon);
 iconsMap.set("telegram", TelegramIcon);
 iconsMap.set("discord", DiscordIcon);
 iconsMap.set("youtube", YouTubeIcon);
+iconsMap.set("home",LinkedInIcon);
 
 export default iconsMap;
 

@@ -20,8 +20,7 @@ const ResourcesTitle = {
     JavaCollections: 'Java Collections',
   };
   
-
-export const resourcesData = [
+export const MyHandWrittenNotes = [
     { id: 1, title: ResourcesTitle.STL, image: "", link: "https://www.linkedin.com/posts/kapilyadav22_c-stl-notes-activity-6873598326260994048-B4Pb/" },
     { id: 2, title: ResourcesTitle.SortingAlgorithms, link: 'https://lnkd.in/gJWWHX5m' },
     { id: 3, title: ResourcesTitle.SinglyLinkedList, link: 'https://lnkd.in/gNury6T9' },
@@ -43,3 +42,8 @@ export const resourcesData = [
     { id: 19, title: ResourcesTitle.JavaCollections, link: 'https://lnkd.in/gbyeptgB' },
   ];
 
+  export const resourcesData = [
+    { title: 'My Handwritten Notes', items: MyHandWrittenNotes},
+    { title: 'My Handwritten Notes1', items: MyHandWrittenNotes},
+    { title: 'My Handwritten Notes2', items: MyHandWrittenNotes}
+   ];

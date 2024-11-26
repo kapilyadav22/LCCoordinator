@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Alert from '@mui/material/Alert';
-import { responseStatus, validateFields } from '../utils/checkValidations';
+import {  validateFields } from '../utils/checkValidations';
 import { Link, useNavigate } from 'react-router-dom';
 import SignIn from './Signinwithgoogle';
 import { postData } from '../utils/httpRequestUtils';
@@ -32,7 +32,7 @@ const LoginPage = () => {
     const name = res?.data?.name!=null?res?.data?.name:"Alien";
     const role = res?.data?.role!=null?res.data.role:"User";
 
-    if (responseStatus(res.status)) {
+    if (res.success) {
       showAlert("success", "Login Successfull");
       updateAdminStatus(role);
       updateUserName(name);
@@ -69,7 +69,7 @@ const LoginPage = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <CustomAlert1 alert={alert} />
       <Box
         sx={{

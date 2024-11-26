@@ -6,12 +6,12 @@ import Container from '@mui/material/Container';
 
 import { useNavigate } from 'react-router-dom';
 import { deleteData, getData } from '../utils/httpRequestUtils';
-import { ADDBLOGSURL, BLOGSURL, DeleteBLOGSURL, SERVERURL } from '../constants/urlConstants';
+import { BLOGSURL, DeleteBLOGSURL } from '../constants/urlConstants';
 import ListView from '../layout/CustomListView';
 import useCustomAlert from '../customHooks/customAlertHook';
 import CustomAlert1 from '../layout/CustomAlert1';
 import { useMyContext } from '../Context/ContextProvider';
-import { responseStatus } from '../utils/checkValidations';
+import { CustomTitle } from '../layout/CustomTitle';
 
 const BlogsPage = () => {
     const [articles, setArticles] = useState([]);
@@ -34,7 +34,7 @@ const BlogsPage = () => {
             showAlert("error", "Please select an article");
         } else {
             const res = await deleteData(`${DeleteBLOGSURL}/${selectedItem.title}`);
-            if(responseStatus(res.status)){
+            if(res.success){
                 showAlert("success", "Article Deleted Successfully");
                 fetchArticles();
             }
@@ -61,12 +61,7 @@ const BlogsPage = () => {
             sx={{ minHeight: "500px", minWidth: "100%" }}
         >
             <CustomAlert1 alert={alert} />
-            <Grid item xs={12} md={6} display="flex" justifyContent="center"
-                marginTop={"1%"}>
-                <Typography variant="h4" >
-                    Articles
-                </Typography>
-            </Grid>
+            <CustomTitle title = {"Articles"}/>
             <Grid item xs={12} md={6} display="flex" justifyContent="flex-end"
                 marginBottom={"0.5%"}>
                 <Button
@@ -88,6 +83,21 @@ const BlogsPage = () => {
                 </Button>
                 }
             </Grid>
+{/* 
+            {resourcesData.map((section, index) => (
+                <Accordion key={index}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls={`${section.title}-content`}
+                        id={`${section.title}-header`}
+                    >
+                        <Typography variant="h6">{section.title}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <ListView items={section.items} onItemClick={handleResourcesClick} />
+                    </AccordionDetails>
+                </Accordion>
+            ))} */}
             <ListView items={articles} onItemClick={handleArticleClick} />
         </Container>
     );

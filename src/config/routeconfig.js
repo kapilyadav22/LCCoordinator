@@ -11,6 +11,16 @@ import ArticleWriter from "../components/articleeditor/ArticleWriter";
 import ArticleDetail from "../components/articleeditor/ArticleDetail";
 import Resources from "../components/Resources";
 import LC300ProblemsGrid from "../components/datagrid/LC300ProblemsGrid";
+import NumberTheoryProblemsGrid from "../components/datagrid/NumberTheoryProblemsGrid";
+import BinarySearchProblemsGrid from "../components/datagrid/BinarySearchProblemsGrid";
+import BackTrackingProblemsGrid from "../components/datagrid/BackTrackingProblemsGrid";
+import TreesProblemsGrid from "../components/datagrid/TreesProblemsGrid";
+import GreedyProblemsGrid from "../components/datagrid/Greedyproblems";
+import GraphProblemsGrid from "../components/datagrid/GraphProblemsGrid";
+import PrefixSumProblemsGrid from "../components/datagrid/PrefixSumProblemsGrid";
+import RecursionProblemsGrid from "../components/datagrid/RecursionProblemsGrid";
+import DynamicProgrammingProblemsGrid from "../components/datagrid/DynamicProblemsGrid";
+import SlidingWindowProblemsGrid from "../components/datagrid/SlidingWindowProblemsGrid";
 
 export const RouteConfig = [
     {
@@ -86,6 +96,63 @@ export const RouteConfig = [
         path: '/resources',
         element: <Resources/>,
     },
+    {
+        pageName: PAGES_NAME.NUMBERTHEORY,
+        path: '/numbertheory',
+        element: <NumberTheoryProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.BINARYSEARCH,
+        path: '/bs',
+        element: <BinarySearchProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.BACKTRACKING,
+        path: '/backtrack',
+        element: <BackTrackingProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.TREES,
+        path: '/trees',
+        element: <TreesProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.GREEDY,
+        path: '/greedy',
+        element: <GreedyProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.GRAPH,
+        path: '/graph',
+        element: <GraphProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.PREFIXSUM,
+        path: '/prefixsum',
+        element: <PrefixSumProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.RECURSION,
+        path: '/recursion',
+        element: <RecursionProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.GRAPH,
+        path: '/graph',
+        element: <GraphProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.DYNAMICPROGRAMMING,
+        path: '/dp',
+        element: <DynamicProgrammingProblemsGrid/>,
+    },
+    {
+        pageName: PAGES_NAME.SLIDINGWINDOW,
+        path: '/slidingwindow',
+        element: <SlidingWindowProblemsGrid/>,
+    },
+
+
     
     
 ]

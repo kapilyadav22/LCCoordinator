@@ -5,10 +5,10 @@ import React from "react";
 import CustomIcon from "../icons/CustomIcon";
 
 export const Breadcrumb = (props) =>{
- console.log(RouteConfig);
     // const navigate = useNavigation();
     const currentPage = RouteConfig.find(item => props.pageName===item.pageName);
 
+    
     const ParentBreadCrumb = () => {
         if(currentPage?.parent?.length){
             const parentArr = currentPage.parent.map((parentItem => parentItem.parentName));
@@ -34,7 +34,7 @@ export const Breadcrumb = (props) =>{
 
     return (
         <Breadcrumbs separator={<CustomIcon name='forwardArrow'/>} aria-label="breadcrumb">
-
+        <CustomIcon name='home' sx = {{fontSize : 20}}></CustomIcon>
             { ParentBreadCrumb().map(item =>(
                 <Link key={item.path} to={item.path}>
                     {item.pageName}

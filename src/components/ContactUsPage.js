@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid2';
 import { contactFormData } from '../dataFields/formData';
 import { SENDEMAIL, SERVERURL } from '../constants/urlConstants';
 import { postData } from '../utils/httpRequestUtils';
+import { CustomTitle } from '../layout/CustomTitle';
 
 const ContactUsPage = () => {
   const [formData, setFormData] = useState(contactFormData);
@@ -33,9 +34,7 @@ const ContactUsPage = () => {
   return (
     <Container component="main" maxWidth="md">
       <Box sx={{ mt: 4, mb: 4, textAlign: 'center'}}>
-        <Typography variant="h4" gutterBottom>
-          Contact Us
-        </Typography>
+        <CustomTitle title = {"Contact Us"}/>
         <Typography variant="body1" paragraph>
           We would love to hear from you! Please Help us grow and share your Valuable FeedBack and Suggestions.
         </Typography>

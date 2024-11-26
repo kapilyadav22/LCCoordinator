@@ -12,8 +12,13 @@ import columns from '../dataFields/column';
 import { getData } from '../utils/httpRequestUtils';
 import useCustomAlert from '../customHooks/customAlertHook';
 import CustomAlert1 from './CustomAlert1';
+import { topics } from '../dataFields/filterTopics';
+import { UPLOADCSV } from '../constants/urlConstants';
+import { Breadcrumb } from './Breadcrumb';
+import { PAGES_NAME } from '../config';
 
-const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) => {
+
+const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pageName }) => {
   const [rows, setRows] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [filteredRows, setFilteredRows] = useState([]);
@@ -73,7 +78,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
     if (selectedFile && selectedFile.type === 'text/csv') {
       setFile(selectedFile);
     } else {
-      alert('Please upload a valid CSV file.');
+      showAlert('Please upload a valid CSV file.');
     }
   };
 
@@ -81,21 +86,27 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
     const formData = new FormData();
     formData.append('file', file);
 
+    if(file===null){
+      showAlert("error", "Please Upload a Valid CSV File");
+      return;
+    }
+
     try {
-      const response = await fetch(dataFetchUrl, {
+      const response = await fetch(dataFetchUrl + UPLOADCSV, {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
+        showAlert("error", "Error Uploading File");
+        return;
       }
 
-      alert('Upload successful');
+      showAlert("success",'Upload successful');
       await fetchData();
       setFile(null);
     } catch (error) {
-      console.error('Error:', error);
+      showAlert("error",'Error Uploading File');
     }
   };
 
@@ -104,7 +115,10 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
   };
 
   return (
-    <Grid container direction="column" alignItems="center" margin="1%" padding="1%">
+    <Grid margin="1%" padding="1%">
+    {/* <Breadcrumb pageName={pageName} ></Breadcrumb> */}
+    <Grid container direction="column" alignItems="center" >
+           
       <CustomAlert1 alert={alert} />
       <Stack direction="row" spacing={2} width="80%" alignItems="center">
         <Box flexGrow={1} display="flex" justifyContent="center">
@@ -130,7 +144,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
       </Stack>
       {showFilter && (
         <TopicFilterChips
-          uniqueTopics={uniqueTopics}
+          uniqueTopics={uniqueTopics?uniqueTopics:topics}
           selectedTopics={selectedTopics}
           onChipClick={handleChipClick}
           onReset={handleReset}
@@ -160,7 +174,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics }) 
           onCellEditCommit={handleCellEditCommit}
         />
       </Grid>
-      
+      </Grid>
     </Grid>
   );
 };

@@ -1,37 +1,49 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import useTheme from '@mui/material/styles/useTheme';
-import SimpleSlider from '../layout/CardsContainer';
+import CardsContainer from '../layout/CardsContainer';
 import { Breadcrumb } from '../layout/Breadcrumb';
 import { PAGES_NAME } from '../config';
+import { Fade, Slide } from '@mui/material';
 
 function LandingPage() {
     const theme = useTheme();
 
     return (
         <>
-                <Container maxWidth="lg">
+            <Container maxWidth="xl" sx={{padding: "2px"}}>
                 {/* <Breadcrumb pageName={PAGES_NAME.HOMEPAGE}></Breadcrumb> */}
-                    <Grid container spacing={1} sx={{ mt: 9, mb: 1, alignContent: 'center', justifyContent:'center' }}>
+                <Grid container spacing={1} sx={{ mt: 3, mb: 1, alignContent: 'center', justifyContent:'center' }}>
+                    <Grid>
+                                <Typography
+                                    variant="h1"
+                                    component="span"
+                                    sx={{
+                                        color: 'primary.main', 
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    LC Coordinator
+                                </Typography>
                         
-                        <Grid>
-                            <Typography variant="h3" component="h1" gutterBottom>
-                                Welcome to LC Coordinator
-                            </Typography>
-                            <Typography variant="h5" component="h1" gutterBottom  align="center"> 
+                        <Fade in={true} timeout={1500}>
+                            <Typography variant="h5" component="h1" gutterBottom align="center">
                                 One Stop Solution To Programming
                             </Typography>
-                            
-                        </Grid>
+                        </Fade>
                     </Grid>
-                    <SimpleSlider></SimpleSlider>
-                </Container>
-               
-          
+                </Grid>
+                
+                {/* <Slide direction="right" in={true} timeout={1000}> */}
+                    <Grid>
+                    <CardsContainer />
+                    </Grid>
+                {/* </Slide> */}
+            </Container>
         </>
-    )
+    );
 }
 
 export default LandingPage;
