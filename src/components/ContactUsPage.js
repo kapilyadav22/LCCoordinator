@@ -43,6 +43,7 @@ const ContactUsPage = () => {
         <Grid container spacing={1} justifyContent = "center" >
           <Grid size={8}> 
             <TextField
+             color='text.primary'
               required
               fullWidth
               name="name" 
@@ -50,6 +51,12 @@ const ContactUsPage = () => {
               value={formData.name}
               variant="outlined"
               onChange={handleChange}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'text.primary', 
+                  },
+                },}}
             />
           </Grid>
           <Grid size={8}>
@@ -62,6 +69,12 @@ const ContactUsPage = () => {
               variant="outlined"
               type="email"
               onChange={handleChange}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'text.primary', 
+                  },
+                },}}
             />
           </Grid>
           <Grid size={8}>
@@ -75,6 +88,12 @@ const ContactUsPage = () => {
               multiline
               rows={4}
               onChange={handleChange}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'text.primary', 
+                  },
+                },}}
             />
           </Grid>
           <Grid size={8}>

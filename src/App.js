@@ -2,19 +2,20 @@ import { BrowserRouter } from 'react-router-dom';
 import React, { memo } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import { createTheme } from '@mui/material';
-import Theme from './theme/theme';
+import { createTheme, CssBaseline } from '@mui/material';
 import { RouteAllPages } from './routes/routeAllPages';
 import { ContextProvider } from './Context/ContextProvider';
+import { ThemeContextProvider } from './Context/ThemeContext.js';
 
 function App() {
-  const theme = createTheme(Theme);
-  const RoutesMemo = memo(RouteAllPages);
+   const RoutesMemo = memo(RouteAllPages);
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeContextProvider>
+      {/* to apply a consistent global reset and baseline styling across our application.
+       ensuring our theme's background and typography settings are applied globally. */}
+      <CssBaseline />
       <ContextProvider>
       <BrowserRouter>
         <Header />
@@ -22,7 +23,7 @@ function App() {
         <Footer />
       </BrowserRouter>
       </ContextProvider>
-    </ThemeProvider >
+    </ThemeContextProvider >
     </>
      
   );

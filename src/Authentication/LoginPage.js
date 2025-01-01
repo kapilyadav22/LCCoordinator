@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Alert from '@mui/material/Alert';
-import {  validateFields } from '../utils/checkValidations';
+import { validateFields } from '../utils/checkValidations';
 import { Link, useNavigate } from 'react-router-dom';
 import SignIn from './Signinwithgoogle';
 import { postData } from '../utils/httpRequestUtils';
@@ -17,11 +17,12 @@ import { useMyContext } from '../Context/ContextProvider';
 import CustomAlert from '../layout/CustomAlert';
 import CustomAlert1 from '../layout/CustomAlert1';
 import useCustomAlert from '../customHooks/customAlertHook';
+import CustomTextField from '../layout/CustomTextField';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState(LoginFormData);
   const [error, setError] = useState('');
-  
+
   const { updateUserName, updateLogin, updateAdminStatus } = useMyContext();
   const { alert, showAlert } = useCustomAlert();
 
@@ -29,15 +30,15 @@ const LoginPage = () => {
 
   const handleLoginDetails = async (data) => {
     const res = await postData(LOGINURL, data);
-    const name = res?.data?.name!=null?res?.data?.name:"Alien";
-    const role = res?.data?.role!=null?res.data.role:"User";
+    const name = res?.data?.name != null ? res?.data?.name : "Alien";
+    const role = res?.data?.role != null ? res.data.role : "User";
 
     if (res.success) {
       showAlert("success", "Login Successfull");
       updateAdminStatus(role);
       updateUserName(name);
       updateLogin(true);
-      
+
       setTimeout(() => {
         setFormData(LoginFormData);
         setError('');
@@ -64,7 +65,7 @@ const LoginPage = () => {
       return;
     }
     handleLoginDetails(formData);
-  
+
   };
 
   return (
@@ -85,29 +86,22 @@ const LoginPage = () => {
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
+
+          <CustomTextField
             label="Email Address"
             name="email"
-            autoComplete="email"
-            autoFocus
             value={formData.email}
             onChange={handleChange}
-          />
-          <TextField
-            margin="normal"
             required
-            fullWidth
-            name="password"
+          />
+
+          <CustomTextField
             label="Password"
+            name="password"
             type="password"
-            id="password"
-            autoComplete="current-password"
             value={formData.password}
             onChange={handleChange}
+            required
           />
           <Button
             type="submit"
@@ -132,7 +126,7 @@ const LoginPage = () => {
         OR
       </Typography>
       <SignIn />
-     
+
     </Container>
   );
 };

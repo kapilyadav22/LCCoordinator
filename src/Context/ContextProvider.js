@@ -1,10 +1,13 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useMemo } from 'react';
 import UserContext from './UserContext';
 import { alertInitialData } from '../dataFields/alertData';
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
+
 
 
 export const ContextProvider = ({ children }) => {
-  
+
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -49,8 +52,8 @@ export const ContextProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{userName, updateUserName, isLoggedIn, updateLogin, alert, showAlert, closeAlert, updateAdminStatus, adminStatus }}>
-      {children}
+    <UserContext.Provider value={{ userName, updateUserName, isLoggedIn, updateLogin, alert, showAlert, closeAlert, updateAdminStatus, adminStatus }}>
+       {children}
     </UserContext.Provider>
   );
 };

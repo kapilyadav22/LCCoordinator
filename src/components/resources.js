@@ -26,12 +26,13 @@ const Resources = () => {
     };
 
     return (
-        <Container sx={{ minHeight: "500px", minWidth: "100%" }}>
+        <Container sx={{ minHeight: "550px", minWidth: "100%" }}>
            <CustomTitle title = {"Resources"}/>
 
             {resourcesData.map((section, index) => (
-                <Accordion key={index}>
+                <Accordion key={index} sx={{ borderRadius: "10px", margin : "0.8%"}}>
                     <AccordionSummary
+                    sx={{backgroundColor: 'carditem.background', borderRadius: "10px", }}
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls={`${section.title}-content`}
                         id={`${section.title}-header`}

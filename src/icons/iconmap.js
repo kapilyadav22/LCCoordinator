@@ -8,6 +8,8 @@ import MediumIcon from '@mui/icons-material/Book';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import DiscordIcon from '@mui/icons-material/Groups';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const iconsMap = new Map();
 
@@ -22,6 +24,8 @@ iconsMap.set("telegram", TelegramIcon);
 iconsMap.set("discord", DiscordIcon);
 iconsMap.set("youtube", YouTubeIcon);
 iconsMap.set("home",LinkedInIcon);
+iconsMap.set("light",LightModeIcon);
+iconsMap.set("dark",DarkModeIcon);
 
 export default iconsMap;
 

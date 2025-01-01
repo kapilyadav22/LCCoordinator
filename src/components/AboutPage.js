@@ -10,7 +10,7 @@ import { Divider } from '@mui/material';
 
 const AboutPage = () => {
   return (
-    <Container component="main" maxWidth="xl">
+    <Container component="main" maxWidth="xl"  sx={{minHeight: "550px"}}>
       <Box sx={{ mt: 5, mb: 2 }}>
         <Grid container spacing={1} alignItems="center">
         <Grid item xs={12} md={9} sx={{ p: { xs: 2, md: 4 } }}>
@@ -45,7 +45,7 @@ const AboutPage = () => {
       </Typography>
     </Box>
 
-    <Typography variant="body1" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>
+    <Typography variant="body1" sx={{ fontWeight: 'bold', color: 'primary' }}>
       Feel free to connect with me!
     </Typography>
   </Grid>
@@ -54,7 +54,7 @@ const AboutPage = () => {
             <Avatar
               alt="Profile Picture"
               src={ProfilePic}
-              sx={{ width: 340, height: 300, margin: '0 auto', borderRadius: '50px',}} 
+              sx={{ width: 320, height: 300, margin: '0 auto', borderRadius: '50px',}} 
             />
           </Grid>
         </Grid>

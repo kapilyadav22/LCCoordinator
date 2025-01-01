@@ -10,7 +10,7 @@ const CustomListView = ({ items, onItemClick, renderTitle }) => {
         margin: '2px auto',
         minHeight: '500px',
         maxWidth: "100%",
-        bgcolor: '#fafafa'
+        backgroundColor: 'background.paper',
       }}
     >
         <CardContent>
@@ -23,7 +23,7 @@ const CustomListView = ({ items, onItemClick, renderTitle }) => {
                 sx={{
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                  backgroundColor: 'itemhover.main',
                   transform: 'scale(1.02)', 
                   },
                 }}
@@ -36,7 +36,7 @@ const CustomListView = ({ items, onItemClick, renderTitle }) => {
                       <Typography
                         variant="body1"
                         sx={{
-                          color: 'primary.main',
+                          color: 'text.primary',
                           fontWeight: 500,
                         }}
                       >

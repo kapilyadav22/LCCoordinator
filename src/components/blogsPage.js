@@ -57,30 +57,28 @@ const BlogsPage = () => {
     };
 
     return (
-        <Container
-            sx={{ minHeight: "500px", minWidth: "100%" }}
+        <Container sx={{ minHeight: "550px", minWidth: "100%" }}
         >
             <CustomAlert1 alert={alert} />
             <CustomTitle title = {"Articles"}/>
             <Grid item xs={12} md={6} display="flex" justifyContent="flex-end"
                 marginBottom={"0.5%"}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{marginLeft : "5px"}}
-                    onClick={()=>handleAddArticle()}
-                >
-                    Add Article
-                </Button>
-                {(adminStatus=="Admin_Kapil") &&
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{marginLeft : "5px"}}
-                    onClick={()=>handleDeleteArticle()}
-                >
-                    Delete Article
-                </Button>
+            {(adminStatus=="Admin_Kapil") &&
+                <><Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ marginLeft: "5px" }}
+                        onClick={() => handleAddArticle()}
+                    >
+                        Add Article
+                    </Button><Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ marginLeft: "5px" }}
+                        onClick={() => handleDeleteArticle()}
+                    >
+                            Delete Article
+                        </Button></>
                 }
             </Grid>
 {/* 

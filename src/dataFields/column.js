@@ -4,7 +4,7 @@ import Rating from '@mui/material/Rating';
 import { GridCheckIcon, GridCloseIcon } from '@mui/x-data-grid/';
 
 const columns = [
-  { field: 'problemId', headerName: 'Problem ID', width: 80 },
+  { field: 'problemId', headerName: 'Problem ID', width: 80, },
   {
     field: 'problemStatement', 
     headerName: 'Problem Statement',
@@ -12,9 +12,20 @@ const columns = [
     align: 'center',
     headerAlign: 'center',
     renderCell: (params) => (
-      <Link href={params.row.problemLink} target="_blank" rel="noopener">
-        {params.value}
-      </Link>
+      <Link
+      href={params.row.problemLink}
+      target="_blank"
+      rel="noopener"
+      sx={{
+        color: 'problem.statement', 
+        textDecoration: 'none',
+        '&:hover': {
+          textDecoration: 'underline', 
+        },
+      }}
+    >
+      {params.value}
+    </Link>
     ),
   },
   {

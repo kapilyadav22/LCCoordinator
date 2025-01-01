@@ -1,7 +1,7 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import React from "react";
+import React, { useContext } from "react";
 import NavButton from '../layout/CustomNavButton';
 import { useMyContext } from '../Context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
@@ -9,8 +9,11 @@ import { Box } from '@mui/material';
 import { HOMEROUTE, navigationTimer } from '../constants/urlConstants';
 import useCustomAlert from '../customHooks/customAlertHook';
 import CustomAlert1 from '../layout/CustomAlert1';
+import CustomIcon from '../icons/CustomIcon';
+import { ThemeContext } from '../Context/ThemeContext.js';
 
 const Header = () => {
+    const { toggleTheme, mode } = useContext(ThemeContext);
     const { userName, isLoggedIn, updateLogin } = useMyContext();
     const { alert, showAlert } = useCustomAlert();
     const navigate = useNavigate();
@@ -20,7 +23,7 @@ const Header = () => {
         localStorage.removeItem("username");
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem('activeTab');
-        
+
         setTimeout(() => {
             updateLogin(false);
             navigate(HOMEROUTE);
@@ -29,12 +32,12 @@ const Header = () => {
 
     return (
         <>
-            <AppBar 
-                position="static" 
+            <AppBar
+                position="static"
                 sx={{
-                    height: '40px', 
+                    height: '40px',
                     bgcolor: (theme) => theme.palette.appbar.main,
-                    display: 'flex', 
+                    display: 'flex',
                     justifyContent: 'center',
                     boxShadow: 'none',
                     borderBottom: '1px solid #e0e0e0',
@@ -42,8 +45,8 @@ const Header = () => {
             >
                 <Toolbar
                     sx={{
-                        display: 'flex', 
-                        justifyContent: 'center', 
+                        display: 'flex',
+                        justifyContent: 'center',
                         paddingX: 2,
                         minHeight: '60px',
                     }}
@@ -53,7 +56,7 @@ const Header = () => {
                         component="a"
                         href="/"
                         sx={{
-                            position: 'absolute', 
+                            position: 'absolute',
                             left: 20,
                             textDecoration: 'none',
                             color: 'inherit',
@@ -65,7 +68,7 @@ const Header = () => {
                     >
                         LC Coordinator
                     </Typography>
-                    <Box sx={{ display: 'flex', gap: 2, justifyItems:"center" }}>
+                    <Box sx={{ display: 'flex', gap: 3, justifyItems: "center" }}>
                         <NavButton label="Home" to="/aboutme" />
                         <NavButton label="Prepare" to="/" />
                         <NavButton label="Articles" to="/blogs" />
@@ -78,17 +81,23 @@ const Header = () => {
                             </>
                         ) : (
                             <>
-                                <NavButton 
-                                    label={userName} 
-                                    to="/" 
-                                    style={{ fontWeight: 'bold' }} 
+                                <NavButton
+                                    label={userName}
+                                    to="/"
+                                    style={{ fontWeight: 'bold' }}
                                 />
-                                <NavButton 
-                                    label="Sign Out" 
-                                    onClick={handleSignOut} 
+                                <NavButton
+                                    label="Sign Out"
+                                    onClick={handleSignOut}
                                 />
                             </>
                         )}
+                        <Box marginTop={"1.2%"}>
+                        <CustomIcon name={mode}
+                            color="white"
+                            sx={{ cursor: 'pointer', fontSize: 20, color: 'white',  }}
+                            onClick={toggleTheme}> </CustomIcon>
+                        </Box>
                     </Box>
                 </Toolbar>
             </AppBar>

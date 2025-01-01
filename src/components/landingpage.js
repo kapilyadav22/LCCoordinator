@@ -13,7 +13,7 @@ function LandingPage() {
 
     return (
         <>
-            <Container maxWidth="xl" sx={{padding: "2px"}}>
+            <Container maxWidth="xl" sx={{padding: "2px", minHeight: "550px"}}>
                 {/* <Breadcrumb pageName={PAGES_NAME.HOMEPAGE}></Breadcrumb> */}
                 <Grid container spacing={1} sx={{ mt: 3, mb: 1, alignContent: 'center', justifyContent:'center' }}>
                     <Grid>

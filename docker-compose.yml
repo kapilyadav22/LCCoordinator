@@ -1,0 +1,7 @@
+services:
+  web: 
+    container_name: reactContainer
+    build: .
+    ports: 
+      - 2210:80
+

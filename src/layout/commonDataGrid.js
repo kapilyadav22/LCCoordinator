@@ -16,6 +16,7 @@ import { topics } from '../dataFields/filterTopics';
 import { UPLOADCSV } from '../constants/urlConstants';
 import { Breadcrumb } from './Breadcrumb';
 import { PAGES_NAME } from '../config';
+import { useMyContext } from '../Context/ContextProvider';
 
 
 const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pageName }) => {
@@ -24,7 +25,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pag
   const [filteredRows, setFilteredRows] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [file, setFile] = useState(null);
-
+  const { adminStatus } = useMyContext();
   const { alert, showAlert } = useCustomAlert();
 
   useEffect(() => {
@@ -120,28 +121,30 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pag
     <Grid container direction="column" alignItems="center" >
            
       <CustomAlert1 alert={alert} />
+    
       <Stack direction="row" spacing={2} width="80%" alignItems="center">
         <Box flexGrow={1} display="flex" justifyContent="center">
           <Typography variant="h4" align="center">
             {title}
           </Typography>
         </Box>
-        <input
-          type="file"
-          accept=".csv"
-          onChange={handleFileChange}
-          style={{ display: 'none' }}
-          id="csv-upload"
-        />
-        <label htmlFor="csv-upload">
-          <Button variant="contained" component="span">
-            Choose CSV File
-          </Button>
-        </label>
-        <Button variant="contained" color="primary" onClick={handleUpload}>
-          Upload CSV
-        </Button>
+        {(adminStatus=="Admin_Kapil") &&
+        <><input
+              type="file"
+              accept=".csv"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+              id="csv-upload" /><label htmlFor="csv-upload">
+                <Button variant="contained" component="span">
+                  Choose CSV File
+                </Button>
+              </label><Button variant="contained" color="primary" onClick={handleUpload}>
+                Upload CSV
+              </Button>
+              </>
+         } 
       </Stack>
+     
       {showFilter && (
         <TopicFilterChips
           uniqueTopics={uniqueTopics?uniqueTopics:topics}

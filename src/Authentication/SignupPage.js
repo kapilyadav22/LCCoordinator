@@ -15,6 +15,7 @@ import CustomAvatar from '../layout/CustomAvatar';
 import { SignUpFormData } from '../dataFields/formData';
 import useCustomAlert from '../customHooks/customAlertHook';
 import CustomAlert1 from '../layout/CustomAlert1';
+import CustomTextField from '../layout/CustomTextField';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState(SignUpFormData);
@@ -23,10 +24,10 @@ const SignupPage = () => {
   const navigate = useNavigate();
 
   const handleSignUpDetails = async (data) => {
-    const res = await postData(REGISTERURL,data);
-    if(res.success){
+    const res = await postData(REGISTERURL, data);
+    if (res.success) {
       showAlert("success", "SignUp Successfully, Please Login to Continue");
-      
+
       setTimeout(() => {
         navigate(HOMEROUTE);
       }, navigationTimer);
@@ -44,7 +45,7 @@ const SignupPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-   
+
     const error = validateFields('signup', formData.email, formData.password, formData.name);
     if (error) {
       setError(error);
@@ -66,50 +67,38 @@ const SignupPage = () => {
           alignItems: 'center',
         }}
       >
-       
-       <CustomAvatar/>
+
+        <CustomAvatar />
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="name"
+          <CustomTextField
             label="Full Name"
             name="name"
-            autoComplete="name"
-            autoFocus
             value={formData.name}
             onChange={handleChange}
-          />
-      
-          <TextField
-            margin="normal"
             required
-            fullWidth
-            id="email"
+          />
+
+          <CustomTextField
             label="Email Address"
             name="email"
-            autoComplete="email"
             value={formData.email}
             onChange={handleChange}
-          />
-          <TextField
-            margin="normal"
             required
-            fullWidth
-            name="password"
+          />
+
+          <CustomTextField
             label="Password"
+            name="password"
             type="password"
-            id="password"
-            autoComplete="current-password"
             value={formData.password}
             onChange={handleChange}
+            required
           />
-            {/* <TextField
+          {/* <TextField
             margin="normal"
             // required
             fullWidth
@@ -136,7 +125,7 @@ const SignupPage = () => {
                 Log In
               </Typography>
             </Link>
-            <CustomAlert1 alert={alert}/>
+            <CustomAlert1 alert={alert} />
           </Box>
         </Box>
       </Box>
