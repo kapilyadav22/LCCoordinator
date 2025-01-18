@@ -10,6 +10,8 @@ import DiscordIcon from '@mui/icons-material/Groups';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 
 const iconsMap = new Map();
 
@@ -26,6 +28,7 @@ iconsMap.set("youtube", YouTubeIcon);
 iconsMap.set("home",LinkedInIcon);
 iconsMap.set("light",LightModeIcon);
 iconsMap.set("dark",DarkModeIcon);
+iconsMap.set("expand",ExpandMoreIcon);
 
 export default iconsMap;
 

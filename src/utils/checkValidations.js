@@ -8,9 +8,19 @@ const validateFields = (type, email, password, name = '') => {
     return null;
 };
 
-const responseStatus = (status)=> {
-    if(status=="success"){ return true;
+const validateOTP = (otp)=> {
+    if(otp.length !== 6 || !/^\d+$/.test(otp)) {
+        return 'Please enter a valid 6-digit OTP';
     }
+    return null;
 }
 
-export { validateFields, responseStatus };
+const validateEmail = (email)=> {
+    if(!/\S+@\S+\.\S+/.test(email)) {
+        return 'Please enter a valid email address';
+    }
+    return null;
+}
+
+
+export { validateFields, validateEmail, validateOTP };

@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 
 const ArticleWriter = () => {
   const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
+
   const [content, setContent] = useState('');
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
@@ -25,7 +27,7 @@ const ArticleWriter = () => {
 
   const createArticle = async (article) => {
     const res = await postData(ADDBLOGSURL, article);
-    if(res.status=="success"){
+    if(res.success){
       showAlert("success", "Article saved successfully");
 
       setTimeout(() => {
@@ -36,7 +38,7 @@ const ArticleWriter = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const article = { title, content };
+    const article = { category, title, content };
     createArticle(article);
   };
 
@@ -46,6 +48,15 @@ const ArticleWriter = () => {
   return (
     <Box sx={{ padding: '20px' }}>
       <form onSubmit={handleSubmit}>
+      <TextField
+          label="Category"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        />
         <TextField
           label="Title"
           variant="outlined"

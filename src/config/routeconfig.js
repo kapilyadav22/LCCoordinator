@@ -6,7 +6,7 @@ import SignupPage from "../Authentication/SignupPage";
 import AboutPage from "../components/AboutPage";
 import ContactUsPage from "../components/ContactUsPage";
 import LC150ProblemsGrid from "../components/datagrid/LC150ProblemsGrid";
-import BlogsPage from "../components/BlogsPage";
+import BlogsPage from "../components/ArticlesPage";
 import ArticleWriter from "../components/articleeditor/ArticleWriter";
 import ArticleDetail from "../components/articleeditor/ArticleDetail";
 import Resources from "../components/Resources";
@@ -21,6 +21,11 @@ import PrefixSumProblemsGrid from "../components/datagrid/PrefixSumProblemsGrid"
 import RecursionProblemsGrid from "../components/datagrid/RecursionProblemsGrid";
 import DynamicProgrammingProblemsGrid from "../components/datagrid/DynamicProblemsGrid";
 import SlidingWindowProblemsGrid from "../components/datagrid/SlidingWindowProblemsGrid";
+import { Profile } from "../components/Profile";
+import VerifyOTP from "../Authentication/VerifyOTP";
+import ForgetPassword from "../Authentication/ForgetPassword";
+import VerifyEmailPage from "../Authentication/VerifyEmailPage";
+import ArticlesPage from "../components/ArticlesPage";
 
 export const RouteConfig = [
     {
@@ -70,14 +75,8 @@ export const RouteConfig = [
     },
     {
         pageName: PAGES_NAME.BLOG,
-        path: '/blogs',
-        element: <BlogsPage/>,
-
-    },
-    {
-        pageName: PAGES_NAME.BLOG,
-        path: '/blogs',
-        element: <BlogsPage/>,
+        path: '/articles',
+        element: <ArticlesPage/>,
 
     },
     {
@@ -151,8 +150,26 @@ export const RouteConfig = [
         path: '/slidingwindow',
         element: <SlidingWindowProblemsGrid/>,
     },
-
-
+    {
+        pageName: PAGES_NAME.FORGETPASSWORD,
+        path: '/forgetpassword',
+        element: <ForgetPassword/>,
+    },
+    {
+        pageName: PAGES_NAME.VERIFYOTP,
+        path: '/verify-otp',
+        element: <VerifyOTP/>,
+    },
+    {
+        pageName: PAGES_NAME.PROFILE,
+        path: '/profile',
+        element: <Profile/>,
+    },
+    {
+        pageName: PAGES_NAME.PROFILE,
+        path: '/verifyEmail',
+        element: <VerifyEmailPage/>,
+    },
     
-    
+        
 ]

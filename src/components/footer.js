@@ -6,10 +6,14 @@ import SocialMediaBar from "../layout/SocialMediaBar";
 const Footer = () => {
     return (
         <>
-            <Container maxWidth={false} component="footer" sx={{ bgcolor: 'background.paper', py: 1 }}>
+            <Container maxWidth={false} component="footer" 
+            sx={{ bgcolor: 'background.paper',
+             paddingTop: '0%', 
+             paddingBottom: '0%'
+             }}>
             <SocialMediaBar/>
                 <Typography variant="body2" color="text.secondary" align="center">
-                    © {new Date().getFullYear()} Kapil Yadav. All rights reserved.
+                    © {new Date().getFullYear()} LC Coordinator. All rights reserved.
                 </Typography>
             </Container>
         </>)

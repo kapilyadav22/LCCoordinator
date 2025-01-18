@@ -12,10 +12,10 @@ const SocialMediaBar = () => {
   }
 
   return (
-    <Grid container spacing={2} justifyContent="center" sx={{ mt: 2 }}>
+    <Grid container spacing={2} justifyContent="center" sx={{ mt: '2px', padding: '1px' }}>
       { Object.keys(SocialMediaLinks).map((key) => (
         <Grid item key={key}>
-        <CustomIcon name = {key} sx= {{fontSize: 40 }} onClick={()=> handleButtonClick(SocialMediaLinks[key])}/>
+        <CustomIcon name = {key} sx= {{fontSize: 30 }} onClick={()=> handleButtonClick(SocialMediaLinks[key])}/>
         </Grid>
       ))}
     </Grid>

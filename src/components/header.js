@@ -69,11 +69,12 @@ const Header = () => {
                         LC Coordinator
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 3, justifyItems: "center" }}>
-                        <NavButton label="Home" to="/aboutme" />
+                        <NavButton label="About Me" to="/aboutme" />
                         <NavButton label="Prepare" to="/" />
-                        <NavButton label="Articles" to="/blogs" />
+                        <NavButton label="Articles" to="/articles" />
                         <NavButton label="Resources" to="/resources" />
-                        <NavButton label="Contact" to="/contact" />
+                        {/* <NavButton label="Contact" to="/contact" /> */}
+                        {/* <NavButton label="Profile" to="/profile" /> */}
                         {!isLoggedIn ? (
                             <>
                                 <NavButton label="Login" to="/login" />

@@ -20,21 +20,22 @@ RUN npm run build
 FROM nginx:alpine
 
 
-FROM nginx:latest AS prod
+# FROM nginx:latest AS prod
 
 COPY --from=nodework /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80/tcp
+EXPOSE 80
 
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
-
+CMD ["nginx", "-g", "daemon off;"]
 
 #add --host 0.0.0.0 in package.json to run in all ip addresses
 
 
 #build docker image using :  docker build -f /path/to/Dockerfile -t your-image-name .
 
+# docker build -t lc-react-app .
+#docker container : docker run -d -p 2210:80 --name lc-container lc-react-app
 
 #While refreshing the routes, it can give nginx error 404, because while refreshing, 
 #React applications (when built) use client-side routing through React Router, which relies on the browser's history API to manage routes. 

@@ -41,12 +41,20 @@ const DarkTheme = createTheme({
     appbar: {
       main: '#333333', 
     },
-    carditem: {
-      background:'#9fa8da',
-    },
     itemhover:{
       main: "#4a148c"
-    }
+    },
+  },
+  components: {
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          
+          // background: 'linear-gradient(135deg, #310363 0%, #000000 100%)', 
+          background: 'linear-gradient(13deg, #37086a 0%, #080202 100%)', 
+        },
+      },
+    },
   },
 
   typography: {

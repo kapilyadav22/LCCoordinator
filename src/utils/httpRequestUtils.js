@@ -13,10 +13,11 @@ const apiRequest = async (url, method, data = null, headers = {}) => {
   
     try {
       const response = await fetch(url, config);
+      const jsonresponse = await response.json();
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.text()}`);
+        throw new Error(`${jsonresponse.message}`);
       }
-      return await response.json();
+      return jsonresponse;
     } catch (error) {
       throw error;
     }
@@ -25,9 +26,9 @@ const apiRequest = async (url, method, data = null, headers = {}) => {
   const makeRequest = async (url, method, data = null, headers = {}) => {
     try {
       const response = await apiRequest(url, method, data, headers);
-      return {success: true, data:response};
+      return response;
     } catch (error) {
-      return { success: false, error: `${error.message}` };
+      return error.message;
     }
   };
 

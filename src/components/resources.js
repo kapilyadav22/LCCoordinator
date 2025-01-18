@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 
 import { useNavigate } from 'react-router-dom';
 import { getData } from '../utils/httpRequestUtils';
@@ -14,6 +14,8 @@ import { BLOGSURL, SERVERURL } from '../constants/urlConstants';
 import ListView from '../layout/CustomListView';
 import { resourcesData } from '../dataFields/resourcesData';
 import { CustomTitle } from '../layout/CustomTitle';
+import CustomIcon from '../icons/CustomIcon';
+import CustomAccordion from '../layout/CustomAccordion';
 
 const Resources = () => {
     const [articles, setArticles] = useState([]);
@@ -27,22 +29,14 @@ const Resources = () => {
 
     return (
         <Container sx={{ minHeight: "550px", minWidth: "100%" }}>
-           <CustomTitle title = {"Resources"}/>
+            <CustomTitle title={"Resources"} />
 
-            {resourcesData.map((section, index) => (
-                <Accordion key={index} sx={{ borderRadius: "10px", margin : "0.8%"}}>
-                    <AccordionSummary
-                    sx={{backgroundColor: 'carditem.background', borderRadius: "10px", }}
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls={`${section.title}-content`}
-                        id={`${section.title}-header`}
-                    >
-                        <Typography variant="h6">{section.title}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <ListView items={section.items} onItemClick={handleResourcesClick} />
-                    </AccordionDetails>
-                </Accordion>
+            {resourcesData.map((category, index) => (
+                      <CustomAccordion
+                      index = {index}
+                      category={category.title} 
+                      content={category.items} 
+                      handleClick={handleResourcesClick}/>
             ))}
         </Container>
     );

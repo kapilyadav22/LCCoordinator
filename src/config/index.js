@@ -22,7 +22,8 @@ export const PAGES_NAME = {
     BLOG : "Blogs",
     ADDARTICLE : "Add Article",
     VIEWARTICLE : "View Article",
-    RESOURCES : "Resources"
+    RESOURCES : "Resources",
+    PROFILE : "Profile"
 }
 
 export const DISPLAY_NAME = {

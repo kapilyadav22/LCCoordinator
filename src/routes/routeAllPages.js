@@ -6,7 +6,9 @@ import { Box, Container } from "@mui/material"
 export const RouteAllPages = () => {
     return (
         <>
-        <Box sx={{ padding: 2, backgroundColor: 'background.default', color: 'text.primary' }}>
+        <Box sx={{ padding: 2, 
+            //] backgroundColor: 'background.default',
+             color: 'text.primary' }}>
         {/* <Container component="main" maxWidth="xl" sx={{height:"90%"}}> */}
             <Routes>
                 {

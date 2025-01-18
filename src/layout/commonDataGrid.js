@@ -35,11 +35,11 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pag
 
   const fetchData = async () => {
     const res = await getData(dataFetchUrl);
-    if (res.success) {
+    if (res.status==="success") {
         setRows(res.data);
         setFilteredRows(res.data);
       } else {
-        showAlert("error", "Unable to fetch the data, Please try again");
+        showAlert("error", res);
       }
 };
 

@@ -17,7 +17,7 @@ const Theme = createTheme({
       contrastText: '#ffffff',
     },
     background: {
-      default: '#f5f5f5', 
+      // default: "red", 
       paper: '#ffffff', 
     },
     problem: {
@@ -28,9 +28,7 @@ const Theme = createTheme({
     //   primary: '#000000', 
     //   secondary: '#FFFFFF', 
     // },
-    carditem: {
-      background:"#e8eaf6",
-    },
+
     error: {
       main: '#f44336',
     },
@@ -47,8 +45,18 @@ const Theme = createTheme({
         main: "#212121",
     },
     itemhover:{
-      main: "#9fa8da"
-    }
+      main: "#ffcc06"
+    },
+  },
+  components: {
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          // background: 'linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%)',
+          background: 'linear-gradient(152deg, #ffffff 0%, #ffcc06 100%)'
+        },
+      },
+    },
   },
 
   typography: {

@@ -25,11 +25,12 @@ const SignupPage = () => {
 
   const handleSignUpDetails = async (data) => {
     const res = await postData(REGISTERURL, data);
-    if (res.success) {
-      showAlert("success", "SignUp Successfully, Please Login to Continue");
-
+    if (res.status === "success") {
+      showAlert("success", "SignUp Successfully, Please Verify the Email using Verification Link");
       setTimeout(() => {
         navigate(HOMEROUTE);
+        setFormData(SignUpFormData);
+        setError('');
       }, navigationTimer);
     } else {
       showAlert('error', res.error);
@@ -52,8 +53,7 @@ const SignupPage = () => {
       return;
     }
     handleSignUpDetails(formData);
-    setFormData(SignUpFormData);
-    setError('');
+   
   };
 
   return (
@@ -127,6 +127,7 @@ const SignupPage = () => {
             </Link>
             <CustomAlert1 alert={alert} />
           </Box>
+         
         </Box>
       </Box>
     </Container>

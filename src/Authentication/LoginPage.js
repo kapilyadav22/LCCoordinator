@@ -33,7 +33,7 @@ const LoginPage = () => {
     const name = res?.data?.name != null ? res?.data?.name : "Alien";
     const role = res?.data?.role != null ? res.data.role : "User";
 
-    if (res.success) {
+    if (res.status === 'success') {
       showAlert("success", "Login Successfull");
       updateAdminStatus(role);
       updateUserName(name);
@@ -45,7 +45,7 @@ const LoginPage = () => {
         navigate(HOMEROUTE);
       }, navigationTimer);
     } else {
-      showAlert("error", "Please try again");
+      showAlert("error", res);
     }
   };
 
@@ -112,9 +112,13 @@ const LoginPage = () => {
             LogIn
           </Button>
         </Box>
-
+      <Link to="/forgetpassword" sx={{ textDecoration: 'none', marginLeft: 4 }}>
+          <Typography variant="body1" color="primary">
+            Forget Password
+          </Typography>
+        </Link>
       </Box>
-      <Box display="flex" alignItems="center" justifyContent={'center'}>
+      <Box display="flex" alignItems="center" justifyContent={'center'} marginTop={4}>
         <Typography variant="body1">New User?</Typography>
         <Link to="/signup" sx={{ textDecoration: 'none', marginLeft: 4 }}>
           <Typography variant="body1" color="primary">

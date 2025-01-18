@@ -7,7 +7,6 @@ import CustomIcon from "../icons/CustomIcon";
 export const Breadcrumb = (props) =>{
     // const navigate = useNavigation();
     const currentPage = RouteConfig.find(item => props.pageName===item.pageName);
-
     
     const ParentBreadCrumb = () => {
         if(currentPage?.parent?.length){

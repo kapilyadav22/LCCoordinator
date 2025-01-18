@@ -8,7 +8,7 @@ const CustomListView = ({ items, onItemClick, renderTitle }) => {
         borderRadius: '8px',
         padding: '12px',
         margin: '2px auto',
-        minHeight: '500px',
+        // minHeight: '200px',
         maxWidth: "100%",
         backgroundColor: 'background.paper',
       }}

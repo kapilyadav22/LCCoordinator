@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { cardData } from '../dataFields/carddata';
 import { useNavigate } from 'react-router-dom';
 import { RouteConfig } from '../config/RouteConfig';
@@ -10,11 +10,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
+import { darkmodecolor, lightmodecolor } from '../constants/urlConstants';
+import { ThemeContext } from '../Context/ThemeContext.js';
 
 const CardsContainer = () => {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
+  const {mode } = useContext(ThemeContext);
 
   useEffect(() => {
     const savedTab = localStorage.getItem('activeTab');
@@ -36,7 +38,10 @@ const CardsContainer = () => {
 
 
   return (
-    <Box sx={{ maxWidth: '100%', bgcolor: 'background.paper', padding: "2px" }}>
+    <Box sx={{ maxWidth: '100%', bgcolor: 'background.paper', padding: "2px",
+      background: mode=='light'?lightmodecolor:darkmodecolor,
+      borderRadius: "20px"
+     }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -46,14 +51,14 @@ const CardsContainer = () => {
         allowScrollButtonsMobile
         sx={{
           '& .MuiTabs-scrollButtons': {
-            margin: "20px",
-            width: '30px',
+            margin: "10px",
+            width: '20px',
             // '&.Mui-disabled': {
             //   opacity: 0.2, 
             // },
             '& .css-18w7uxr-MuiSvgIcon-root' :
              {
-            
+              color:'white',
               padding: '5px', 
               width: '3em', 
               height: '3em', 
@@ -68,22 +73,22 @@ const CardsContainer = () => {
               transition: 'all 0.5s ease',
                 '&:hover': {
                 backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                transform: 'scale(1.08)'
+                transform: 'scale(1.06)'
             }}}
             label={
-              <Card  
-              onClick={() => handleCardClick(card.title)}
-              
+              <Card  onClick={() => handleCardClick(card.title)}
+              sx={{ borderRadius :  "20px"}}
               >
                 <CardMedia
                   component="img"
-                  height="200"
+                  height="180"
                   width = "100"
+                  
                   image={card.image}
                   alt={card.title}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
+                  <Typography gutterBottom variant="h7" component="div">
                     {card.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">

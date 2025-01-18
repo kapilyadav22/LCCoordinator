@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
 
 const CustomTextField = ({ label, name, value, onChange, type = 'text', required = false }) => (
+  
   <TextField
     margin="normal"
     required={required}
@@ -11,6 +12,7 @@ const CustomTextField = ({ label, name, value, onChange, type = 'text', required
     type={type}
     value={value}
     onChange={onChange}
+    
     sx={{
       '& .MuiOutlinedInput-root': {
         '& fieldset': {
