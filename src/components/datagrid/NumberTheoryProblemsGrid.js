@@ -47,8 +47,6 @@ const NumberTheoryProblemsGrid = () => {
   const handleSearchClick = async () => {
     // setSearchButtonClicked(true);
     // setChatData([]);
-    console.log("hii");
-    console.log(search);
     const res = await getData(backtracking_LLMSEARCH + search);
         // if(res.success) {
           // setChatData(res.data);
@@ -60,6 +58,8 @@ const NumberTheoryProblemsGrid = () => {
 
   return (
     <Grid2 container direction="column">
+
+      {/*
     <Grid2 item xs={12} sx={{display: 'flex', alignItems: 'center',justifyContent: 'center' }}>
       <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '60%' }}>
         <TextField
@@ -108,8 +108,10 @@ const NumberTheoryProblemsGrid = () => {
         <div ref={messageEndRef} />
       </Box>
 } 
-      {/* <ChatDialog open={chatDialogOpen} onClose={() => setChatDialogOpen(false)} /> */}
-      </Grid2>
+   <ChatDialog open={chatDialogOpen} onClose={() => setChatDialogOpen(false)} /> 
+    </Grid2> 
+    */}
+        
       <Grid2 item xs={12}>
       <CommonDataGrid
         title="NumberTheory Problems"

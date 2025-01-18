@@ -17,9 +17,11 @@ import { UPLOADCSV } from '../constants/urlConstants';
 import { Breadcrumb } from './Breadcrumb';
 import { PAGES_NAME } from '../config';
 import { useMyContext } from '../Context/ContextProvider';
+import VisualizerDialogBox from '../components/VisualizerDialogBox';
+import { Grid2 } from '@mui/material';
 
 
-const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pageName }) => {
+const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics, pageName, visualObject }) => {
   const [rows, setRows] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [filteredRows, setFilteredRows] = useState([]);
@@ -35,13 +37,13 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pag
 
   const fetchData = async () => {
     const res = await getData(dataFetchUrl);
-    if (res.status==="success") {
-        setRows(res.data);
-        setFilteredRows(res.data);
-      } else {
-        showAlert("error", res);
-      }
-};
+    if (res.status === "success") {
+      setRows(res.data);
+      setFilteredRows(res.data);
+    } else {
+      showAlert("error", res);
+    }
+  };
 
   const handleCellEditCommit = (params) => {
     const updatedRows = rows.map((row) =>
@@ -87,7 +89,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pag
     const formData = new FormData();
     formData.append('file', file);
 
-    if(file===null){
+    if (file === null) {
       showAlert("error", "Please Upload a Valid CSV File");
       return;
     }
@@ -103,11 +105,11 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pag
         return;
       }
 
-      showAlert("success",'Upload successful');
+      showAlert("success", 'Upload successful');
       await fetchData();
       setFile(null);
     } catch (error) {
-      showAlert("error",'Error Uploading File');
+      showAlert("error", 'Error Uploading File');
     }
   };
 
@@ -117,19 +119,19 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pag
 
   return (
     <Grid margin="1%" padding="1%">
-    {/* <Breadcrumb pageName={pageName} ></Breadcrumb> */}
-    <Grid container direction="column" alignItems="center" >
-           
-      <CustomAlert1 alert={alert} />
-    
-      <Stack direction="row" spacing={2} width="80%" alignItems="center">
-        <Box flexGrow={1} display="flex" justifyContent="center">
-          <Typography variant="h4" align="center">
-            {title}
-          </Typography>
-        </Box>
-        {(adminStatus=="Admin_Kapil") &&
-        <><input
+      {/* <Breadcrumb pageName={pageName} ></Breadcrumb> */}
+      <Grid container direction="column" alignItems="center" >
+
+        <CustomAlert1 alert={alert} />
+
+        <Stack direction="row" spacing={2} width="80%" alignItems="center">
+          <Box flexGrow={1} display="flex" justifyContent="center">
+            <Typography variant="h4" align="center">
+              {title}
+            </Typography>
+          </Box>
+          {(adminStatus == "Admin_Kapil") &&
+            <><input
               type="file"
               accept=".csv"
               onChange={handleFileChange}
@@ -141,43 +143,52 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics,pag
               </label><Button variant="contained" color="primary" onClick={handleUpload}>
                 Upload CSV
               </Button>
-              </>
-         } 
-      </Stack>
-     
-      {showFilter && (
-        <TopicFilterChips
-          uniqueTopics={uniqueTopics?uniqueTopics:topics}
-          selectedTopics={selectedTopics}
-          onChipClick={handleChipClick}
-          onReset={handleReset}
-          handleRefresh={handleRefresh}
-        />
-      )}
-      <FormControlLabel
-        control={
-          <Switch
-            checked={showFilter}
-            onChange={handleSwitchChange}
-            color="primary"
+            </>
+          }
+        </Stack>
+
+        {showFilter && (
+          <TopicFilterChips
+            uniqueTopics={uniqueTopics ? uniqueTopics : topics}
+            selectedTopics={selectedTopics}
+            onChipClick={handleChipClick}
+            onReset={handleReset}
+            handleRefresh={handleRefresh}
           />
-        }
-        label="Filters"
-      />
-      <Grid item style={{ width: '80%', alignContent: 'center' }}>
-        <DataGrid
-          rows={filteredRows}
-          columns={dataGridColumns?dataGridColumns:columns}
-          autoHeight
-          columnBuffer={dataGridColumns?dataGridColumns.length:columns.length}
-          getRowId={(row) => row.problemId}
-          pageSizeOptions={[25, 50, 75, 100]}
-          rowsPerPageOptions={[25]}
-          checkboxSelection
-          onCellEditCommit={handleCellEditCommit}
+        )}
+        <FormControlLabel
+          control={
+            <Switch
+              checked={showFilter}
+              onChange={handleSwitchChange}
+              color="primary"
+            />
+          }
+          label="Filters"
         />
+        <Grid item sx={{ width: '80%', alignContent: 'center' }}>
+          <DataGrid
+            rows={filteredRows}
+            columns={dataGridColumns ? dataGridColumns : columns}
+            autoHeight
+            columnBuffer={dataGridColumns ? dataGridColumns.length : columns.length}
+            getRowId={(row) => row.problemId}
+            pageSizeOptions={[25, 50, 75, 100]}
+            rowsPerPageOptions={[25]}
+            checkboxSelection
+            onCellEditCommit={handleCellEditCommit}
+          />
+        </Grid>
       </Grid>
-      </Grid>
+      <Grid2 container spacing={2} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: '16px' }}>
+        {visualObject && Object.keys(visualObject).length > 0 &&
+          Object.entries(visualObject).map(([key, value], index) => (
+            <Grid2 item key={index}>
+              <VisualizerDialogBox title={key} url={value} />
+            </Grid2>
+          ))
+        }
+      </Grid2>
     </Grid>
   );
 };

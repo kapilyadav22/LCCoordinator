@@ -28,28 +28,28 @@ const columns = [
     </Link>
     ),
   },
-  {
-    field: 'attempted',
-    headerName: 'Attempted',
-    type: 'boolean',
-    width: 100,
-    editable: true,
-    // renderCell: (params) => {
-    //   return params.value ? (
-    //     <GridCheckIcon
-    //       style={{
-    //         color: "green",
-    //       }}
-    //     />
-    //   ) : (
-    //     <GridCloseIcon
-    //       style={{
-    //         color: "red",
-    //       }}
-    //     />
-    //   );
-    // },
-  },
+  // {
+  //   field: 'attempted',
+  //   headerName: 'Attempted',
+  //   type: 'boolean',
+  //   width: 100,
+  //   editable: true,
+  //   // renderCell: (params) => {
+  //   //   return params.value ? (
+  //   //     <GridCheckIcon
+  //   //       style={{
+  //   //         color: "green",
+  //   //       }}
+  //   //     />
+  //   //   ) : (
+  //   //     <GridCloseIcon
+  //   //       style={{
+  //   //         color: "red",
+  //   //       }}
+  //   //     />
+  //   //   );
+  //   // },
+  // },
   {
     field: 'revision',
     headerName: 'Revision',

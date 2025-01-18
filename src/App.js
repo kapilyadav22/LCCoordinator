@@ -1,5 +1,5 @@
-import { BrowserRouter } from 'react-router-dom';
-import React, { memo } from 'react';
+import { BrowserRouter, useLocation } from 'react-router-dom';
+import React, { memo, useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { Box, createTheme, CssBaseline } from '@mui/material';
@@ -9,6 +9,18 @@ import { ThemeContextProvider } from './Context/ThemeContext.js';
 
 function App() {
    const RoutesMemo = memo(RouteAllPages);
+
+   const PageViewTracker = () => {
+    const location = useLocation();
+  
+    useEffect(() => {
+      window.gtag('event', 'page_view', {
+        page_path: location.pathname,
+      });
+    }, [location]);
+  
+    return null;
+  };
 
   return (
     <>
@@ -25,6 +37,7 @@ function App() {
       <CssBaseline />
       <ContextProvider>
       <BrowserRouter>
+      <PageViewTracker />
         <Header />
         <RoutesMemo/>
         <Footer />
