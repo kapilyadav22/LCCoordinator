@@ -44,12 +44,15 @@ const DarkTheme = createTheme({
     itemhover:{
       main: "#4a148c"
     },
+    title: {
+      main: '#ffcc06',
+      themecolor: '#37086a',
+    }
   },
   components: {
     MuiAccordionSummary: {
       styleOverrides: {
         root: {
-          
           // background: 'linear-gradient(135deg, #310363 0%, #000000 100%)', 
           background: 'linear-gradient(13deg, #37086a 0%, #080202 100%)', 
         },

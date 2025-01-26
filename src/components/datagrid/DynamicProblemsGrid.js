@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { DYNAMICPROGRAMMING } from '../../constants/urlConstants';
 import CommonDataGrid from '../../layout/CommonDataGrid';
 

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import CustomAvatar from '../layout/CustomAvatar';
-import CustomAlert1 from '../layout/CustomAlert1';
+import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LOGIN, navigationTimer, VERIFYEMAIL } from '../constants/urlConstants';
 import useCustomAlert from '../customHooks/customAlertHook';
+import CustomAlert1 from '../layout/CustomAlert1';
+import CustomAvatar from '../layout/CustomAvatar';
 import { getData } from '../utils/httpRequestUtils';
-import { HOMEROUTE, LOGIN, navigationTimer, VERIFYEMAIL } from '../constants/urlConstants';
 
 const VerifyEmailPage = () => {
   const [searchParams] = useSearchParams();

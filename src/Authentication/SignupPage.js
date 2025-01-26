@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { postData } from '../utils/httpRequestUtils';
-import { HOMEROUTE, navigationTimer, REGISTERURL, SERVERURL } from '../constants/urlConstants';
-import { validateFields } from '../utils/checkValidations';
-import CustomAvatar from '../layout/CustomAvatar';
-import { SignUpFormData } from '../dataFields/formData';
+import { HOMEROUTE, navigationTimer, REGISTERURL } from '../constants/urlConstants';
 import useCustomAlert from '../customHooks/customAlertHook';
+import { SignUpFormData } from '../dataFields/formData';
 import CustomAlert1 from '../layout/CustomAlert1';
+import CustomAvatar from '../layout/CustomAvatar';
+import CustomButton from '../layout/CustomButton';
 import CustomTextField from '../layout/CustomTextField';
+import { CustomTitle } from '../layout/CustomTitle';
+import { validateFields } from '../utils/checkValidations';
+import { postData } from '../utils/httpRequestUtils';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState(SignUpFormData);
@@ -69,9 +66,18 @@ const SignupPage = () => {
       >
 
         <CustomAvatar />
-        <Typography component="h1" variant="h5">
-          Sign Up
-        </Typography>
+        <CustomTitle 
+              title=" Sign Up"
+              variant="h5"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'title.main'}
+            />
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
           <CustomTextField
@@ -98,32 +104,33 @@ const SignupPage = () => {
             onChange={handleChange}
             required
           />
-          {/* <TextField
-            margin="normal"
-            // required
-            fullWidth
-            id="contact"
-            label="Contact Number (with Country Code)"
-            name="name"
-            autoComplete="name"
-            autoFocus
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          /> */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
+        <CustomButton> SignUp</CustomButton>
           <Box display="flex" justifyContent="center">
-            <Typography variant="body1">Already have an account?</Typography>
+            <CustomTitle 
+              title="Already have an account?"
+              variant="body1"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'text.primary'}
+            />
             <Link to="/login" style={{ textDecoration: 'none', marginLeft: 4 }}>
-              <Typography variant="body1" color="primary">
-                Log In
-              </Typography>
+            <CustomTitle 
+              title="Log In"
+              variant="body1"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'title.main'}
+            />
             </Link>
             <CustomAlert1 alert={alert} />
           </Box>

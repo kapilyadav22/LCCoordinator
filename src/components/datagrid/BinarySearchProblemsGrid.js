@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { BinarySearch } from '../../constants/urlConstants';
 import CommonDataGrid from '../../layout/CommonDataGrid';

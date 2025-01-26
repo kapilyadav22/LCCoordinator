@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { deleteData, getData } from '../utils/httpRequestUtils';
-import { BLOGSURL, DeleteBLOGSURL } from '../constants/urlConstants';
-import useCustomAlert from '../customHooks/customAlertHook';
-import CustomAlert1 from '../layout/CustomAlert1';
+import { BLOGSURL } from '../constants/urlConstants';
 import { useMyContext } from '../Context/ContextProvider';
+import useCustomAlert from '../customHooks/customAlertHook';
+import CustomAccordion from '../layout/CustomAccordion';
+import CustomAlert1 from '../layout/CustomAlert1';
 import { CustomTitle } from '../layout/CustomTitle';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import CustomAccordion  from '../layout/CustomAccordion';
+import { getData } from '../utils/httpRequestUtils';
 
 
 const ArticlesPage = () => {
@@ -32,17 +30,6 @@ const ArticlesPage = () => {
         navigate('/addarticle');
     };
 
-    const handleDeleteArticle = async () => {
-        if (Object.keys(selectedItem).length === 0) {
-            showAlert("error", "Please select an article");
-        } else {
-            const res = await deleteData(`${DeleteBLOGSURL}/${selectedItem.title}`);
-            if (res.success) {
-                showAlert("success", "Article Deleted Successfully");
-                fetchArticles();
-            }
-        }
-    };
 
     const fetchArticles = async () => {
         const res = await getData(BLOGSURL);
@@ -63,7 +50,7 @@ const ArticlesPage = () => {
     };
 
     return (
-        <Container sx={{ minHeight: "550px", minWidth: "100%" }}
+        <Container sx={{ minWidth: "100%" }}
         >
             <CustomAlert1 alert={alert} />
             <CustomTitle title={"Articles"} />
@@ -77,14 +64,9 @@ const ArticlesPage = () => {
                         onClick={() => handleAddArticle()}
                     >
                         Add Article
-                    </Button><Button
-                        variant="contained"
-                        color="primary"
-                        sx={{ marginLeft: "5px" }}
-                        onClick={() => handleDeleteArticle()}
-                    >
-                            Delete Article
-                        </Button></>
+                    </Button>
+                   
+                        </>
                 }
             </Grid>
 

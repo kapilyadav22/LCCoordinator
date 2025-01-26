@@ -1,8 +1,6 @@
-import React, { useContext, useState, useEffect, useMemo } from 'react';
-import UserContext from './UserContext';
+import { useContext, useEffect, useState } from 'react';
 import { alertInitialData } from '../dataFields/alertData';
-import { createTheme } from '@mui/material';
-import { ThemeProvider } from '@emotion/react';
+import UserContext from './UserContext';
 
 
 

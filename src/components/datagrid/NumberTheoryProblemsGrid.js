@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { backtracking_LLMSEARCH, BLOGSURL, NUMBERTHEORY } from '../../constants/urlConstants';
+import { Grid2 } from '@mui/material';
+import { backtracking_LLMSEARCH, NUMBERTHEORY } from '../../constants/urlConstants';
 import CommonDataGrid from '../../layout/CommonDataGrid';
-import { Grid2, Paper, Typography } from '@mui/material';
-import { Button, TextField, Box } from '@mui/material';
 import { getData } from '../../utils/httpRequestUtils';
 const NumberTheoryProblemsGrid = () => {
   const [search, setSearch] = useState('');

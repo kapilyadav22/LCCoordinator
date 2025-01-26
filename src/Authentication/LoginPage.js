@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Alert from '@mui/material/Alert';
-import { validateFields } from '../utils/checkValidations';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SignIn from './Signinwithgoogle';
-import { postData } from '../utils/httpRequestUtils';
 import { HOMEROUTE, LOGINURL, navigationTimer } from '../constants/urlConstants';
-import CustomAvatar from '../layout/CustomAvatar';
-import { LoginFormData } from '../dataFields/formData';
 import { useMyContext } from '../Context/ContextProvider';
-import CustomAlert from '../layout/CustomAlert';
-import CustomAlert1 from '../layout/CustomAlert1';
 import useCustomAlert from '../customHooks/customAlertHook';
+import { LoginFormData } from '../dataFields/formData';
+import CustomAlert1 from '../layout/CustomAlert1';
+import CustomAvatar from '../layout/CustomAvatar';
 import CustomTextField from '../layout/CustomTextField';
+import { CustomTitle } from '../layout/CustomTitle';
+import { validateFields } from '../utils/checkValidations';
+import { postData } from '../utils/httpRequestUtils';
+import SignIn from './Signinwithgoogle';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState(LoginFormData);
@@ -81,9 +78,18 @@ const LoginPage = () => {
         }}
       >
         <CustomAvatar />
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
+        <CustomTitle 
+              title="Log In"
+              variant="h5"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'title.main'}
+            />
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
@@ -104,33 +110,71 @@ const LoginPage = () => {
             required
           />
           <Button
+            color = 'inherit'
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 2, mb: 2 }}
+            sx={{ mt: 3, mb: 2 ,color: 'white', backgroundColor:'title.main'}}
           >
             LogIn
           </Button>
         </Box>
       <Link to="/forgetpassword" sx={{ textDecoration: 'none', marginLeft: 4 }}>
-          <Typography variant="body1" color="primary">
-            Forget Password
-          </Typography>
+          <CustomTitle 
+              title="Forget Password"
+              variant="body1"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'text.primary'}
+            />
         </Link>
       </Box>
       <Box display="flex" alignItems="center" justifyContent={'center'} marginTop={4}>
-        <Typography variant="body1">New User?</Typography>
+      <CustomTitle 
+              title="New User?"
+              variant="body1"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'text.primary'}
+            />
         <Link to="/signup" sx={{ textDecoration: 'none', marginLeft: 4 }}>
-          <Typography variant="body1" color="primary">
-            Sign Up
-          </Typography>
+          <CustomTitle 
+              title=" Sign Up"
+              variant="body1"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'text.primary'}
+            />
         </Link>
       </Box>
-      <Typography align="center" variant="body1" color="black" sx={{ margin: '3%' }}>
-        OR
-      </Typography>
+      <CustomTitle 
+              title=" OR"
+              variant="body1"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'text.primary'}
+            />
       <SignIn />
-
     </Container>
   );
 };

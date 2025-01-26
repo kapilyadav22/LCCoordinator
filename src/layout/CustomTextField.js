@@ -1,7 +1,8 @@
 import { TextField } from '@mui/material';
 
+
 const CustomTextField = ({ label, name, value, onChange, type = 'text', required = false }) => (
-  
+
   <TextField
     margin="normal"
     required={required}
@@ -12,21 +13,25 @@ const CustomTextField = ({ label, name, value, onChange, type = 'text', required
     type={type}
     value={value}
     onChange={onChange}
-    
+
     sx={{
       '& .MuiOutlinedInput-root': {
         '& fieldset': {
-          borderColor: 'text.primary', 
+          borderColor: 'title.main',
         },
         '& input': {
-          backgroundColor: 'background.paper', 
+          backgroundColor: 'background.paper',
+          color: 'title.main'
         },
         '&:hover fieldset': {
-          borderColor: 'text.primary', 
+          borderColor: 'title.main',
         },
         '&.Mui-focused fieldset': {
-          borderColor: 'text.primary', 
+          borderColor: 'title.main',
         },
+      },
+      '& .MuiInputLabel-root': {
+        color: 'title.main'
       },
     }}
   />

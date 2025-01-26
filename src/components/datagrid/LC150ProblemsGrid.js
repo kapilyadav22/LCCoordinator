@@ -1,8 +1,7 @@
-import React from 'react';
 
+import { PAGES_NAME } from '../../config';
 import { LC150 } from '../../constants/urlConstants';
 import CommonDataGrid from '../../layout/CommonDataGrid';
-import { PAGES_NAME } from '../../config';
 
 const sortingObject = {
   'Comparison Sorting Algorithms' : '/ComparisonSort.html',

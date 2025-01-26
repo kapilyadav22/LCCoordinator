@@ -1,10 +1,9 @@
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 import Rating from '@mui/material/Rating';
-import { GridCheckIcon, GridCloseIcon } from '@mui/x-data-grid/';
 
 const columns = [
-  { field: 'problemId', headerName: 'Problem ID', width: 80, },
+  { field: 'problemId', headerName: 'Problem ID', width: 80, align: 'center' },
   {
     field: 'problemStatement', 
     headerName: 'Problem Statement',
@@ -17,7 +16,7 @@ const columns = [
       target="_blank"
       rel="noopener"
       sx={{
-        color: 'problem.statement', 
+        // color: 'problem.statement', 
         textDecoration: 'none',
         '&:hover': {
           textDecoration: 'underline', 
@@ -51,6 +50,13 @@ const columns = [
   //   // },
   // },
   {
+    field: 'topic', 
+    headerName: 'Topic', 
+    width: 200,
+    align: 'center',
+    headerAlign: 'center',
+  },
+  {
     field: 'revision',
     headerName: 'Revision',
     width: 150,
@@ -71,13 +77,6 @@ const columns = [
     ),
     editable: true,
     type: 'number',
-  },
-  {
-    field: 'topic', 
-    headerName: 'Topic', 
-    width: 200,
-    align: 'center',
-    headerAlign: 'center',
   },
 ];
 

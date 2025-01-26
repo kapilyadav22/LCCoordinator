@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import { useState } from "react";
 
 const EditableImage = () => {
   const [image, setImage] = useState("https://via.placeholder.com/300");

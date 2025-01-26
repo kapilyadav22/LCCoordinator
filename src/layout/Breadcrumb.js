@@ -1,7 +1,6 @@
-import Breadcrumbs  from "@mui/material/Breadcrumbs"
-import { Link, useNavigation } from "react-router-dom"
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import { Link } from "react-router-dom";
 import { RouteConfig } from "../config/RouteConfig";
-import React from "react";
 import CustomIcon from "../icons/CustomIcon";
 
 export const Breadcrumb = (props) =>{

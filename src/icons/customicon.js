@@ -1,4 +1,3 @@
-import React from "react";
 import iconsMap from "./iconmap";
 
 const CustomIcon = (props) =>{

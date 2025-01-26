@@ -1,6 +1,9 @@
 #using  nodejs image
 FROM node:alpine AS nodework
 
+ENV NODE_ENV=production
+# ARG CACHE_BUST=1
+
 #create working directory
 WORKDIR /app
 
@@ -13,7 +16,9 @@ RUN npm install
 #copy from source to destination
 COPY . /app 
 
-RUN npm run build
+# RUN echo "CACHE_BUST=${CACHE_BUST}"
+ENV GENERATE_SOURCEMAP=false
+RUN npm run build 
 
  
 # Step 2: Use an Nginx image to serve the app
@@ -21,16 +26,23 @@ FROM nginx:alpine
 
 
 # FROM nginx:latest AS prod
-
 COPY --from=nodework /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+RUN date > /usr/share/nginx/html/version.txt
 
-CMD ["nginx", "-g", "daemon off;"]
+
+# RUN apk add --no-cache certbot certbot-nginx dcron
+# COPY cronjob /etc/cron.d/certbot-renew
+# RUN chmod 0644 /etc/cron.d/certbot-renew
+# RUN crontab /etc/cron.d/certbot-renew
+
+EXPOSE 80 443
+
+# CMD ["nginx", "-g", "daemon off;"]
+
 
 #add --host 0.0.0.0 in package.json to run in all ip addresses
-
 
 #build docker image using :  docker build -f /path/to/Dockerfile -t your-image-name .
 

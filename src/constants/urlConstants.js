@@ -1,6 +1,7 @@
 
-// export const SERVERURL = "http://localhost:8080"
-export const SERVERURL = "http://165.22.223.85:8080"
+// export const SERVERURL = "https://localhost:8443"
+//export const SERVERURL = "http://165.22.223.85:8080"
+export const SERVERURL = "https://www.lccoordinator.com:8443"
 
 export const V1 = SERVERURL + "/api/v1";
 export const PUBLIC =  V1 + "/public";
@@ -10,6 +11,7 @@ export const SENDEMAIL = PUBLIC + "/sendemail";
 //ROUTES
 export const HOMEROUTE = '/';
 export const LOGIN = '/login';
+export const ARTICLES = '/articles';
 
 
 
@@ -35,6 +37,8 @@ export const BLOGSURL = SERVERURL + '/articles';
 export const ADDBLOGSURL = BLOGSURL + '/addArticle';
 export const DeleteBLOGSURL = BLOGSURL + '/deleteArticle';
 
+//AWS
+export const UPLOADIMAGEURL = SERVERURL + '/s3/uploadImage';
 
 //DATAGRIDURLS 
 export const LC150 = V1 + '/lc150';
@@ -97,6 +101,11 @@ export const bs_LLMSEARCH = "/llmsearch/bs?search=";
 //Gradient Colors
 export const lightmodecolor = 'linear-gradient(152deg, #ffffff 0%, #ffcc06 100%)';
 export const darkmodecolor = 'linear-gradient(135deg, #310363 0%, #000000 100%)';
+
+
+export const lightGradient = `linear-gradient(310deg, rgba(255, 255, 255, 1) 0%, rgba(255, 204, 6, 0.7) 100%)`;
+export const darkGradient = 'linear-gradient(188deg, rgba(49, 3, 90, 1) 1%, rgb(10 10 10) 100%)';
+
 
 
 

@@ -1,31 +1,30 @@
-import React from "react";
 import { PAGES_NAME } from ".";
+import ForgetPassword from "../Authentication/ForgetPassword";
 import LoginPage from "../Authentication/LoginPage";
-import Landingpage from "../components/LandingPage";
 import SignupPage from "../Authentication/SignupPage";
+import VerifyEmailPage from "../Authentication/VerifyEmailPage";
+import VerifyOTP from "../Authentication/VerifyOTP";
 import AboutPage from "../components/AboutPage";
-import ContactUsPage from "../components/ContactUsPage";
-import LC150ProblemsGrid from "../components/datagrid/LC150ProblemsGrid";
-import BlogsPage from "../components/ArticlesPage";
-import ArticleWriter from "../components/articleeditor/ArticleWriter";
 import ArticleDetail from "../components/articleeditor/ArticleDetail";
-import Resources from "../components/Resources";
+import ArticleWriter from "../components/articleeditor/ArticleWriter";
+import ArticlesPage from "../components/ArticlesPage";
+import ContactUsPage from "../components/ContactUsPage";
+import BackTrackingProblemsGrid from "../components/datagrid/BackTrackingProblemsGrid";
+import BinarySearchProblemsGrid from "../components/datagrid/BinarySearchProblemsGrid";
+import DynamicProgrammingProblemsGrid from "../components/datagrid/DynamicProblemsGrid";
+import GraphProblemsGrid from "../components/datagrid/GraphProblemsGrid";
+import GreedyProblemsGrid from "../components/datagrid/Greedyproblems";
+import LC150ProblemsGrid from "../components/datagrid/LC150ProblemsGrid";
 import LC300ProblemsGrid from "../components/datagrid/LC300ProblemsGrid";
 import NumberTheoryProblemsGrid from "../components/datagrid/NumberTheoryProblemsGrid";
-import BinarySearchProblemsGrid from "../components/datagrid/BinarySearchProblemsGrid";
-import BackTrackingProblemsGrid from "../components/datagrid/BackTrackingProblemsGrid";
-import TreesProblemsGrid from "../components/datagrid/TreesProblemsGrid";
-import GreedyProblemsGrid from "../components/datagrid/Greedyproblems";
-import GraphProblemsGrid from "../components/datagrid/GraphProblemsGrid";
 import PrefixSumProblemsGrid from "../components/datagrid/PrefixSumProblemsGrid";
 import RecursionProblemsGrid from "../components/datagrid/RecursionProblemsGrid";
-import DynamicProgrammingProblemsGrid from "../components/datagrid/DynamicProblemsGrid";
 import SlidingWindowProblemsGrid from "../components/datagrid/SlidingWindowProblemsGrid";
+import TreesProblemsGrid from "../components/datagrid/TreesProblemsGrid";
+import Landingpage from "../components/LandingPage";
 import { Profile } from "../components/Profile";
-import VerifyOTP from "../Authentication/VerifyOTP";
-import ForgetPassword from "../Authentication/ForgetPassword";
-import VerifyEmailPage from "../Authentication/VerifyEmailPage";
-import ArticlesPage from "../components/ArticlesPage";
+import Resources from "../components/Resources";
+import { ARTICLES } from "../constants/urlConstants";
 
 export const RouteConfig = [
     {
@@ -75,7 +74,7 @@ export const RouteConfig = [
     },
     {
         pageName: PAGES_NAME.BLOG,
-        path: '/articles',
+        path: ARTICLES,
         element: <ArticlesPage/>,
 
     },

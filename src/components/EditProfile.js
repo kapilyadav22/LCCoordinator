@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Container, TextField, Button, Grid, Typography, Box } from "@mui/material";
-import { postData } from "../utils/httpRequestUtils";
-import { EDITPROFILE, PROFILE } from "../constants/urlConstants";
+import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { EDITPROFILE, PROFILE } from "../constants/urlConstants";
+import { postData } from "../utils/httpRequestUtils";
 
 const EditProfile = () => {
   const [formData, setFormData] = useState({

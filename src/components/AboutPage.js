@@ -1,27 +1,33 @@
-import ProfilePic from '../assets/icons/about.png';
-import React, { useContext } from 'react';
-import { Box, Container, Typography, Avatar, Grid, Divider } from '@mui/material';
+import { Avatar, Box, Container, Divider, Grid, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
-import SocialMediaBar from '../layout/SocialMediaBar';
+import { useContext } from 'react';
 import { ThemeContext } from '../Context/ThemeContext.js';
+import ProfilePic from '../assets/icons/about.png';
 import { darkmodecolor, lightmodecolor } from '../constants/urlConstants.js';
 
 const AboutPage = () => {
-   const {mode } = useContext(ThemeContext);
+  const { mode } = useContext(ThemeContext);
+
   return (
     <Container
       component="main"
       maxWidth="xl"
       sx={{
         minHeight: "550px",
-        py: 5,
-        background: mode=='light'?lightmodecolor:darkmodecolor,
+        py: { xs: 3, sm: 5 }, 
+        background: mode === 'light' ? lightmodecolor : darkmodecolor,
         borderRadius: '16px',
-        boxShadow: 3, 
+        boxShadow: 3,
+        px: { xs: 2, sm: 3 }, 
       }}
     >
-      <Box sx={{ mt: 5, mb: 2 }}>
-        <Grid container spacing={4} alignItems="center">
+      <Box sx={{ mt: { xs: 3, sm: 5 }, mb: { xs: 2, sm: 5 } }}>
+        <Grid
+          container
+          spacing={4}
+          alignItems="center"
+          sx={{ flexDirection: { xs: 'column', md: 'row' }, textAlign: { xs: 'center', md: 'left' } }}
+        >
           {/* Left Content Section */}
           <Grid item xs={12} md={8}>
             <motion.div
@@ -36,35 +42,36 @@ const AboutPage = () => {
                   color: 'text.primary',
                   fontFamily: 'Poppins, sans-serif',
                   letterSpacing: '1px',
+                  fontSize: { xs: '1.8rem', sm: '2.5rem' }, 
                 }}
                 gutterBottom
               >
                 About Me
               </Typography>
-              <Divider sx={{ mb: 3, bgcolor: 'primary.light' }} />
+              <Divider sx={{ mb: { xs: 2, sm: 3 }, bgcolor: 'primary.light' }} />
 
-              <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: { xs: 2, sm: 3 } }}>
                 <Typography
                   variant="body1"
                   color="text.primary"
                   sx={{
                     fontFamily: 'Poppins, sans-serif',
-                    fontSize: '1.15rem',
+                    fontSize: { xs: '1rem', sm: '1.15rem' }, 
                     lineHeight: 1.8,
-                    color: 'text.primary', 
+                    color: 'text.primary',
                   }}
                 >
                   Hi, My Name is Kapil Yadav. I am currently working as an R&D Engineer at Tejas Networks.
                 </Typography>
               </Box>
 
-              <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: { xs: 2, sm: 3 } }}>
                 <Typography
                   variant="body1"
                   color="text.primary"
                   sx={{
                     fontFamily: 'Poppins, sans-serif',
-                    fontSize: '1.15rem',
+                    fontSize: { xs: '1rem', sm: '1.15rem' }, 
                     lineHeight: 1.8,
                     color: 'text.primary',
                   }}
@@ -73,28 +80,13 @@ const AboutPage = () => {
                 </Typography>
               </Box>
 
-              {/* <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: { xs: 5, sm: 8 } }}>
                 <Typography
                   variant="body1"
                   color="text.primary"
                   sx={{
                     fontFamily: 'Poppins, sans-serif',
-                    fontSize: '1.15rem',
-                    lineHeight: 1.8,
-                    color: 'text.primary',
-                  }}
-                >
-                  I am passionate about problem-solving and currently working as a Full Stack Engineer with knowledge in JavaScript, ReactJS, Java, MySQL, and more.
-                </Typography>
-              </Box> */}
-
-              <Box sx={{ mb: 8 }}>
-                <Typography
-                  variant="body1"
-                  color="text.primary"
-                  sx={{
-                    fontFamily: 'Poppins, sans-serif',
-                    fontSize: '1.15rem',
+                    fontSize: { xs: '1rem', sm: '1.15rem' }, 
                     lineHeight: 1.8,
                     color: 'text.primary',
                   }}
@@ -109,7 +101,7 @@ const AboutPage = () => {
                   fontWeight: 'bold',
                   color: 'text.primary',
                   fontFamily: 'Poppins, sans-serif',
-                  fontSize: '1.15rem',
+                  fontSize: { xs: '1.1rem', sm: '1.15rem' }, 
                 }}
               >
                 Feel free to connect with me!
@@ -127,14 +119,14 @@ const AboutPage = () => {
                 alt="Profile Picture"
                 src={ProfilePic}
                 sx={{
-                  width: 320,
-                  height: 300,
+                  width: { xs: 180, sm: 220, md: 300, lg: 320 }, 
+                  height: { xs: 180, sm: 220, md: 300, lg: 320 }, 
                   margin: '0 auto',
                   borderRadius: '50%',
-                  boxShadow: 3, 
+                  boxShadow: 3,
                   transition: 'all 0.3s ease-in-out',
                   '&:hover': {
-                    transform: 'scale(1.05)', 
+                    transform: 'scale(1.05)',
                     boxShadow: 10,
                   },
                 }}
@@ -142,7 +134,6 @@ const AboutPage = () => {
             </motion.div>
           </Grid>
         </Grid>
-
       </Box>
     </Container>
   );

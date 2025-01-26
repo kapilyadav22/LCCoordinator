@@ -1,21 +1,21 @@
-import React from 'react';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import CustomIcon from '../icons/CustomIcon';
-import { useNavigate } from 'react-router-dom';
 import { SocialMediaLinks } from '../constants/urlConstants';
+import CustomIcon from '../icons/CustomIcon';
 
 const SocialMediaBar = () => {
 
-  const handleButtonClick = (link)  => {
+  const handleButtonClick = (link) => {
     window.open(link, '_blank', 'noopener noreferrer');
   }
 
   return (
     <Grid container spacing={2} justifyContent="center" sx={{ mt: '2px', padding: '1px' }}>
-      { Object.keys(SocialMediaLinks).map((key) => (
+      {Object.keys(SocialMediaLinks).map((key) => (
         <Grid item key={key}>
-        <CustomIcon name = {key} sx= {{fontSize: 30 }} onClick={()=> handleButtonClick(SocialMediaLinks[key])}/>
+          <CustomIcon
+            name={key}
+            sx={{ fontSize: 30,   color: 'text.primary' }}
+            onClick={() => handleButtonClick(SocialMediaLinks[key])} />
         </Grid>
       ))}
     </Grid>

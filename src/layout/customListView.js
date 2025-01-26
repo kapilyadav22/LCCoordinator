@@ -1,5 +1,4 @@
-import React from 'react';
-import { Grid, Typography, Box, Card, CardContent, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Card, CardContent, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 const CustomListView = ({ items, onItemClick, renderTitle }) => {
   return (

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Alert from '@mui/material/Alert';
+import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import CustomAvatar from '../layout/CustomAvatar';
-import CustomTextField from '../layout/CustomTextField';
+import { LOGIN, navigationTimer, RESETPASSWORD, VERIFYOTP } from '../constants/urlConstants';
 import useCustomAlert from '../customHooks/customAlertHook';
 import CustomAlert1 from '../layout/CustomAlert1';
-import { postData } from '../utils/httpRequestUtils';
-import { VERIFYOTP, HOMEROUTE, navigationTimer, RESETPASSWORD, LOGIN } from '../constants/urlConstants';
+import CustomAvatar from '../layout/CustomAvatar';
+import CustomTextField from '../layout/CustomTextField';
 import { validateOTP } from '../utils/checkValidations';
+import { postData } from '../utils/httpRequestUtils';
 
 const VerifyOTP = () => {
   const [otp, setOtp] = useState('');

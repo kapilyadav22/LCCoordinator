@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid2';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import { SENDEMAIL } from '../constants/urlConstants';
 import { contactFormData } from '../dataFields/formData';
-import { SENDEMAIL, SERVERURL } from '../constants/urlConstants';
-import { postData } from '../utils/httpRequestUtils';
 import { CustomTitle } from '../layout/CustomTitle';
+import { postData } from '../utils/httpRequestUtils';
 
 const ContactUsPage = () => {
   const [formData, setFormData] = useState(contactFormData);

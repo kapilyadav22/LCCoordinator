@@ -1,23 +1,47 @@
-import { Grid, Typography } from "@mui/material"
+import { Grid2, Typography } from "@mui/material"
 
-export const CustomTitle = ({title}) =>{
+export const CustomTitle = ({
+    title,
+    variant = "h5",
+    fontWeight = 'bold',
+    fontSize = '1.5rem',
+    color = 'title.main',
+    textAlign = 'center',
+    textTransform = 'uppercase',
+    letterSpacing = '0.1rem',
+    lineHeight = 1.5,
+    marginTop = "1%",
+    marginBottom = "1%",
+    xs = 12,
+    md = 6,
+    justifyContent = "center"
+}) => {
 
     return (
-        <Grid item xs={12} md={6} display="flex" justifyContent="center" marginTop={"1%"} marginBottom={"1%"}>
-                <Typography 
-                    variant="h5"
-                    sx={{
-                    fontWeight: 'bold',       
-                    fontSize: '2rem',         
-                    color: 'primary.main',    
-                    textAlign: 'center',     
-                    textTransform: 'uppercase', 
-                    letterSpacing: '0.1rem',  
-                    lineHeight: 1.5,          
-                    }}
-                >
-                 {title}
-                </Typography>
-            </Grid>
+        <Grid2 
+            item 
+            xs={xs} 
+            md={md} 
+            display="flex" 
+            justifyContent={justifyContent}
+            marginTop={marginTop}
+            marginBottom={marginBottom}
+        >
+            <Typography 
+                variant={variant}
+                sx={{
+                    fontWeight,       
+                    fontSize,         
+                    color,    
+                    textAlign,     
+                    textTransform, 
+                    letterSpacing,  
+                    lineHeight,          
+                }}
+            >
+                {title}
+            </Typography>
+        </Grid2>
     )
 }
+

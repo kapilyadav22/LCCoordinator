@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { ResponsiveHeatMap } from "@nivo/heatmap";
 import { Container, Grid, Typography } from "@mui/material";
+import { ResponsiveHeatMap } from "@nivo/heatmap";
+import { useEffect, useState } from "react";
 
 // Mock data generation for 365 days
 const generateHeatmapData = () => {

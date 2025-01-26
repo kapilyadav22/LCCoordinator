@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { BACKTRACKING } from '../../constants/urlConstants';
 import CommonDataGrid from '../../layout/CommonDataGrid';

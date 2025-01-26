@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Alert from '@mui/material/Alert';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CustomAvatar from '../layout/CustomAvatar';
-import CustomTextField from '../layout/CustomTextField';
+import { FORGETPASSWORD, navigationTimer } from '../constants/urlConstants';
 import useCustomAlert from '../customHooks/customAlertHook';
 import CustomAlert1 from '../layout/CustomAlert1';
-import { validateEmail, validateFields } from '../utils/checkValidations';
-import { getData, postData } from '../utils/httpRequestUtils';
-import { FORGETPASSWORD, HOMEROUTE, navigationTimer } from '../constants/urlConstants';
+import CustomAvatar from '../layout/CustomAvatar';
+import CustomTextField from '../layout/CustomTextField';
+import { CustomTitle } from '../layout/CustomTitle';
+import { validateEmail } from '../utils/checkValidations';
+import { getData } from '../utils/httpRequestUtils';
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState('');
@@ -62,9 +63,18 @@ const ForgetPassword = () => {
         }}
       >
         <CustomAvatar />
-        <Typography component="h1" variant="h5">
-          Forgot Password
-        </Typography>
+        <CustomTitle 
+              title=" Forgot Password"
+              variant="h5"
+              textTransform="none"
+              fontWeight="regular"
+              fontSize="1rem"
+              marginTop="0"
+              marginBottom="0"
+              xs={6}
+              md={4}
+              color={'text.primary'}
+            />
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3, textAlign: 'center' }}>
           Enter your email address and we'll send you an OTP to reset your password
         </Typography>

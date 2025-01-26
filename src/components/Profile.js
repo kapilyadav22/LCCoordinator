@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
-  Button,
   Container,
   Grid,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
-  Typography,
+  Typography
 } from "@mui/material";
+import { useEffect, useState } from "react";
+import { CODECHEF, CODEFORCES, GFG, GITHUB, LEETCODE_QUERY } from "../constants/urlConstants";
+import { getData, postData } from "../utils/httpRequestUtils";
 import EditProfile from "./EditProfile";
 import YearCalendarHeatmap from "./generateHeatmap";
-import { BLOGSURL, CODECHEF, CODEFORCES, GFG, GITHUB, LEETCODE, LEETCODE_QUERY } from "../constants/urlConstants";
-import { getData, postData } from "../utils/httpRequestUtils";
 
 export const Profile = () => {
   const [showEditProfile, setShowEditProfile] = useState(false);

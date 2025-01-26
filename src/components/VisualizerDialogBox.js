@@ -1,18 +1,14 @@
-import React, { useState } from "react";
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-  Grid2,
-  Box
+  Box,
+  Button
 } from "@mui/material";
-import { VisualiserCommonUrl } from "../constants/urlConstants";
+import { useContext, useState } from "react";
+import { darkmodecolor, lightmodecolor, VisualiserCommonUrl } from "../constants/urlConstants";
+import { ThemeContext } from "../Context/ThemeContext.js";
 
 const VisualizerDialogBox = ({title, url}) => {
   const [open, setOpen] = useState(false);
+  const { mode } = useContext(ThemeContext);
 
   const handleOpen = () => {
     setOpen(true);
@@ -32,12 +28,20 @@ const VisualizerDialogBox = ({title, url}) => {
   };
 
   return (
-    <Box sx={{margin: '0.5%', padding : '0.5%'}}>
+    <Box 
+    sx={{margin: '0.5%', padding : '0.5%'}}>
     
       {/* <Button variant="contained" color="primary" onClick={handleOpen}>
       Algorithm Visualiser
       </Button> */}
-      <Button variant="contained" color="primary" onClick={openUrl}>
+      <Button 
+      color='inherit'
+      sx={{
+        minHeight:'60px',
+        background: mode=='light'?darkmodecolor:lightmodecolor,
+        color: 'title.themecolor'
+      }}
+      onClick={openUrl}>
         Visualise {title}
       </Button>
       {/* <Dialog open={open} onClose={handleClose}>

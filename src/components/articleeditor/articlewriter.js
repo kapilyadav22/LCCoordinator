@@ -1,54 +1,137 @@
-import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { postData } from '../../utils/httpRequestUtils';
-import { ADDBLOGSURL, BLOGSURL, navigationTimer, SERVERURL } from '../../constants/urlConstants';
-import { useMyContext } from '../../Context/ContextProvider';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ADDBLOGSURL, ARTICLES, UPLOADIMAGEURL } from '../../constants/urlConstants';
 import useCustomAlert from '../../customHooks/customAlertHook';
 import CustomAlert1 from '../../layout/CustomAlert1';
-import { useNavigate } from 'react-router-dom';
+import { postData } from '../../utils/httpRequestUtils';
 
 const ArticleWriter = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
-
-  const [content, setContent] = useState('');
+  const quillRef = useRef(null);
+  const [quillInstance, setQuillInstance] = useState(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-
-  const { updateUserName, updateLogin } = useMyContext();
+  const [previewContent, setPreviewContent] = useState('');
   const { alert, showAlert } = useCustomAlert();
-  
   const navigate = useNavigate();
 
-  const createArticle = async (article) => {
-    const res = await postData(ADDBLOGSURL, article);
-    if(res.success){
-      showAlert("success", "Article saved successfully");
+  useEffect(() => {
+    if (quillRef.current && !quillInstance) {
+      const quill = new Quill(quillRef.current, {
+        theme: 'snow',
+        modules: {
+          toolbar: {
+            container: [
+              [{ 'header': [1, 2, false] }, { 'font': [] }],
+              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+              ['bold', 'italic', 'underline'],
+              ['link', 'image'],
+              ['clean']
+            ],
+            handlers: {
+              image: imageHandler
+            }
+          }
+        }
+      });
+      setQuillInstance(quill);
+    }
 
-      setTimeout(() => {
-        navigate('/blogs');
-      }, navigationTimer);
+    return () => {
+      if (quillInstance) {
+        quillInstance.destroy();  // Cleanup Quill instance on unmount
+      }
+    };
+  }, [quillRef.current, quillInstance]);  
+
+  const createArticle = async (article) => {
+    try {
+      const res = await postData(ADDBLOGSURL, article);
+      if (res.status === "success") {
+        showAlert('success', 'Article saved successfully');
+        navigate(ARTICLES);
+      } else {
+        showAlert("error", res);
+      }
+    } catch (error) {
+      showAlert("error", "Error saving article");
     }
   };
 
+  const uploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    if (!file) {
+      showAlert("error", "Please Upload a Valid Image");
+      return;
+    }
+
+    try {
+      const response = await fetch(UPLOADIMAGEURL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        showAlert("error", "Error Uploading File");
+        return;
+      }
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      showAlert("error", 'Error Uploading File');
+    }
+  };
+
+  const imageHandler = useCallback(() => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const imageUrl = await uploadImage(file);
+        if (imageUrl && quillInstance) {
+          const range = quillInstance.getSelection();
+          quillInstance.insertEmbed(range.index, 'image', imageUrl);
+          quillInstance.setSelection(range.index + 1);
+        }
+      }
+    };
+  }, [uploadImage, quillInstance]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const content = quillInstance ? quillInstance.root.innerHTML : '';
     const article = { category, title, content };
     createArticle(article);
   };
 
-  const handlePreviewOpen = () => setIsPreviewOpen(true);
-  const handlePreviewClose = () => setIsPreviewOpen(false);
+  const handlePreviewOpen = () => {
+    const content = quillInstance ? quillInstance.root.innerHTML : '';
+    setPreviewContent(content);
+    setIsPreviewOpen(true);
+  };
+
+  const handlePreviewClose = () => {
+    setIsPreviewOpen(false);
+    setPreviewContent('');
+  };
 
   return (
     <Box sx={{ padding: '20px' }}>
       <form onSubmit={handleSubmit}>
-      <TextField
+        <TextField
           label="Category"
           variant="outlined"
           fullWidth
@@ -66,21 +149,9 @@ const ArticleWriter = () => {
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-        <ReactQuill
-          value={content}
-          onChange={setContent}
-          modules={{
-            toolbar: [
-              [{ header: [1, 2, false] }],
-              ['bold', 'italic', 'underline'],
-              ['link', 'image'],
-              ['clean'],
-            ],
-          }}
-          style={{ height: '600px', marginBottom: '20px' }}
-        />
+        <div ref={quillRef} style={{ height: '600px', marginBottom: '20px', position: 'relative' }} />
         <Box display="flex" justifyContent="space-between" mt={6}>
-        <Button variant="outlined" color="secondary" onClick={handlePreviewOpen}>
+          <Button variant="outlined" color="secondary" onClick={handlePreviewOpen}>
             Preview
           </Button>
           <Button variant="contained" color="primary" type="submit">
@@ -99,12 +170,12 @@ const ArticleWriter = () => {
           bgcolor: 'background.paper',
           boxShadow: 24,
           p: 4,
-          borderRadius: 2
+          borderRadius: 2,
         }}>
           <Typography variant="h5" gutterBottom>
             {title || ''}
           </Typography>
-          <div dangerouslySetInnerHTML={{ __html: content }} />
+          <div dangerouslySetInnerHTML={{ __html: previewContent }} />
           <Box display="flex" justifyContent="flex-end" mt={2}>
             <Button onClick={handlePreviewClose} color="primary">
               Close
