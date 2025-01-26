@@ -16,8 +16,11 @@ const Theme = createTheme({
       dark: '#9a0036',
       contrastText: '#ffffff',
     },
+    header:{
+      text: '#333333',
+    },
     background: {
-      // default: "red", 
+      default: '#121212', 
       paper: '#ffffff', 
     },
     problem: {
@@ -47,6 +50,10 @@ const Theme = createTheme({
     itemhover:{
       main: "#ffcc06"
     },
+    title: {
+      main: '#37086a',
+      themecolor: '#ffcc06',
+    }
   },
   components: {
     MuiAccordionSummary: {
