@@ -21,7 +21,6 @@ const NavButton = ({ label, to, style={}, onClick }) => {
       "&:hover": {color: 'title.main',
         transform: 'scale(1.3)',
                 },}}
-    // sx = {{color: (theme) => theme.palette.text.secondary} }
     component={Link} to={to}>
       {label}
     </Button>

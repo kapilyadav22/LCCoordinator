@@ -2,7 +2,6 @@
 FROM node:alpine AS nodework
 
 ENV NODE_ENV=production
-# ARG CACHE_BUST=1
 
 #create working directory
 WORKDIR /app
@@ -16,26 +15,17 @@ RUN npm install
 #copy from source to destination
 COPY . /app 
 
-# RUN echo "CACHE_BUST=${CACHE_BUST}"
 ENV GENERATE_SOURCEMAP=false
 RUN npm run build 
-
  
 # Step 2: Use an Nginx image to serve the app
 FROM nginx:alpine
 
-
-# FROM nginx:latest AS prod
-COPY --from=nodework /app/build /usr/share/nginx/html
+COPY --from=nodework /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN date > /usr/share/nginx/html/version.txt
 
-
-# RUN apk add --no-cache certbot certbot-nginx dcron
-# COPY cronjob /etc/cron.d/certbot-renew
-# RUN chmod 0644 /etc/cron.d/certbot-renew
-# RUN crontab /etc/cron.d/certbot-renew
 
 EXPOSE 80 443
 

@@ -17,7 +17,6 @@ function LandingPage() {
                     <Grid item xs={12}>
                         <Typography
                             variant="h1"
-                            // component="span"
                             sx={{
                                 color: 'title.main',
                                 fontWeight: 'bold',

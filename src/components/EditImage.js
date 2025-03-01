@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
 const EditableImage = () => {
-  const [image, setImage] = useState("https://via.placeholder.com/300");
+  const [image, setImage] = useState("");
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];

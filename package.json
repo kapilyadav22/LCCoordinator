@@ -22,7 +22,7 @@
   },
   "source": "public/index.html",
   "scripts": {
-    "start": "parcel",
+    "start": "parcel index.html --port 3000",
     "build": "parcel build",
     "test": "jest",
     "lint": "eslint src"

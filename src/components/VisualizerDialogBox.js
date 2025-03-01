@@ -22,9 +22,6 @@ const VisualizerDialogBox = ({title, url}) => {
     if(url){
       window.open(VisualiserCommonUrl+url, "_blank");
     } 
-    // else {
-    //   setDefaultEventParameters
-    // }
   };
 
   return (

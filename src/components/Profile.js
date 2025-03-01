@@ -100,10 +100,10 @@ export const Profile = () => {
               />
             </Box>
             <Typography variant="h6" align="center">
-              John Doe
+              Kapil Yadav
             </Typography>
             <Typography variant="body2" align="center" color="text.secondary">
-              johndoe@example.com
+              singhkapil347@gmail.com
             </Typography>
             <List>
               <ListItem button onClick={handleEditProfile}>
@@ -115,7 +115,6 @@ export const Profile = () => {
 
         <Grid item xs={12} md={8} lg={9}>
             <YearCalendarHeatmap></YearCalendarHeatmap>
-          {/* You can render your charts or other content here */}
           {showEditProfile ? (
             <EditProfile />
           ) : (
