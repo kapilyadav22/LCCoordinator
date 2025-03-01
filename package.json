@@ -27,18 +27,16 @@
     "test": "jest",
     "lint": "eslint src"
   },
-  "browserslist": {
+  "browserslist": { 
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 10 versions"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
+  }, 
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
