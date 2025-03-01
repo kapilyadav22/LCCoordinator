@@ -3,46 +3,69 @@
 
 <head>
   <meta charset="utf-8" />
+
+  <title>LC Coordinator - Your Ultimate Programming Resource</title>
+  <meta name="description"
+    content="LC Coordinator: Comprehensive programming solutions, technical content, and learning resources for developers of all levels." />
+  <meta name="keywords"
+    content="programming, coding, learning, tutorials, technical content, software development, leetcode, dsa, trees, graph" />
+
+
+  <meta property="og:title" content="LC Coordinator" />
+  <meta property="og:description" content="One-stop solution for programming knowledge and technical content" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LC Coordinator" />
+  <meta name="twitter:description" content="Your comprehensive programming learning platform" />
+
+  <!-- Viewport and Compatibility -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap');
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Roboto:wght@400;500&display=swap"
-    rel="stylesheet">
+    rel="stylesheet" />
 
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+  <link rel="icon" href="../public/android-chrome-192x192.png" />
 
-  <link rel="manifest" href="%PUBLIC_URL%/favicon-32x32.png" />
-
-  <title>LC Coordinator</title>
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VS6HKHZWL5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-VS6HKHZWL5');
   </script>
 
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "04227b6b-351d-42cb-8090-b027ab8b48b8",
+  <!-- OneSignal Notifications -->
+  <!-- <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "04227b6b-351d-42cb-8090-b027ab8b48b8",
+      });
     });
-  });
-</script>
+  </script> -->
 
 </head>
 
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
-
+  <!-- 
+  if we dont add type =module, it will give error "Browser scripts doesnt have imports",
+    because normal javascript files  doesnt have imports, so we need to tell the browser, its not a normal js file, 
+    it's a module
+    -->
+  <script type="module" src="../src/index.js"></script>
 </body>
 
 </html>

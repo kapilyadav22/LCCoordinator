@@ -16,40 +16,63 @@ const ArticleWriter = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const quillRef = useRef(null);
-  const [quillInstance, setQuillInstance] = useState(null);
+  const quillInstanceRef = useRef(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewContent, setPreviewContent] = useState('');
   const { alert, showAlert } = useCustomAlert();
   const navigate = useNavigate();
 
+  const TOOLBAR_OPTIONS = [
+    [{ header: [1, 2, false] }, { font: [] }],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    ['bold', 'italic', 'underline'],
+    ['link', 'image'],
+    ['clean']
+  ];
+
+  const imageHandler = useCallback(() => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+  
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        // const imageUrl = await uploadImage(file);
+        const imageUrl = "https://miro.medium.com/v2/resize:fit:1400/1*T5lU_ZlNnSTNBDLDZuuqGQ.jpeg";
+        // const imageUrl = "https://lccoordinator-articles.s3.us-east-1.amazonaws.com/uploads/11.png";
+        if (imageUrl && quillInstanceRef.current) {
+          console.log(imageUrl);
+          const range = quillInstanceRef.current.getSelection();
+          quillInstanceRef.current.insertEmbed(range.index, "image", imageUrl);
+          quillInstanceRef.current.setSelection(range.index + 1);
+        }
+      }
+    };
+  }, []);
+
   useEffect(() => {
-    if (quillRef.current && !quillInstance) {
-      const quill = new Quill(quillRef.current, {
+    if (quillRef.current && !quillInstanceRef.current) {
+      quillInstanceRef.current = new Quill(quillRef.current, {
         theme: 'snow',
         modules: {
           toolbar: {
-            container: [
-              [{ 'header': [1, 2, false] }, { 'font': [] }],
-              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-              ['bold', 'italic', 'underline'],
-              ['link', 'image'],
-              ['clean']
-            ],
+            container: TOOLBAR_OPTIONS,
             handlers: {
               image: imageHandler
             }
           }
         }
       });
-      setQuillInstance(quill);
     }
-
     return () => {
-      if (quillInstance) {
-        quillInstance.destroy();  // Cleanup Quill instance on unmount
+      if (quillInstanceRef.current) {
+        quillInstanceRef.current = null;
       }
     };
-  }, [quillRef.current, quillInstance]);  
+  }, []); 
+
 
   const createArticle = async (article) => {
     try {
@@ -91,34 +114,17 @@ const ArticleWriter = () => {
     }
   };
 
-  const imageHandler = useCallback(() => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
 
-    input.onchange = async (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const imageUrl = await uploadImage(file);
-        if (imageUrl && quillInstance) {
-          const range = quillInstance.getSelection();
-          quillInstance.insertEmbed(range.index, 'image', imageUrl);
-          quillInstance.setSelection(range.index + 1);
-        }
-      }
-    };
-  }, [uploadImage, quillInstance]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const content = quillInstance ? quillInstance.root.innerHTML : '';
+    const content =  quillInstanceRef.current? quillInstanceRef.current.root.innerHTML : '';
     const article = { category, title, content };
     createArticle(article);
   };
 
   const handlePreviewOpen = () => {
-    const content = quillInstance ? quillInstance.root.innerHTML : '';
+    const content = quillInstanceRef.current? quillInstanceRef.current.root.innerHTML : '';
     setPreviewContent(content);
     setIsPreviewOpen(true);
   };

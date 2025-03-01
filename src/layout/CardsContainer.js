@@ -33,22 +33,20 @@ const CardsContainer = () => {
     <Box
       sx={{
         width: '100%',
-        padding: { xs: '16px', sm: '24px' },
+        padding: { xs: '10px', sm: '20px' },
         background: mode === 'light' ? lightGradient : darkGradient,
         borderRadius: '20px',
-        border: (theme) => `1px solid ${alpha(theme.palette.title.main,0.4)}`,
-        height: { xs: 'calc(100vh - 100px)', sm: 'auto' }, 
-        overflowY: { xs: 'auto', sm: 'hidden' }, 
-        overflowX: { xs: 'hidden', sm: 'auto' }, 
+        border: (theme) => `1px solid ${alpha(theme.palette.title.main, 0.4)}`,
+        height: 'auto',
       }}
     >
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          gap: { xs: '16px', sm: '24px' },
-          padding: '4px',
-          minWidth: 'fit-content', 
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '20px',
+          padding: '6px',
         }}
       >
         {cardData.map((card, index) => (
@@ -57,9 +55,9 @@ const CardsContainer = () => {
             onClick={() => handleCardClick(card.title)}
             sx={{
               borderRadius: '20px',
-              width: { xs: '100%', sm: '300px' }, 
-              minWidth: { xs: '100%', sm: '300px' },
-              height: 'fit-content',
+              width: 'auto',
+              height: '190px',
+              minWidth: '250px',
               display: 'flex',
               flexDirection: 'column',
               transition: 'transform 0.3s ease',
@@ -67,12 +65,11 @@ const CardsContainer = () => {
                 transform: 'scale(1.05)',
                 cursor: 'pointer',
               },
-              flex: { xs: '0 0 auto', sm: '0 0 300px' },
             }}
           >
             <CardMedia
               component="img"
-              height="180"
+              height="130"
               image={card.image}
               alt={card.title}
               sx={{
@@ -80,24 +77,20 @@ const CardsContainer = () => {
                 borderRadius: '20px 20px 0 0',
               }}
             />
-            <CardContent sx={{ padding: '16px', flexGrow: 1, justifyItems:'center' }}>
+            <CardContent sx={{ padding: '5px', textAlign: 'center' }}>
               <Typography
                 gutterBottom
                 variant="h6"
-                component="div"
                 color="text.primary"
-                sx={{
-                  fontSize: { xs: '1.5rem', sm: '1.2rem' },
-                }}
+                marginBottom="0px"
+                sx={{ fontSize: { xs: '1.2rem', sm: '1rem' } }}
               >
                 {card.title}
               </Typography>
               <Typography
                 variant="body2"
                 color="text.secondary"
-                sx={{
-                  fontSize: { xs: '1rem', sm: '0.9rem' },
-                }}
+                sx={{ fontSize: { xs: '1rem', sm: '0.9rem' } }}
               >
                 {card.content}
               </Typography>

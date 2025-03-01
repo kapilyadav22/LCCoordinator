@@ -51,7 +51,7 @@ return (
             bgcolor="background.paper"
             sx={{
                 width: '100%',
-                maxWidth: { xs: '100%', sm: '90%', md: '80%' },
+                maxWidth: { xs: '100%', sm: '90%', md: '85%' },
                 margin: '0 auto',
             }}
         >
