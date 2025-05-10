@@ -3,15 +3,14 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import googleImage from '../assets/icons/google.png';
 import { HOMEROUTE, navigationTimer } from '../constants/urlConstants';
 import { useMyContext } from '../Context/ContextProvider';
 import useCustomAlert from '../customHooks/customAlertHook';
 import { CustomTitle } from '../layout/CustomTitle';
 import { auth, googleProvider } from './firebase';
 
-
 const SignIn = () => {
+    const googleImage = new URL('../assets/icons/google.png', import.meta.url).href;
     const { updateUserName, updateLogin } = useMyContext();
     const { alert, showAlert } = useCustomAlert();
 

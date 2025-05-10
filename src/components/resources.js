@@ -22,6 +22,7 @@ const Resources = () => {
             <CustomTitle title={"Resources"} />
             {resourcesData.map((category, index) => (
                       <CustomAccordion
+                      key={`${index+'_'+category.title}`}
                       index = {index}
                       category={category.title} 
                       content={category.items} 

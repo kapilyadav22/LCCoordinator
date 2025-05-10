@@ -7,6 +7,7 @@ import { darkmodecolor, lightmodecolor } from '../constants/urlConstants.js';
 
 const AboutPage = () => {
   const { mode } = useContext(ThemeContext);
+ const ProfilePic = new URL('../assets/icons/about.png', import.meta.url).href;
 
   return (
     <Container
@@ -94,18 +95,6 @@ const AboutPage = () => {
                   In my free time, I enjoy learning new technologies and working on personal projects. I believe in continuous improvement and always strive to enhance my skills.
                 </Typography>
               </Box>
-
-              <Typography
-                variant="body1"
-                sx={{
-                  fontWeight: 'bold',
-                  color: 'text.primary',
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: { xs: '1.1rem', sm: '1.15rem' }, 
-                }}
-              >
-                Feel free to connect with me!
-              </Typography>
             </motion.div>
           </Grid>
 

@@ -1,4 +1,4 @@
-import { Grid2 } from '@mui/material';
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -125,8 +125,8 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics, pa
   };
 
   return (
-    <Grid2 margin="1%" padding="1%">
-      <Grid2 container direction="column" alignItems="center" sx={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+    <Grid margin="1%" padding="1%">
+      <Grid container direction="column" alignItems="center" sx={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
 
         <CustomAlert1 alert={alert} />
 
@@ -178,7 +178,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics, pa
           }
           label= {<Typography color='text.primary'>Filters</Typography>}
         />
-        <Grid2
+        <Grid
           item
           sx={{
             width: '100%',
@@ -221,10 +221,10 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics, pa
              
             }}
           />
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
 
-      <Grid2
+      <Grid
         container
         spacing={{ xs: 1, sm: 2 }}
         sx={{
@@ -241,7 +241,7 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics, pa
       >
         {visualObject && Object.keys(visualObject).length > 0 &&
           Object.entries(visualObject).map(([key, value], index) => (
-            <Grid2
+            <Grid
               item
               key={index}
               sx={{
@@ -254,11 +254,11 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics, pa
               }}
             >
               <VisualizerDialogBox title={key} url={value} />
-            </Grid2>
+            </Grid>
           ))
         }
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 };
 

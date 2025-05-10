@@ -21,7 +21,6 @@ function App() {
   
     return null;
   };
-
   return (
      <Box
       sx={{
@@ -43,6 +42,7 @@ function App() {
     </ThemeContextProvider >
        </Box>
   );
+  
 }
 
 export default App;

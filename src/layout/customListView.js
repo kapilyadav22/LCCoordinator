@@ -16,7 +16,7 @@ const CustomListView = ({ items, onItemClick, renderTitle }) => {
           <List>
             {items.map((item) => (
               <ListItem
-                key={item.id || item.title}
+              key={`${item.id}_${item.title?.trim() ? item.title : 'title_'+item.id}`}
                 button
                 onClick={() => onItemClick(item)}
                 sx={{

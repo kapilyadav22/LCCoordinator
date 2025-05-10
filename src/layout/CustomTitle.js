@@ -1,4 +1,4 @@
-import { Grid2, Typography } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 
 export const CustomTitle = ({
     title,
@@ -18,7 +18,7 @@ export const CustomTitle = ({
 }) => {
 
     return (
-        <Grid2 
+        <Grid 
             item 
             xs={xs} 
             md={md} 
@@ -41,7 +41,7 @@ export const CustomTitle = ({
             >
                 {title}
             </Typography>
-        </Grid2>
+        </Grid>
     )
 }
 

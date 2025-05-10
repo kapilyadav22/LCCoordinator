@@ -1,11 +1,11 @@
-import { Grid2 } from '@mui/material';
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import CustomBox from './CustomIconButtonBox';
 
 const TopicFilterChips = ({ uniqueTopics, selectedTopics, onChipClick, onReset, handleRefresh }) => {
     return (
-        <Grid2 container alignItems="center"
+        <Grid container alignItems="center"
             sx={{
                 paddingLeft: '5%',
                 paddingRight: '5%',
@@ -13,7 +13,7 @@ const TopicFilterChips = ({ uniqueTopics, selectedTopics, onChipClick, onReset, 
                 paddingBottom: '1%',
                 marginBottom: '1%'
             }}>
-            <Grid2 item xs>
+            <Grid item xs>
                 <Box display="flex" flexWrap="wrap">
                     {uniqueTopics.map((topic) => (
                         <Chip
@@ -27,8 +27,8 @@ const TopicFilterChips = ({ uniqueTopics, selectedTopics, onChipClick, onReset, 
                         />
                     ))}
                 </Box>
-            </Grid2>
-            <Grid2 item>
+            </Grid>
+            <Grid item>
                 <CustomBox iconName='refresh'
                     onClick={handleRefresh}
                     sx={{ cursor: 'pointer', fontSize: 32 }}
@@ -41,8 +41,8 @@ const TopicFilterChips = ({ uniqueTopics, selectedTopics, onChipClick, onReset, 
                     arialabel="reset filters"
                 />
 
-            </Grid2>
-        </Grid2>
+            </Grid>
+        </Grid>
     );
 };
 

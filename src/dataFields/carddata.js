@@ -1,6 +1,5 @@
-import LCImage from '../assets/icons/LC.png';
 import { PAGES_NAME } from '../config';
-
+const LCImage = new URL('../assets/icons/LC.png', import.meta.url).href;
 export const cardData = [
     { title: PAGES_NAME.LC150, content: 'Start Your Coding Journey with  LC 150', image: LCImage },
     { title: PAGES_NAME.GRAPH, content: 'Its easy as relationship', image: LCImage },
