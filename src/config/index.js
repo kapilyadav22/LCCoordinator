@@ -23,7 +23,8 @@ export const PAGES_NAME = {
     ADDARTICLE : "Add Article",
     VIEWARTICLE : "View Article",
     RESOURCES : "Resources",
-    PROFILE : "Profile"
+    PROFILE : "Profile",
+    UTILITY: "Utility Toos"
 }
 
 export const DISPLAY_NAME = {

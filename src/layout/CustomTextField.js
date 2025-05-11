@@ -13,8 +13,12 @@ const CustomTextField = ({ label, name, value, onChange, type = 'text', required
     type={type}
     value={value}
     onChange={onChange}
+    multiline
+    minRows={1}  
+    maxRows={100} 
 
     sx={{
+     
       '& .MuiOutlinedInput-root': {
         '& fieldset': {
           borderColor: 'title.main',

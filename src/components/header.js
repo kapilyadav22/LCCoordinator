@@ -96,6 +96,8 @@ const Header = () => {
                         <NavButton label="Articles" to="/articles" />
                         <NavButton label="Resources" to="/resources" />
                         <NavButton label="About Me" to="/aboutme" />
+                        <NavButton label="Utility Tools" to="/utilitytools"/>
+                    
                         {!isLoggedIn ? (
                             <>
                                 <NavButton label="Login" to="/login" />
@@ -190,6 +192,7 @@ const Header = () => {
                     <NavButton label="Prepare" to="/" onClick={() => toggleDrawer(false)} />
                     <NavButton label="Articles" to="/articles" onClick={() => toggleDrawer(false)} />
                     <NavButton label="Resources" to="/resources" onClick={() => toggleDrawer(false)} />
+                    <NavButton label="Utility Tools" to="/utilitytools" onClick={() => toggleDrawer(false)} />
                     <NavButton label="About Me" to="/aboutme" onClick={() => toggleDrawer(false)} />
                     {!isLoggedIn ? (
                         <>

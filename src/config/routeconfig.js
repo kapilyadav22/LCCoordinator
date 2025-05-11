@@ -24,6 +24,7 @@ import TreesProblemsGrid from "../components/datagrid/TreesProblemsGrid";
 import Landingpage from "../components/LandingPage";
 import { Profile } from "../components/Profile";
 import Resources from "../components/Resources";
+import StringUtilityTools from "../components/StringUtilityTools";
 import { ARTICLES } from "../constants/urlConstants";
 
 export const RouteConfig = [
@@ -168,6 +169,11 @@ export const RouteConfig = [
         pageName: PAGES_NAME.PROFILE,
         path: '/verifyEmail',
         element: <VerifyEmailPage/>,
+    },
+     {
+        pageName: PAGES_NAME.UTILITY,
+        path: '/utilitytools',
+        element: <StringUtilityTools/>,
     },
     
         

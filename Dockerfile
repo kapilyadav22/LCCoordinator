@@ -10,10 +10,9 @@ WORKDIR /app
 COPY ./package.json /app 
 
 #install all dependency
-RUN npm install --only=production  # install production dependencies
-RUN npm install                    # install dev dependencies
+RUN npm install  && npm install parcel            
 
-
+RUN parcel --version
 #copy from source to destination
 COPY . /app 
 
