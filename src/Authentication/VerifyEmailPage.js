@@ -62,10 +62,10 @@ const VerifyEmailPage = () => {
         }}
       >
         <CustomAvatar />
-        <Typography component="h1" variant="h5" sx={{ mt: 2 ,color:'title.main'}}>
+        <Typography component="h1" variant="h5" sx={{ mt: 2 ,color:'text.primary'}}>
           Email Verification
         </Typography>
-        <Typography variant="body1" sx={{ mt: 2, textAlign: 'center',color:'title.main' }}>
+        <Typography variant="body1" sx={{ mt: 2, textAlign: 'center',color:'text.primary' }}>
           {verificationStatus}
         </Typography>
       </Box>

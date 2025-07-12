@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
-import CustomTextField from '../layout/CustomTextField';
-import CustomButton from '../layout/CustomButton';
+import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import CustomTextField from "../layout/CustomTextField";
+import CustomButton from "../layout/CustomButton";
 
 const stringUtils = {
   splitString: (inputString, separator) => {
@@ -16,70 +16,71 @@ const stringUtils = {
     console.log(`Split result count: ${result.length} elements`);
     return result;
   },
-  
+
   insertAtIndices: (inputString, separator, indices, insertText) => {
     if (inputString === undefined || !indices) return inputString;
 
-    if(inputString=="" && indices===0){
-        return insertText;
+    if (inputString == "" && indices === 0) {
+      return insertText;
     }
-    
-      const index = parseInt(indices.trim(), 10);
-      if (isNaN(index) || index < 0) return inputString;
-      
-      const parts = inputString === '' ? [''] : inputString.split(separator);
-      
-      if (index >= parts.length) {
-        parts.push(insertText);
-      } else if (parts[index] === '') {
-        parts[index] = insertText;
-      } else {
-        parts[index] = insertText + separator + parts[index];
-      }
-      return parts.join(separator);
+
+    const index = parseInt(indices.trim(), 10);
+    if (isNaN(index) || index < 0) return inputString;
+
+    const parts = inputString === "" ? [""] : inputString.split(separator);
+
+    if (index >= parts.length) {
+      parts.push(insertText);
+    } else if (parts[index] === "") {
+      parts[index] = insertText;
+    } else {
+      parts[index] = insertText + separator + parts[index];
+    }
+    return parts.join(separator);
   },
-  
+
   deleteAtIndices: (inputString, separator, indices) => {
     if (!inputString || !indices) return inputString;
-    
-    if (!indices.includes(',')) {
+
+    if (!indices.includes(",")) {
       const index = parseInt(indices.trim(), 10);
       if (isNaN(index) || index < 0) return inputString;
-      
+
       const parts = inputString.split(separator);
       if (index >= parts.length) return inputString;
-      
+
       parts.splice(index, 1);
       console.log(`Result after deletion: ${parts.length} elements`);
       return parts.join(separator);
     }
-    
+
     const parts = inputString.split(separator);
-    const indicesArray = indices.split(',')
-      .map(idx => parseInt(idx.trim(), 10))
-      .filter(idx => !isNaN(idx) && idx >= 0 && idx < parts.length)
-      .sort((a, b) => b - a); 
-    
+    const indicesArray = indices
+      .split(",")
+      .map((idx) => parseInt(idx.trim(), 10))
+      .filter((idx) => !isNaN(idx) && idx >= 0 && idx < parts.length)
+      .sort((a, b) => b - a);
+
     const newParts = [...parts];
-    
-    indicesArray.forEach(index => {
+
+    indicesArray.forEach((index) => {
       if (index >= 0 && index < newParts.length) {
         newParts.splice(index, 1);
       }
     });
-    
+
     console.log(`Result after deletion: ${newParts.length} elements`);
     return newParts.join(separator);
   },
 };
 
 const StringUtilityTools = () => {
-  const [inputString, setInputString] = useState('');
-  const [separator, setSeparator] = useState('');
-  const [operation, setOperation] = useState('split');
-  const [indices, setIndices] = useState('');
-  const [insertText, setInsertText] = useState('');
-  const [result, setResult] = useState('');
+  const [inputString, setInputString] = useState("");
+  const [separator, setSeparator] = useState("");
+  const [operation, setOperation] = useState("split");
+  const [indices, setIndices] = useState("");
+  const [insertText, setInsertText] = useState("");
+  const [result, setResult] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [splitResult, setSplitResult] = useState([]);
 
@@ -106,10 +107,10 @@ const StringUtilityTools = () => {
 
   const handleOperationChange = (e) => {
     setOperation(e.target.value);
-    setResult('');
+    setResult("");
     setSplitResult([]);
-    setIndices('');
-    setInsertText('');
+    setIndices("");
+    setInsertText("");
   };
 
   const handleIndicesChange = (e) => {
@@ -121,22 +122,31 @@ const StringUtilityTools = () => {
   };
 
   const handleProcess = () => {
-    if (!inputString && operation!='insert') return;
-    
+    if (!inputString && operation != "insert") return;
+
     switch (operation) {
-      case 'split':
+      case "split":
         const words = stringUtils.splitString(inputString, separator);
         setSplitResult(words);
-        setResult(''); 
+        setResult("");
         break;
-      case 'insert':
-        const insertedText = stringUtils.insertAtIndices(inputString, separator, indices, insertText);
+      case "insert":
+        const insertedText = stringUtils.insertAtIndices(
+          inputString,
+          separator,
+          indices,
+          insertText
+        );
         setResult(insertedText);
         setInputString(insertedText);
         setSplitResult([]);
         break;
-      case 'delete':
-        const afterDeletionText = stringUtils.deleteAtIndices(inputString, separator, indices);
+      case "delete":
+        const afterDeletionText = stringUtils.deleteAtIndices(
+          inputString,
+          separator,
+          indices
+        );
         setResult(afterDeletionText);
         setInputString(afterDeletionText);
         setSplitResult([]);
@@ -148,11 +158,11 @@ const StringUtilityTools = () => {
   };
 
   const getHelperText = () => {
-    if (operation === 'split') {
+    if (operation === "split") {
       return `Number of words: ${wordCount}`;
-    } else if (operation === 'insert') {
+    } else if (operation === "insert") {
       return "Enter a single index (e.g., 0) or multiple comma-separated indices (e.g., 0,2,5)";
-    } else if (operation === 'delete') {
+    } else if (operation === "delete") {
       return "Enter a single index (e.g., 0) or multiple comma-separated indices (e.g., 0,2,5)";
     }
     return `Number of words: ${wordCount}`;
@@ -161,10 +171,16 @@ const StringUtilityTools = () => {
   return (
     <Container maxWidth="md">
       <Box sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom color="text.primary" align="center">
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          color="text.primary"
+          align="center"
+        >
           String Utility Tools
         </Typography>
-        
+
         <CustomTextField
           label="Input String"
           fullWidth
@@ -172,7 +188,7 @@ const StringUtilityTools = () => {
           onChange={handleInputChange}
           margin="normal"
         />
-        
+
         <CustomTextField
           label="Separator"
           fullWidth
@@ -181,23 +197,53 @@ const StringUtilityTools = () => {
           margin="normal"
           helperText={`Number of words: ${wordCount}`}
         />
-        
+
         <FormControl fullWidth margin="normal">
-          <InputLabel id="operation-select-label">Operation</InputLabel>
+          <InputLabel id="operation-select-label"  
+          sx={{
+      color: 'title.main',
+      '&.Mui-focused': {
+        color: 'title.main',
+      },
+    }}>Operation</InputLabel>
           <Select
             labelId="operation-select-label"
             id="operation-select"
             value={operation}
             label="Operation"
             onChange={handleOperationChange}
+            sx={{
+              color: "title.main",
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "title.main",
+              },
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "title.main",
+              },
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "title.main",
+              },
+              "& .MuiSelect-icon": {
+                color: "title.main",
+              },
+            }}
+           
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  bgcolor: "title.main",
+                  color: "white",
+                },
+              },
+            }}
           >
             <MenuItem value="split">Split String</MenuItem>
             <MenuItem value="insert">Insert at Index</MenuItem>
             <MenuItem value="delete">Delete at Index</MenuItem>
           </Select>
         </FormControl>
-        
-        {(operation === 'insert' || operation === 'delete') && (
+
+        {(operation === "insert" || operation === "delete") && (
           <CustomTextField
             label="Index"
             fullWidth
@@ -207,8 +253,8 @@ const StringUtilityTools = () => {
             helperText={getHelperText()}
           />
         )}
-        
-        {operation === 'insert' && (
+
+        {operation === "insert" && (
           <CustomTextField
             label="Text to Insert"
             fullWidth
@@ -217,27 +263,32 @@ const StringUtilityTools = () => {
             margin="normal"
           />
         )}
-        
+
         <Box sx={{ mt: 2 }}>
-          <CustomButton 
+          <CustomButton
             onClick={handleProcess}
-            disabled={(indices===0 && !insertText) ||  (!inputString && operation!= 'insert') || (operation !== 'split' && !indices) || (operation === 'insert' && !insertText)}
+            disabled={
+              (indices === 0 && !insertText) ||
+              (!inputString && operation != "insert") ||
+              (operation !== "split" && !indices) ||
+              (operation === "insert" && !insertText)
+            }
           >
             Process
           </CustomButton>
         </Box>
-        
+
         {result && (
-          <Box sx={{ mt: 3, p: 2, border: '1px solid #ccc', borderRadius: 1 }}>
+          <Box sx={{ mt: 3, p: 2, border: "1px solid #ccc", borderRadius: 1 }}>
             <Typography variant="h6" gutterBottom color="text.primary">
               Result:
             </Typography>
-            <Typography 
-              component="pre" 
-              sx={{ 
-                whiteSpace: 'pre-wrap', 
-                wordBreak: 'break-word',
-                fontFamily: 'monospace'
+            <Typography
+              component="pre"
+              sx={{
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+                fontFamily: "monospace",
               }}
               color="text.primary"
             >
@@ -248,23 +299,23 @@ const StringUtilityTools = () => {
             </Typography>
           </Box>
         )}
-        
+
         {splitResult.length > 0 && (
-          <Box sx={{ mt: 3, p: 2, border: '1px solid #ccc', borderRadius: 1 }}>
+          <Box sx={{ mt: 3, p: 2, border: "1px solid #ccc", borderRadius: 1 }}>
             <Typography variant="h6" gutterBottom color="text.primary">
               Split Result:
             </Typography>
             {splitResult.map((word, index) => (
-              <Typography 
-                key={index} 
-                variant="body1" 
+              <Typography
+                key={index}
+                variant="body1"
                 color="text.primary"
-                sx={{ 
-                  p: 1, 
-                  m: 0.5, 
-                  border: '1px solid #ddd', 
+                sx={{
+                  p: 1,
+                  m: 0.5,
+                  border: "1px solid #ddd",
                   borderRadius: 1,
-                  display: 'inline-block'
+                  display: "inline-block",
                 }}
               >
                 {word || "(empty)"}

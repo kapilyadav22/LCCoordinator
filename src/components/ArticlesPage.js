@@ -72,6 +72,7 @@ const ArticlesPage = () => {
 
             {Object.entries(articles).map(([category, articles], index) => (
                 <CustomAccordion
+                key = {index+category}
                 index = {index}
                 category={category} 
                 content={articles} 

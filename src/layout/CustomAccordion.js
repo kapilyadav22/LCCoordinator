@@ -21,7 +21,7 @@ const CustomAccordion = ({index, category, content, isOpen, handleClick, onChang
                     >
                         <Typography variant="h6">{category}</Typography>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{padding:"2px 2px 2px"}}>
                         <ListView items={content} onItemClick={handleClick} />
                     </AccordionDetails>
                 </Accordion>

@@ -17,6 +17,7 @@ const DarkTheme = createTheme({
     background: {
       default: '#121212', 
       paper: '#1e1e1e', 
+      cardcolor:'#888aa8'
     },
     problem: {
       statement: '#e1bee7', 

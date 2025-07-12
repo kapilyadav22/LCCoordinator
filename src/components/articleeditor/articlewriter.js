@@ -101,27 +101,7 @@ const ArticleWriter = () => {
       quillInstanceRef.current.root.style.color = color;
     }
     
-    /*
-    const toolbarEl = quillInstanceRef.current.container.querySelector(".ql-toolbar.ql-snow");
-    if (toolbarEl) {
-      toolbarEl.style.backgroundColor = backgroundColor;
-      toolbarEl.style.border = `1px solid ${borderColor}`;
-      toolbarEl.style.color = defaultColor;
 
-      const strokes = toolbarEl.querySelectorAll(".ql-stroke");
-      const fills = toolbarEl.querySelectorAll(".ql-fill");
-      const labels = toolbarEl.querySelectorAll(".ql-picker-label");
-      const pickers = toolbarEl.querySelectorAll(".ql-picker-options");
-
-      strokes.forEach((el) => el.setAttribute("stroke", defaultColor));
-      fills.forEach((el) => el.setAttribute("fill", defaultColor));
-      labels.forEach((el) => (el.style.color = defaultColor));
-      pickers.forEach((el) => {
-        el.style.backgroundColor = backgroundColor;
-        el.style.color = color;
-      });
-    }
-    */
 
     return () => {
       if (quillInstanceRef.current) {
