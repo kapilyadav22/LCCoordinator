@@ -1,7 +1,5 @@
 #using  nodejs image
-FROM node:alpine AS nodework
-
-ENV NODE_ENV=production
+FROM node:18-alpine AS nodework
 
 #create working directory
 WORKDIR /app
@@ -9,18 +7,19 @@ WORKDIR /app
 #copy package.json to working dir
 COPY ./package.json /app 
 
-#install all dependency
-RUN npm install  && npm install parcel            
+#install all dependencies including dev dependencies
+RUN npm install 
 
-RUN parcel --version
 #copy from source to destination
 COPY . /app 
 
-ENV GENERATE_SOURCEMAP=false
-RUN npm run build 
+RUN npx parcel build public/index.html --no-source-maps
+#RUN npm run build
  
 # Step 2: Use an Nginx image to serve the app
 FROM nginx:alpine
+
+# ENV NODE_ENV=production /not helpful, because in final build,we are only copying dist folder to nginx
 
 COPY --from=nodework /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -46,3 +45,13 @@ EXPOSE 80 443
 #(they are handled client-side by React Router), it results in a 404 error.
 #To fix this issue, you need to tell Nginx to always serve the index.html file for all routes, 
 #so React Router can take over client-side routing.
+
+
+#docker buildx build --platform linux/amd64 --no-cache -t lc-frontend:v2  .
+#docker save -o lc-frontend.tar lc-frontend:v2
+#scp lc-frontend.tar target_machine
+#docker load -i lc-frontend.tar
+#docker-compose stop frontend
+#docker-compose up --build -d frontend
+
+#docker-compose stop frontend && docker-compose rm -f frontend && docker-compose up --build -d frontend

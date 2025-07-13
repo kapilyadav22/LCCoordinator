@@ -189,23 +189,18 @@ const StringUtilityTools = () => {
           margin="normal"
         />
 
-        <CustomTextField
-          label="Separator"
-          fullWidth
-          value={separator}
-          onChange={handleSeparatorChange}
-          margin="normal"
-          helperText={`Number of words: ${wordCount}`}
-        />
-
         <FormControl fullWidth margin="normal">
-          <InputLabel id="operation-select-label"  
-          sx={{
-      color: 'title.main',
-      '&.Mui-focused': {
-        color: 'title.main',
-      },
-    }}>Operation</InputLabel>
+          <InputLabel
+            id="operation-select-label"
+            sx={{
+              color: "title.main",
+              "&.Mui-focused": {
+                color: "title.main",
+              },
+            }}
+          >
+            Operation
+          </InputLabel>
           <Select
             labelId="operation-select-label"
             id="operation-select"
@@ -227,7 +222,6 @@ const StringUtilityTools = () => {
                 color: "title.main",
               },
             }}
-           
             MenuProps={{
               PaperProps: {
                 sx: {
@@ -242,6 +236,17 @@ const StringUtilityTools = () => {
             <MenuItem value="delete">Delete at Index</MenuItem>
           </Select>
         </FormControl>
+
+        {operation === "split" && (
+          <CustomTextField
+            label="Separator"
+            fullWidth
+            value={separator}
+            onChange={handleSeparatorChange}
+            margin="normal"
+            helperText={`Number of words: ${wordCount}`}
+          />
+        )}
 
         {(operation === "insert" || operation === "delete") && (
           <CustomTextField
