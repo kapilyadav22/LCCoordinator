@@ -1,29 +1,24 @@
-import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const NavButton = ({ label, to, style={}, onClick }) => {
-  
+const NavButton = ({ label, to, style = {}, onClick }) => {
   const handleButtonClick = () => {
-    localStorage.removeItem('activeTab');
+    localStorage.removeItem("activeTab");
     if (onClick) onClick();
   };
 
   return (
-    <Button color='inherit'
-    onClick={handleButtonClick} 
-    sx = {{
-      flexGrow: 1,
-      textTransform:"none", 
-      fontSize: "16px",
-      textDecoration: 'none',
-      transition: 'all 0.5s ease',
-      color: 'title.main',
-      "&:hover": {color: 'title.main',
-        transform: 'scale(1.3)',
-                },}}
-    component={Link} to={to}>
+    <Link
+      to={to}
+      onClick={handleButtonClick}
+      className={`text-title-main text-base no-underline transition-all duration-500 hover:scale-125 hover:text-title-main ${
+        style.className || ""
+      }`}
+      style={{
+        ...style,
+      }}
+    >
       {label}
-    </Button>
+    </Link>
   );
 };
 

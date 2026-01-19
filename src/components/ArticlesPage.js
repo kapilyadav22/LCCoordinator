@@ -1,85 +1,72 @@
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import { useEffect, useState } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-import { BLOGSURL } from '../constants/urlConstants';
-import { useMyContext } from '../Context/ContextProvider';
-import useCustomAlert from '../customHooks/customAlertHook';
-import CustomAccordion from '../layout/CustomAccordion';
-import CustomAlert1 from '../layout/CustomAlert1';
-import { CustomTitle } from '../layout/CustomTitle';
-import { getData } from '../utils/httpRequestUtils';
-
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BLOGSURL } from "../constants/urlConstants";
+import { useMyContext } from "../Context/ContextProvider";
+import useCustomAlert from "../customHooks/customAlertHook";
+import CustomAccordion from "../layout/CustomAccordion";
+import CustomAlert1 from "../layout/CustomAlert1";
+import CustomButton from "../layout/CustomButton";
+import { CustomTitle } from "../layout/CustomTitle";
+import { getData } from "../utils/httpRequestUtils";
 
 const ArticlesPage = () => {
-    const [articles, setArticles] = useState([]);
-    const [selectedItem, setSelectedItem] = useState({});
-    const { adminStatus } = useMyContext();
+  const [articles, setArticles] = useState([]);
+  const [selectedItem, setSelectedItem] = useState({});
+  const { adminStatus } = useMyContext();
+  const { alert, showAlert } = useCustomAlert();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    fetchArticles();
+  }, []);
 
-    const { alert, showAlert } = useCustomAlert();
-    const navigate = useNavigate();
+  const handleAddArticle = () => {
+    navigate("/addarticle");
+  };
 
-    useEffect(() => {
-        fetchArticles();
-    }, []);
+  const fetchArticles = async () => {
+    const res = await getData(BLOGSURL);
+    if (res.status === "success") {
+      setArticles(res.data);
+    } else {
+      showAlert("error", res);
+    }
+  };
 
-    const handleAddArticle = () => {
-        navigate('/addarticle');
-    };
+  const handleArticleClick = (article) => {
+    setSelectedItem(article);
+    navigate(`/article/${encodeURIComponent(article.title)}`, {
+      state: { article },
+    });
+  };
 
+  return (
+    <div className="w-full px-4 py-8">
+      <CustomAlert1 alert={alert} />
+      <CustomTitle title={"Articles"} />
+      <div className="flex justify-end mb-2">
+        {adminStatus == "Admin_Kapil" && (
+          <div className="ml-1">
+            <CustomButton onClick={() => handleAddArticle()}>
+              Add Article
+            </CustomButton>
+          </div>
+        )}
+      </div>
 
-    const fetchArticles = async () => {
-        const res = await getData(BLOGSURL);
-        if (res.status === "success") {
-            console.log(res.data);
-            setArticles(res.data);
-        } else {
-            showAlert("error", res);
-        }
-    };
-
-    const handleArticleClick = (article) => {
-        setSelectedItem(article);
-        // if(adminStatus=="User"){
-        navigate(`/article/${encodeURIComponent(article.title)}`, { state: { article } });
-        // }
-
-    };
-
-    return (
-        <Container sx={{ minWidth: "100%" }}
-        >
-            <CustomAlert1 alert={alert} />
-            <CustomTitle title={"Articles"} />
-            <Grid item xs={12} md={6} display="flex" justifyContent="flex-end"
-                marginBottom={"0.5%"}>
-                {(adminStatus == "Admin_Kapil") &&
-                    <><Button
-                        variant="contained"
-                        color="primary"
-                        sx={{ marginLeft: "5px" }}
-                        onClick={() => handleAddArticle()}
-                    >
-                        Add Article
-                    </Button>
-                   
-                        </>
-                }
-            </Grid>
-
-            {Object.entries(articles).map(([category, articles], index) => (
-                <CustomAccordion
-                key = {index+category}
-                index = {index}
-                category={category} 
-                content={articles} 
-                handleClick={handleArticleClick}/>
-            ))}
-        </Container>
-    );
+      <div className="space-y-4">
+        {Object.entries(articles).map(([category, articles], index) => (
+          <CustomAccordion
+            key={index + category}
+            index={index}
+            category={category}
+            content={articles}
+            handleClick={handleArticleClick}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default ArticlesPage;

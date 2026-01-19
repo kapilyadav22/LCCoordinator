@@ -1,243 +1,189 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import React, { useContext, useEffect, useState } from "react";
-import NavButton from '../layout/CustomNavButton';
-import { useMyContext } from '../Context/ContextProvider';
-import { useNavigate } from 'react-router-dom';
-import { alpha, Box } from '@mui/material';
-import { darkmodecolor, HOMEROUTE, lightmodecolor, navigationTimer } from '../constants/urlConstants';
-import useCustomAlert from '../customHooks/customAlertHook';
-import CustomAlert1 from '../layout/CustomAlert1';
-import CustomIcon from '../icons/CustomIcon';
-import { ThemeContext } from '../Context/ThemeContext.js';
-import { Drawer, IconButton } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import NavButton from "../layout/CustomNavButton";
+import { useMyContext } from "../Context/ContextProvider";
+import { useNavigate } from "react-router-dom";
+import {
+  darkmodecolor,
+  HOMEROUTE,
+  lightmodecolor,
+  navigationTimer,
+} from "../constants/urlConstants";
+import useCustomAlert from "../customHooks/customAlertHook";
+import CustomAlert1 from "../layout/CustomAlert1";
+import CustomIcon from "../icons/CustomIcon";
+import { ThemeContext } from "../Context/ThemeContext.js";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
-    const { toggleTheme, mode } = useContext(ThemeContext);
-    const { userName, isLoggedIn, updateLogin } = useMyContext();
-    const { alert, showAlert } = useCustomAlert();
-    const navigate = useNavigate();
+  const { toggleTheme, mode } = useContext(ThemeContext);
+  const { userName, isLoggedIn, updateLogin } = useMyContext();
+  const { alert, showAlert } = useCustomAlert();
+  const navigate = useNavigate();
 
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const [modecolor, setModeColor] = useState(mode == 'light' ? lightmodecolor : darkmodecolor);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  // Note: modecolor logic is largely handled by CSS variables/classes now,
+  // but we keep it if specific JS usages exist.
+  // For Header bg, we can use Tailwind classes directly.
 
-    useEffect(() => {
-        setModeColor(mode == 'light' ? lightmodecolor : darkmodecolor);
-    }, [mode]);
+  const handleSignOut = () => {
+    showAlert("success", "User SignOut Successfully");
+    localStorage.removeItem("username");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("activeTab");
 
-    const handleSignOut = () => {
-        showAlert("success", "User SignOut Successfully");
-        localStorage.removeItem("username");
-        localStorage.removeItem("isLoggedIn");
-        localStorage.removeItem('activeTab');
+    setTimeout(() => {
+      updateLogin(false);
+      navigate(HOMEROUTE);
+    }, navigationTimer);
+  };
 
-        setTimeout(() => {
-            updateLogin(false);
-            navigate(HOMEROUTE);
-        }, navigationTimer);
-    };
+  const toggleDrawer = (open) => {
+    setDrawerOpen(open);
+  };
 
-    const toggleDrawer = (open) => {
-        setDrawerOpen(open);
-    };
+  return (
+    <>
+      <header className="fixed top-0 w-full h-16 z-40 bg-[color:var(--bg-appbar)] shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-300 flex justify-center">
+        <div className="container px-4 h-full flex justify-between items-center">
+          <a
+            href="/"
+            className="text-xl sm:text-2xl font-bold text-title-main hover:scale-110 transition-transform duration-700 decoration-0"
+          >
+            LC Coordinator
+          </a>
 
-    return (
-        <>
-            <AppBar
-                position="fixed"
-                sx={{
-                    height: '40px',
-                    background: modecolor,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    boxShadow: 'none',
-                    borderBottom: '1px solid #e0e0e0',
-                }}
-            >
-                <Toolbar
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        paddingX: 2,
-                        minHeight: '60px',
-                        flexWrap: 'wrap',
-                    }}
+          <div className="hidden sm:flex gap-4 lg:gap-8 items-center justify-center flex-wrap">
+            <NavButton label="Prepare" to="/" />
+            <NavButton label="Articles" to="/articles" />
+            <NavButton label="Resources" to="/resources" />
+            <NavButton label="About Me" to="/aboutme" />
+            <NavButton label="Utility Tools" to="/utilitytools" />
+
+            {!isLoggedIn ? (
+              <NavButton label="Login" to="/login" />
+            ) : (
+              <>
+                <NavButton
+                  label={userName}
+                  to="/"
+                  style={{ fontWeight: "bold" }}
+                />
+                <NavButton label="Sign Out" onClick={handleSignOut} />
+              </>
+            )}
+            <div className="mt-1">
+              <CustomIcon
+                name={mode}
+                className="text-text-primary hover:text-title-main transition-colors"
+                onClick={toggleTheme}
+              />
+            </div>
+          </div>
+
+          <button
+            className="sm:hidden text-text-primary p-2 active:bg-gray-200 dark:active:bg-gray-700 rounded-full"
+            onClick={() => toggleDrawer(true)}
+          >
+            <Menu />
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Drawer */}
+      {drawerOpen && (
+        <div className="fixed inset-0 z-50 sm:hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+            onClick={() => toggleDrawer(false)}
+          ></div>
+
+          {/* Sidebar */}
+          <div className="absolute left-0 top-0 w-64 h-full bg-background-paper p-4 shadow-xl transition-transform duration-300 animate-slide-in-left border-r border-title-main/20">
+            <div className="flex flex-col h-full">
+              <div className="flex items-center justify-between mb-6 pb-2 border-b border-title-main/20 pl-2">
+                <a href="/" className="text-xl font-bold text-title-main">
+                  LC Coordinator
+                </a>
+                <button
+                  onClick={() => toggleDrawer(false)}
+                  className="text-text-secondary"
                 >
-                    <Typography
-                        variant="h6"
-                        component="a"
-                        href="/"
-                        sx={{
-                            textDecoration: 'none',
-                            color: 'title.main',
-                            fontWeight: 'bold',
-                            transition: 'all 0.7s ease',
-                            fontSize: { xs: '1.1rem', sm: '1.2rem' },
-                            '&:hover': {
-                                transform: 'scale(1.2)',
-                                color: 'title.main',
-                            },
-                        }}
-                    >
-                        LC Coordinator
-                    </Typography>
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
 
-                    <Box
-                        sx={{
-                            display: { xs: 'none', sm: 'flex' },
-                            gap: { xs: 1, sm: 3 },
-                            justifyItems: "center",
-                            flexWrap: 'wrap',
-                        }}
-                    >
-                        <NavButton label="Prepare" to="/" />
-                        <NavButton label="Articles" to="/articles" />
-                        <NavButton label="Resources" to="/resources" />
-                        <NavButton label="About Me" to="/aboutme" />
-                        <NavButton label="Utility Tools" to="/utilitytools"/>
-                    
-                        {!isLoggedIn ? (
-                            <>
-                                <NavButton label="Login" to="/login" />
-                                {/* <NavButton label="SignUp" to="/signup" /> */}
-                            </>
-                        ) : (
-                            <>
-                                <NavButton
-                                    label={userName}
-                                    to="/"
-                                    style={{ fontWeight: 'bold' }}
-                                />
-                                <NavButton
-                                    label="Sign Out"
-                                    onClick={handleSignOut}
-                                />
-                            </>
-                        )}
-                        <Box marginTop={"1.2%"}>
-                            <CustomIcon
-                                name={mode}
-                                sx={{
-                                    cursor: 'pointer',
-                                    fontSize: { xs: 18, sm: 20 },
-                                    color: 'text.primary'
-                                }}
+              <div className="flex flex-col gap-4 pl-2">
+                <NavButton
+                  label="Prepare"
+                  to="/"
+                  onClick={() => toggleDrawer(false)}
+                />
+                <NavButton
+                  label="Articles"
+                  to="/articles"
+                  onClick={() => toggleDrawer(false)}
+                />
+                <NavButton
+                  label="Resources"
+                  to="/resources"
+                  onClick={() => toggleDrawer(false)}
+                />
+                <NavButton
+                  label="Utility Tools"
+                  to="/utilitytools"
+                  onClick={() => toggleDrawer(false)}
+                />
+                <NavButton
+                  label="About Me"
+                  to="/aboutme"
+                  onClick={() => toggleDrawer(false)}
+                />
 
-                                onClick={toggleTheme}
-                            />
-                        </Box>
-                    </Box>
-
-                    <IconButton
-                        sx={{ display: { xs: '¸', sm: 'none' }, color: 'text.primary' }}
-                        onClick={() => toggleDrawer(true)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-
-            <Drawer
-                position="fixed"
-                anchor="left"
-                open={drawerOpen}
-                onClose={() => toggleDrawer(false)}
-
-                sx={{
-                    '& .MuiDrawer-paper': {
-                        width: '250px',
-                        paddingTop: '10px',
-                        background: modecolor,
-                    },
-                }}
-            >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        height: '35px',
-                        borderBottom: (theme) => `1px solid ${alpha(theme.palette.title.main,0.2)}`,
-                        flexDirection: 'column',
-                        gap: 2,
-                        paddingLeft: 7,
-                        marginRight: 2, 
-                        marginLeft: 2, 
-                        marginBottom: '10px',
-                    }}
-                >
-                    <Typography
-                        variant="h6"
-                        component="a"
-                        href="/"
-                        sx={{
-                            textDecoration: 'none',
-                            color: 'title.main',
-                            fontWeight: 'bold',
-                            fontSize: { xs: '1.2rem', sm: '1.5rem' },
-                        }}
-                    >
-                        LC Coordinator
-                    </Typography>
-                </Box>
-
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 2,
-                        paddingLeft: 2,
-                    }}
-                >
-                    <NavButton label="Prepare" to="/" onClick={() => toggleDrawer(false)} />
-                    <NavButton label="Articles" to="/articles" onClick={() => toggleDrawer(false)} />
-                    <NavButton label="Resources" to="/resources" onClick={() => toggleDrawer(false)} />
-                    <NavButton label="Utility Tools" to="/utilitytools" onClick={() => toggleDrawer(false)} />
-                    <NavButton label="About Me" to="/aboutme" onClick={() => toggleDrawer(false)} />
-                    {!isLoggedIn ? (
-                        <>
-                            <NavButton label="Login" to="/login" onClick={() => toggleDrawer(false)} />
-                            {/* <NavButton label="SignUp" to="/signup" onClick={() => toggleDrawer(false)} /> */}
-                        </>
-                    ) : (
-                        <>
-                            <NavButton
-                                label={userName}
-                                to="/"
-                                onClick={() => toggleDrawer(false)}
-                                style={{ fontWeight: 'bold' }}
-                            />
-                            <NavButton
-                                label="Sign Out"
-                                onClick={
-                                    () => {
-                                        toggleDrawer(false);
-                                        handleSignOut();
-                                    }}
-                            />
-                        </>
-                    )}
-                    <CustomIcon
-                        name={mode}
-                        color={"text.primary"}
-                        sx={{
-                            marginLeft: '100px',
-                            cursor: 'pointer',
-                            fontSize: 20,
-                        }}
-                        onClick={
-                            () => {
-                                toggleDrawer(false);
-                                toggleTheme();
-                            }
-                        }
+                {!isLoggedIn ? (
+                  <NavButton
+                    label="Login"
+                    to="/login"
+                    onClick={() => toggleDrawer(false)}
+                  />
+                ) : (
+                  <>
+                    <NavButton
+                      label={userName}
+                      to="/"
+                      onClick={() => toggleDrawer(false)}
+                      style={{ fontWeight: "bold" }}
                     />
-                </Box>
-            </Drawer>
+                    <NavButton
+                      label="Sign Out"
+                      onClick={() => {
+                        toggleDrawer(false);
+                        handleSignOut();
+                      }}
+                    />
+                  </>
+                )}
+                <div
+                  className="mt-4 flex items-center gap-2 cursor-pointer"
+                  onClick={() => {
+                    toggleDrawer(false);
+                    toggleTheme();
+                  }}
+                >
+                  <CustomIcon name={mode} className="text-text-primary" />
+                  <span className="text-text-primary capitalize">
+                    {mode} Mode
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
-            <CustomAlert1 alert={alert} />
-        </>
-    );
+      <CustomAlert1 alert={alert} closeAlert={() => showAlert("", "", false)} />
+    </>
+  );
 };
 
 export default Header;

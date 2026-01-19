@@ -1,45 +1,42 @@
-#using  nodejs image
+# =========================
+# Stage 1: Build with Parcel
+# =========================
 FROM node:18-alpine AS nodework
 
-#create working directory
 WORKDIR /app
 
-#copy package.json to working dir
-COPY ./package.json /app 
+COPY package.json ./
+RUN npm install --legacy-peer-deps
 
-#install all dependencies including dev dependencies
-RUN npm install 
+COPY . .
 
-#copy from source to destination
-COPY . /app 
-
+# Build using Parcel
 RUN npx parcel build public/index.html --no-source-maps
-#RUN npm run build
- 
-# Step 2: Use an Nginx image to serve the app
+
+
+# =========================
+# Stage 2: Serve with Nginx
+# =========================
 FROM nginx:alpine
 
-# ENV NODE_ENV=production /not helpful, because in final build,we are only copying dist folder to nginx
+# Remove default nginx content
+RUN rm -rf /usr/share/nginx/html/*
 
+# Copy build output
 COPY --from=nodework /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
 
+# Copy nginx config to the CORRECT location
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Optional: build marker
 RUN date > /usr/share/nginx/html/version.txt
 
+# Expose ONLY internal HTTP port
+EXPOSE 80
 
-EXPOSE 80 443
-
-# CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
 
 
-#add --host 0.0.0.0 in package.json to run in all ip addresses
-
-#build docker image using :  docker build -f /path/to/Dockerfile -t your-image-name .
-
-# docker build -t lc-react-app .
-#docker container : docker run -d -p 2210:80 --name lc-container lc-react-app
-
-#While refreshing the routes, it can give nginx error 404, because while refreshing, 
 #React applications (when built) use client-side routing through React Router, which relies on the browser's history API to manage routes. 
 #When you refresh the page, Nginx tries to resolve the route on the server-side, but since these routes don't exist on the server
 #(they are handled client-side by React Router), it results in a 404 error.
@@ -51,7 +48,7 @@ EXPOSE 80 443
 #docker save -o lc-frontend.tar lc-frontend:v2
 #scp lc-frontend.tar target_machine
 #docker load -i lc-frontend.tar
-#docker-compose stop frontend
-#docker-compose up --build -d frontend
+#docker compose stop frontend
+#docker compose up --build -d frontend
 
-#docker-compose stop frontend && docker-compose rm -f frontend && docker-compose up --build -d frontend
+#docker compose stop frontend && docker compose rm -f frontend && docker compose up --build -d frontend

@@ -1,55 +1,38 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import useTheme from '@mui/material/styles/useTheme';
-import CardsContainer from '../layout/CardsContainer';
-import { Fade } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import CardsContainer from "../layout/CardsContainer";
 
 function LandingPage() {
-    const theme = useTheme();
+  const [fadeIn, setFadeIn] = useState(false);
 
-    return (
-        <>
-            <Container maxWidth="xl" sx={{ padding: "2px" }}>
-                {/* <Breadcrumb pageName={PAGES_NAME.HOMEPAGE}></Breadcrumb> */}
-                <Grid container spacing={1} sx={{ mt: 3, mb: 1, alignContent: 'center', justifyContent: 'center' }}>
-                    <Grid item xs={12}>
-                        <Typography
-                            variant="h1"
-                            sx={{
-                                color: 'title.main',
-                                fontWeight: 'bold',
-                                fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem' },
-                                textAlign: 'center',
-                            }}
-                        >
-                            LC Coordinator
-                        </Typography>
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
 
-                        <Fade in={true} timeout={1500}>
-                            <Typography 
-                                variant="h5" 
-                                component="h1" 
-                                gutterBottom 
-                                align="center"
-                                sx={{
-                                    fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
-                                    color: 'text.primary',
-                                }}
-                            >
-                                ReDefine The way We Learn
-                            </Typography>
-                        </Fade>
-                    </Grid>
-                </Grid>
+  return (
+    <div className="container mx-auto px-1 mt-6">
+      <div className="flex flex-col items-center justify-center mt-6 mb-2">
+        <div className="w-full text-center">
+          <h1 className="text-title-main font-bold text-4xl sm:text-5xl md:text-6xl mb-4">
+            LC Coordinator
+          </h1>
 
-                <Grid container justifyContent="center" sx={{ mt: 3 }}>
-                    <CardsContainer />
-                </Grid>
-            </Container>
-        </>
-    );
+          <div
+            className={`transition-opacity duration-1000 ${
+              fadeIn ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <h1 className="text-text-primary text-2xl sm:text-3xl md:text-4xl">
+              ReDefine The way We Learn
+            </h1>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-center">
+        <CardsContainer />
+      </div>
+    </div>
+  );
 }
 
 export default LandingPage;

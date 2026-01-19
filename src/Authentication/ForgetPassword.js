@@ -1,28 +1,23 @@
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FORGETPASSWORD, navigationTimer } from '../constants/urlConstants';
-import useCustomAlert from '../customHooks/customAlertHook';
-import CustomAlert1 from '../layout/CustomAlert1';
-import CustomAvatar from '../layout/CustomAvatar';
-import CustomTextField from '../layout/CustomTextField';
-import { CustomTitle } from '../layout/CustomTitle';
-import { validateEmail } from '../utils/checkValidations';
-import { getData } from '../utils/httpRequestUtils';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FORGETPASSWORD, navigationTimer } from "../constants/urlConstants";
+import useCustomAlert from "../customHooks/customAlertHook";
+import CustomAlert1 from "../layout/CustomAlert1";
+import CustomAvatar from "../layout/CustomAvatar";
+import CustomTextField from "../layout/CustomTextField";
+import { CustomTitle } from "../layout/CustomTitle";
+import { validateEmail } from "../utils/checkValidations";
+import { getData } from "../utils/httpRequestUtils";
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const { alert, showAlert } = useCustomAlert();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const error = validateEmail(email);
     if (error) {
       setError(error);
@@ -31,17 +26,15 @@ const ForgetPassword = () => {
 
     try {
       const response = await getData(FORGETPASSWORD + "?email=" + email);
-      
+
       if (response.status === "success") {
         showAlert("success", "OTP sent successfully to your email");
         setTimeout(() => {
-          navigate('/verify-otp',
-            {
-                state: {
-                  email: email
-                }
-            }
-          );
+          navigate("/verify-otp", {
+            state: {
+              email: email,
+            },
+          });
         }, navigationTimer);
       } else {
         showAlert("error", response);
@@ -52,35 +45,31 @@ const ForgetPassword = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <div className="container mx-auto max-w-xs mt-16 flex flex-col items-center">
       <CustomAlert1 alert={alert} />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+      <div className="w-full flex flex-col items-center">
         <CustomAvatar />
-        <CustomTitle 
-              title=" Forgot Password"
-              variant="h5"
-              textTransform="none"
-              fontWeight="regular"
-              fontSize="1rem"
-              marginTop="0"
-              marginBottom="0"
-              xs={6}
-              md={4}
-              color={'text.primary'}
-            />
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3, textAlign: 'center' }}>
-          Enter your email address and we'll send you an OTP to reset your password
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-          
+        <CustomTitle
+          title=" Forgot Password"
+          variant="h5"
+          fontWeight="regular"
+          fontSize="1rem"
+          marginTop="0"
+          marginBottom="0"
+          color={"text-text-primary"}
+        />
+        <p className="text-sm text-gray-500 mt-1 mb-6 text-center">
+          Enter your email address and we'll send you an OTP to reset your
+          password
+        </p>
+
+        <form onSubmit={handleSubmit} noValidate className="w-full mt-2">
+          {error && (
+            <div className="mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+              {error}
+            </div>
+          )}
+
           <CustomTextField
             label="Email Address"
             name="email"
@@ -89,17 +78,15 @@ const ForgetPassword = () => {
             required
           />
 
-          <Button
+          <button
             type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            className="w-full bg-title-main text-white py-2 px-4 rounded hover:bg-title-themecolor transition-colors duration-300 mt-6 mb-4"
           >
             Send OTP
-          </Button>
-        </Box>
-      </Box>
-    </Container>
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 

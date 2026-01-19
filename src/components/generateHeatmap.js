@@ -1,11 +1,17 @@
-import { Container, Grid, Typography } from "@mui/material";
-// import { ResponsiveHeatMap } from "@nivo/heatmap";
 import { useEffect, useState } from "react";
+// import { ResponsiveHeatMap } from "@nivo/heatmap";
 
 // Mock data generation for 365 days
 const generateHeatmapData = () => {
   const data = [];
-  const colorScale = ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd"];
+  const colorScale = [
+    "#f7fbff",
+    "#deebf7",
+    "#c6dbef",
+    "#9ecae1",
+    "#6baed6",
+    "#3182bd",
+  ];
 
   for (let i = 1; i <= 12; i++) {
     const monthData = [];
@@ -30,15 +36,16 @@ const YearCalendarHeatmap = () => {
   }, []);
 
   return (
-    <Container>
-      <Typography variant="h4" align="center" gutterBottom>
+    <div className="w-full px-4">
+      <h4 className="text-2xl text-center font-normal mb-6 text-text-primary">
         Year Calendar Submission Heatmap
-      </Typography>
-      <Grid container justifyContent="center">
-        <Grid item xs={12} md={8}>
+      </h4>
+      <div className="flex justify-center">
+        <div className="w-full md:w-2/3">
+          {/* 
           <ResponsiveHeatMap
             data={heatmapData}
-            keys={Array.from({ length: 31 }, (_, i) => `Day ${i + 1}`)} // Each month has up to 31 days
+            keys={Array.from({ length: 31 }, (_, i) => `Day ${i + 1}`)} 
             indexBy="id"
             margin={{ top: 40, right: 60, bottom: 60, left: 60 }}
             colors={["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd"]}
@@ -63,10 +70,11 @@ const YearCalendarHeatmap = () => {
               borderRadius: "3px",
               border: "1px solid #ccc",
             }}
-          />
-        </Grid>
-      </Grid>
-    </Container>
+          /> 
+          */}
+        </div>
+      </div>
+    </div>
   );
 };
 

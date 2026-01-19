@@ -1,11 +1,4 @@
 import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
 import CustomTextField from "../layout/CustomTextField";
 import CustomButton from "../layout/CustomButton";
 
@@ -169,73 +162,49 @@ const StringUtilityTools = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ mt: 4, mb: 4 }}>
-        <Typography
-          variant="h4"
-          component="h1"
-          gutterBottom
-          color="text.primary"
-          align="center"
-        >
+    <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-normal text-center text-text-primary mb-4">
           String Utility Tools
-        </Typography>
+        </h1>
 
         <CustomTextField
           label="Input String"
           fullWidth
           value={inputString}
           onChange={handleInputChange}
-          margin="normal"
+          className="mb-4"
         />
 
-        <FormControl fullWidth margin="normal">
-          <InputLabel
-            id="operation-select-label"
-            sx={{
-              color: "title.main",
-              "&.Mui-focused": {
-                color: "title.main",
-              },
-            }}
-          >
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-title-main mb-1">
             Operation
-          </InputLabel>
-          <Select
-            labelId="operation-select-label"
-            id="operation-select"
+          </label>
+          <select
             value={operation}
-            label="Operation"
             onChange={handleOperationChange}
-            sx={{
-              color: "title.main",
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: "title.main",
-              },
-              "&:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: "title.main",
-              },
-              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "title.main",
-              },
-              "& .MuiSelect-icon": {
-                color: "title.main",
-              },
-            }}
-            MenuProps={{
-              PaperProps: {
-                sx: {
-                  bgcolor: "title.main",
-                  color: "white",
-                },
-              },
-            }}
+            className="w-full px-3 py-2 bg-transparent border border-title-main rounded-md text-text-primary focus:outline-none focus:ring-1 focus:ring-title-main focus:border-title-main dark:bg-gray-800"
           >
-            <MenuItem value="split">Split String</MenuItem>
-            <MenuItem value="insert">Insert at Index</MenuItem>
-            <MenuItem value="delete">Delete at Index</MenuItem>
-          </Select>
-        </FormControl>
+            <option
+              value="split"
+              className="text-gray-900 dark:text-gray-100 dark:bg-gray-800"
+            >
+              Split String
+            </option>
+            <option
+              value="insert"
+              className="text-gray-900 dark:text-gray-100 dark:bg-gray-800"
+            >
+              Insert at Index
+            </option>
+            <option
+              value="delete"
+              className="text-gray-900 dark:text-gray-100 dark:bg-gray-800"
+            >
+              Delete at Index
+            </option>
+          </select>
+        </div>
 
         {operation === "split" && (
           <CustomTextField
@@ -243,7 +212,7 @@ const StringUtilityTools = () => {
             fullWidth
             value={separator}
             onChange={handleSeparatorChange}
-            margin="normal"
+            className="mb-4"
             helperText={`Number of words: ${wordCount}`}
           />
         )}
@@ -254,7 +223,7 @@ const StringUtilityTools = () => {
             fullWidth
             value={indices}
             onChange={handleIndicesChange}
-            margin="normal"
+            className="mb-4"
             helperText={getHelperText()}
           />
         )}
@@ -265,11 +234,11 @@ const StringUtilityTools = () => {
             fullWidth
             value={insertText}
             onChange={handleInsertTextChange}
-            margin="normal"
+            className="mb-4"
           />
         )}
 
-        <Box sx={{ mt: 2 }}>
+        <div className="mt-6">
           <CustomButton
             onClick={handleProcess}
             disabled={
@@ -281,58 +250,44 @@ const StringUtilityTools = () => {
           >
             Process
           </CustomButton>
-        </Box>
+        </div>
 
         {result && (
-          <Box sx={{ mt: 3, p: 2, border: "1px solid #ccc", borderRadius: 1 }}>
-            <Typography variant="h6" gutterBottom color="text.primary">
+          <div className="mt-8 p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/50">
+            <h6 className="text-lg font-medium mb-2 text-text-primary">
               Result:
-            </Typography>
-            <Typography
-              component="pre"
-              sx={{
-                whiteSpace: "pre-wrap",
-                wordBreak: "break-word",
-                fontFamily: "monospace",
-              }}
-              color="text.primary"
-            >
+            </h6>
+            <pre className="whitespace-pre-wrap break-words font-mono text-text-primary text-sm sm:text-base">
               {result}
-            </Typography>
-            <Typography variant="body2" color="text.primary" sx={{ mt: 1 }}>
+            </pre>
+            <p className="text-sm text-gray-500 mt-2">
               Number of words in result: {result.split(separator).length}
-            </Typography>
-          </Box>
+            </p>
+          </div>
         )}
 
         {splitResult.length > 0 && (
-          <Box sx={{ mt: 3, p: 2, border: "1px solid #ccc", borderRadius: 1 }}>
-            <Typography variant="h6" gutterBottom color="text.primary">
+          <div className="mt-8 p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/50">
+            <h6 className="text-lg font-medium mb-2 text-text-primary">
               Split Result:
-            </Typography>
-            {splitResult.map((word, index) => (
-              <Typography
-                key={index}
-                variant="body1"
-                color="text.primary"
-                sx={{
-                  p: 1,
-                  m: 0.5,
-                  border: "1px solid #ddd",
-                  borderRadius: 1,
-                  display: "inline-block",
-                }}
-              >
-                {word || "(empty)"}
-              </Typography>
-            ))}
-            <Typography variant="body2" color="text.primary" sx={{ mt: 2 }}>
+            </h6>
+            <div className="flex flex-wrap gap-2">
+              {splitResult.map((word, index) => (
+                <span
+                  key={index}
+                  className="p-2 border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-text-primary text-sm"
+                >
+                  {word || "(empty)"}
+                </span>
+              ))}
+            </div>
+            <p className="text-sm text-gray-500 mt-4">
               Total words: {splitResult.length}
-            </Typography>
-          </Box>
+            </p>
+          </div>
         )}
-      </Box>
-    </Container>
+      </div>
+    </div>
   );
 };
 

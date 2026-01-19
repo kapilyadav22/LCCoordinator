@@ -1,9 +1,11 @@
-import { Avatar } from "@mui/material";
+import { User } from "lucide-react";
 
 const CustomAvatar = () => {
-    return <>
-     <Avatar sx={{ m: 1, bgcolor: 'secondary.primary' }}></Avatar>
-    </>
-}
+  return (
+    <div className="m-2 p-2 bg-secondary-main rounded-full">
+      <User className="w-6 h-6 text-white" />
+    </div>
+  );
+};
 
 export default CustomAvatar;

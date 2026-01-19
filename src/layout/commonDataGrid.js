@@ -1,109 +1,119 @@
-import { Grid } from '@mui/material';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Stack from '@mui/material/Stack';
-import Switch from '@mui/material/Switch';
-import Typography from '@mui/material/Typography';
-import { DataGrid } from '@mui/x-data-grid';
-import { useContext, useEffect, useState } from 'react';
-import VisualizerDialogBox from '../components/VisualizerDialogBox';
-import { UPLOADCSV } from '../constants/urlConstants';
-import { useMyContext } from '../Context/ContextProvider';
+import {
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { ArrowUpDown, ChevronLeft, ChevronRight, Upload } from "lucide-react";
+import { useContext, useEffect, useMemo, useState } from "react";
+import VisualizerDialogBox from "../components/VisualizerDialogBox";
+import { UPLOADCSV } from "../constants/urlConstants";
+import { useMyContext } from "../Context/ContextProvider";
 import { ThemeContext } from "../Context/ThemeContext.js";
-import useCustomAlert from '../customHooks/customAlertHook';
-import columns from '../dataFields/column';
-import { topics } from '../dataFields/filterTopics';
-import { getData } from '../utils/httpRequestUtils';
-import CustomAlert1 from './CustomAlert1';
-import { CustomTitle } from './CustomTitle';
-import TopicFilterChips from './TopicFilterChips';
+import useCustomAlert from "../customHooks/customAlertHook";
+import columns from "../dataFields/column";
+import { topics } from "../dataFields/filterTopics";
+import { getData } from "../utils/httpRequestUtils";
+import CustomAlert1 from "./CustomAlert1";
+import { CustomTitle } from "./CustomTitle";
+import TopicFilterChips from "./TopicFilterChips";
 
-
-const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics, pageName, visualObject }) => {
-  const [rows, setRows] = useState([]);
-  const [showFilter, setShowFilter] = useState(false);
-  const [filteredRows, setFilteredRows] = useState([]);
+const CommonDataGrid = ({
+  title,
+  dataFetchUrl,
+  dataGridColumns,
+  uniqueTopics,
+  pageName,
+  visualObject,
+}) => {
+  const [data, setData] = useState([]);
+  const [globalFilter, setGlobalFilter] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const [showFilter, setShowFilter] = useState(false);
   const [file, setFile] = useState(null);
   const { adminStatus } = useMyContext();
   const { alert, showAlert } = useCustomAlert();
-
   const { mode } = useContext(ThemeContext);
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   const fetchData = async () => {
     const res = await getData(dataFetchUrl);
     if (res.status === "success") {
-      setRows(res.data);
-      setFilteredRows(res.data);
+      setData(res.data);
     } else {
       showAlert("error", res);
     }
   };
 
-  const handleCellEditCommit = (params) => {
-    const updatedRows = rows.map((row) =>
-      row.id === params.id ? { ...row, [params.field]: params.value } : row
-    );
-    setRows(updatedRows);
-  };
-  const handleChipClick = (topic) => {
-    setSelectedTopics((prev) => {
-      const isSelected = prev.includes(topic);
-      const newSelectedTopics = isSelected
-        ? prev.filter((t) => t !== topic)
-        : [...prev, topic];
-  
-      const filtered = newSelectedTopics.length
-        ? rows.filter((row) =>
-            newSelectedTopics.some((selectedTopic) =>
-              row.topic.split(',').map((t) => t.trim()).includes(selectedTopic)
-            )
-          )
-        : rows;
-  
-      setFilteredRows(filtered);
-      return newSelectedTopics;
+  const filteredData = useMemo(() => {
+    if (selectedTopics.length === 0) return data;
+    return data.filter((row) => {
+      const rowTopics = row.topic.split(",").map((t) => t.trim());
+      return selectedTopics.some((t) => rowTopics.includes(t));
     });
+  }, [data, selectedTopics]);
+
+  const table = useReactTable({
+    data: filteredData,
+    columns: dataGridColumns || columns,
+    state: {
+      globalFilter,
+    },
+    onGlobalFilterChange: setGlobalFilter,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 25,
+      },
+    },
+  });
+
+  const handleChipClick = (topic) => {
+    setSelectedTopics((prev) =>
+      prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]
+    );
   };
-  
 
   const handleReset = () => {
     setSelectedTopics([]);
-    setFilteredRows(rows);
+    setGlobalFilter("");
   };
 
   const handleRefresh = () => {
     setSelectedTopics([]);
-    setFilteredRows(rows);
+    fetchData();
   };
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-    if (selectedFile && selectedFile.type === 'text/csv') {
+    if (selectedFile && selectedFile.type === "text/csv") {
       setFile(selectedFile);
     } else {
-      showAlert('Please upload a valid CSV file.');
+      showAlert("error", "Please upload a valid CSV file.");
     }
   };
 
   const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    if (file === null) {
+    if (!file) {
       showAlert("error", "Please Upload a Valid CSV File");
       return;
     }
 
+    const formData = new FormData();
+    formData.append("file", file);
+
     try {
       const response = await fetch(dataFetchUrl + UPLOADCSV, {
-        method: 'POST',
+        method: "POST",
         body: formData,
       });
 
@@ -112,153 +122,189 @@ const CommonDataGrid = ({ title, dataFetchUrl, dataGridColumns, uniqueTopics, pa
         return;
       }
 
-      showAlert("success", 'Upload successful');
+      showAlert("success", "Upload successful");
       await fetchData();
       setFile(null);
     } catch (error) {
-      showAlert("error", 'Error Uploading File');
+      showAlert("error", "Error Uploading File");
     }
   };
 
-  const handleSwitchChange = () => {
-    setShowFilter((prev) => !prev);
-  };
-
   return (
-    <Grid margin="1%" padding="1%">
-      <Grid container direction="column" alignItems="center" sx={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+    <div className="p-4 w-full max-w-[1200px] mx-auto">
+      <CustomAlert1 alert={alert} />
 
-        <CustomAlert1 alert={alert} />
-
-        <Stack direction="row" spacing={2} width={{ xs: '100%', sm: '80%' }} alignItems="center" sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
-          <Box flexGrow={1} display="flex" justifyContent="center">
+      <div className="flex flex-col items-center mb-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between w-full sm:w-[80%] gap-4">
+          <div className="flex-1 flex justify-center">
             <CustomTitle title={title} />
-          </Box>
-          {(adminStatus === "Admin_Kapil") && (
-            <>
+          </div>
+
+          {adminStatus === "Admin_Kapil" && (
+            <div className="flex items-center gap-2">
               <input
                 type="file"
                 accept=".csv"
                 onChange={handleFileChange}
-                style={{ display: 'none' }}
-                id="csv-upload" />
-              <label htmlFor="csv-upload">
-                <Button variant="contained" component="span">
-                  Choose CSV File
-                </Button>
+                className="hidden"
+                id="csv-upload"
+              />
+              <label
+                htmlFor="csv-upload"
+                className="bg-title-main text-white px-4 py-2 rounded hover:bg-title-themecolor cursor-pointer text-sm font-medium transition-colors"
+              >
+                Choose CSV
               </label>
-              <Button variant="contained" color="primary" onClick={handleUpload}>
-                Upload CSV
-              </Button>
-            </>
+              <button
+                onClick={handleUpload}
+                className="bg-primary text-white px-4 py-2 rounded hover:bg-opacity-90 flex items-center gap-2 text-sm font-medium transition-colors"
+              >
+                <Upload size={16} /> Upload
+              </button>
+            </div>
           )}
-        </Stack>
+        </div>
+      </div>
 
-        {showFilter && (
-          <TopicFilterChips
-            uniqueTopics={uniqueTopics ? uniqueTopics : topics}
-            selectedTopics={selectedTopics}
-            onChipClick={handleChipClick}
-            onReset={handleReset}
-            handleRefresh={handleRefresh}
-          />
-        )}
-        <FormControlLabel
-          control={
-            <Switch
-               color= {showFilter? 'blue':'red'}
-            sx={{
-              '& .MuiSwitch-track': {
-                backgroundColor: showFilter?(mode=='light'?'blue':'yellow'):(mode=='light'?'white':'grey'),
-              },
-            }}
+      <div className="flex justify-end w-full mb-2 items-center gap-2">
+        <label className="flex items-center cursor-pointer">
+          <span className="mr-2 text-text-primary text-sm font-medium">
+            Filters
+          </span>
+          <div className="relative">
+            <input
+              type="checkbox"
+              className="sr-only"
               checked={showFilter}
-              onChange={handleSwitchChange}
+              onChange={() => setShowFilter(!showFilter)}
             />
-          }
-          label= {<Typography color='text.primary'>Filters</Typography>}
-        />
-        <Grid
-          item
-          sx={{
-            width: '100%',
-            overflowX: 'auto',
-            // background: mode== 'light'?'white':'grey',
-            maxHeight: { xs: 'calc(100vh - 200px)', sm: '80vh' },
-            '& .MuiDataGrid-root': {
-              '@media (max-width: 600px)': {
-                '& .MuiDataGrid-cell, & .MuiDataGrid-columnHeader': {
-                  minWidth: '80px !important',
-                  padding: '4px',
-                  fontSize: '0.75rem'
-                }
-              }
-            }
-          }}
-        >
-          <DataGrid
-            rows={filteredRows}
-            columns={dataGridColumns ? dataGridColumns : columns}
-            autoHeight
-            columnBuffer={dataGridColumns ? dataGridColumns.length : columns.length}
-            getRowId={(row) => row.problemId}
-            pageSizeOptions={[25, 50, 75, 100]}
-            rowsPerPageOptions={[25]}
-            // checkboxSelection
-            onCellEditCommit={handleCellEditCommit}
-            density="compact"
-            headerHeight={56}
-            sx={{
-              width: '100%',
-              '& .MuiDataGrid-columnHeaders': {
-                backgroundColor: 'black', 
-                color: 'white',
-              },
-              '& .MuiDataGrid-cell': {
-                backgroundColor: '#ffffff', 
-                color: 'black', 
-              },
-             
-            }}
-          />
-        </Grid>
-      </Grid>
+            <div
+              className={`block w-10 h-6 rounded-full transition-colors ${
+                showFilter ? "bg-title-main" : "bg-gray-400"
+              }`}
+            ></div>
+            <div
+              className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${
+                showFilter ? "transform translate-x-4" : ""
+              }`}
+            ></div>
+          </div>
+        </label>
+      </div>
 
-      <Grid
-        container
-        spacing={{ xs: 1, sm: 2 }}
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          flexWrap: { xs: 'nowrap', sm: 'wrap' },
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: { xs: '4px', sm: '16px' },
-          padding: { xs: '4px', sm: '16px' },
-          gap: { xs: '8px', sm: '16px' },
-          width: '100%'
-        }}
-      >
-        {visualObject && Object.keys(visualObject).length > 0 &&
-          Object.entries(visualObject).map(([key, value], index) => (
-            <Grid
-              item
-              key={index}
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                width: { xs: '100%', sm: 'auto' },
-                minWidth: { sm: '210px' },
-                flex: { sm: '1 1 0' },
-                marginBottom: { xs: '4px', sm: 0 }
-              }}
-            >
+      {showFilter && (
+        <TopicFilterChips
+          uniqueTopics={uniqueTopics || topics}
+          selectedTopics={selectedTopics}
+          onChipClick={handleChipClick}
+          onReset={handleReset}
+          handleRefresh={handleRefresh}
+        />
+      )}
+
+      <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-x-auto bg-background-paper shadow-sm">
+        <table className="w-full text-sm text-left">
+          <thead className="text-xs text-white uppercase bg-black dark:bg-gray-800">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="px-6 py-4 font-bold tracking-wider"
+                  >
+                    {header.isPlaceholder ? null : (
+                      <div
+                        className={
+                          header.column.getCanSort()
+                            ? "cursor-pointer select-none flex items-center gap-1"
+                            : ""
+                        }
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {{
+                          asc: (
+                            <ArrowUpDown size={14} className="text-gray-400" />
+                          ),
+                          desc: (
+                            <ArrowUpDown size={14} className="text-gray-400" />
+                          ),
+                        }[header.column.getIsSorted()] ?? null}
+                      </div>
+                    )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr
+                key={row.id}
+                className="bg-white dark:bg-gray-900 border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    key={cell.id}
+                    className="px-6 py-4 text-text-primary whitespace-nowrap"
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+            {table.getRowModel().rows.length === 0 && (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="px-6 py-8 text-center text-text-secondary"
+                >
+                  No Data Found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex items-center justify-between mt-4 text-text-primary">
+        <div className="flex items-center gap-2">
+          <span className="text-sm">
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronRight />
+          </button>
+        </div>
+      </div>
+
+      {visualObject && Object.keys(visualObject).length > 0 && (
+        <div className="flex flex-wrap justify-center gap-4 mt-8">
+          {Object.entries(visualObject).map(([key, value], index) => (
+            <div key={index} className="w-full sm:w-auto min-w-[210px]">
               <VisualizerDialogBox title={key} url={value} />
-            </Grid>
-          ))
-        }
-      </Grid>
-    </Grid>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

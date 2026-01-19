@@ -1,8 +1,3 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
@@ -10,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 import {
   ADDBLOGSURL,
   ARTICLES,
-  darkmodecolor,
-  lightmodecolor,
   UPLOADIMAGEURL,
 } from "../../constants/urlConstants";
 import useCustomAlert from "../../customHooks/customAlertHook";
 import CustomAlert1 from "../../layout/CustomAlert1";
 import { postData } from "../../utils/httpRequestUtils";
 import CustomTextField from "../../layout/CustomTextField";
+import CustomButton from "../../layout/CustomButton";
 
 import { ThemeContext } from "../../Context/ThemeContext.js";
 
@@ -33,8 +27,6 @@ const ArticleWriter = () => {
 
   const { mode } = useContext(ThemeContext);
   const color = mode === "light" ? "black" : "white";
-  const backgroundColor = mode === "dark" ? "#2c2c2c" : "#f0f0f0";
-  const borderColor = mode === "dark" ? "#444" : "#ccc";
 
   const TOOLBAR_OPTIONS = [
     [{ header: [1, 2, false] }, { font: [] }],
@@ -100,8 +92,6 @@ const ArticleWriter = () => {
     if (quillInstanceRef.current) {
       quillInstanceRef.current.root.style.color = color;
     }
-    
-
 
     return () => {
       if (quillInstanceRef.current) {
@@ -173,80 +163,58 @@ const ArticleWriter = () => {
   };
 
   return (
-    <Box sx={{ padding: "20px" }}>
-      <form onSubmit={handleSubmit}>
+    <div className="p-5 max-w-4xl mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <CustomTextField
           label="Category"
-          variant="outlined"
           fullWidth
-          margin="normal"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          sx={{ color: "text.primary" }}
           required
         />
         <CustomTextField
           label="Title"
-          variant="outlined"
           fullWidth
-          margin="normal"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          sx={{ color: "text.primary" }}
           required
         />
         <div
           ref={quillRef}
-          style={{
-            height: "600px",
-            marginBottom: "20px",
-            position: "relative",
-          }}
+          className="h-[600px] mb-5 relative bg-white dark:bg-gray-800 text-text-primary rounded"
         />
-        <Box display="flex" justifyContent="space-between" mt={6}>
-          <Button
-            variant="outlined"
-            color="secondary"
+        <div className="flex justify-between mt-6">
+          <CustomButton
+            type="button"
+            className="!bg-gray-600 hover:!bg-gray-700"
             onClick={handlePreviewOpen}
           >
             Preview
-          </Button>
-          <Button variant="contained" color="primary" type="submit">
-            Save Article
-          </Button>
-        </Box>
+          </CustomButton>
+          <CustomButton type="submit">Save Article</CustomButton>
+        </div>
       </form>
 
-      <Modal open={isPreviewOpen} onClose={handlePreviewClose}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "80%",
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 2,
-          }}
-        >
-          <Typography variant="h5" gutterBottom sx={{ color: "text.primary" }}>
-            {title || ""}
-          </Typography>
-          <div
-            dangerouslySetInnerHTML={{ __html: previewContent }}
-            style={{ color: color }}
-          />
-          <Box display="flex" justifyContent="flex-end" mt={2}>
-            <Button onClick={handlePreviewClose} color="primary">
-              Close
-            </Button>
-          </Box>
-          <CustomAlert1 alert={alert} />
-        </Box>
-      </Modal>
-    </Box>
+      {/* Modal for Preview */}
+      {isPreviewOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 relative">
+            <h2 className="text-2xl font-bold mb-4 text-text-primary">
+              {title || ""}
+            </h2>
+            <div
+              className="prose dark:prose-invert max-w-none text-text-primary"
+              dangerouslySetInnerHTML={{ __html: previewContent }}
+              style={{ color: color }}
+            />
+            <div className="flex justify-end mt-4">
+              <CustomButton onClick={handlePreviewClose}>Close</CustomButton>
+            </div>
+            <CustomAlert1 alert={alert} />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

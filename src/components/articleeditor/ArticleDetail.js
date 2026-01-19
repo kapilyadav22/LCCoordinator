@@ -1,105 +1,58 @@
-import { Button } from '@mui/material';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ARTICLES, DeleteBLOGSURL } from '../../constants/urlConstants';
-import { useMyContext } from '../../Context/ContextProvider';
-import useCustomAlert from '../../customHooks/customAlertHook';
-import { deleteData } from '../../utils/httpRequestUtils';
+import { useLocation, useNavigate } from "react-router-dom";
+import { ARTICLES, DeleteBLOGSURL } from "../../constants/urlConstants";
+import { useMyContext } from "../../Context/ContextProvider";
+import useCustomAlert from "../../customHooks/customAlertHook";
+import CustomButton from "../../layout/CustomButton";
+import { deleteData } from "../../utils/httpRequestUtils";
 
 const ArticleDetail = () => {
-    const location = useLocation();
-    const articleObj = location.state?.article;
-    const { showAlert } = useCustomAlert();
-    const { adminStatus } = useMyContext();
+  const location = useLocation();
+  const articleObj = location.state?.article;
+  const { showAlert } = useCustomAlert();
+  const { adminStatus } = useMyContext();
 
-     const navigate = useNavigate();
-    const handleDeleteArticle = async () => {
-        const res = await deleteData(`${DeleteBLOGSURL}/${articleObj.title}`);
-        if (res.status === "success") {
-            showAlert("success", "Article Deleted Successfully");
-            navigate(ARTICLES);
-        } else {
-            showAlert("error", res);
-        }
+  const navigate = useNavigate();
+  const handleDeleteArticle = async () => {
+    const res = await deleteData(`${DeleteBLOGSURL}/${articleObj.title}`);
+    if (res.status === "success") {
+      showAlert("success", "Article Deleted Successfully");
+      navigate(ARTICLES);
+    } else {
+      showAlert("error", res);
     }
+  };
 
-if (!articleObj) {
+  if (!articleObj) {
     return (
-        <Typography
-            variant="h6"
-            align="center"
-            sx={{ mt: 4, color: 'text.secondary' }}
-        >
-            Article not found!
-        </Typography>
+      <div className="mt-8 text-center text-gray-500 text-lg">
+        Article not found!
+      </div>
     );
-}
+  }
 
-return (
-    <Container maxWidth="xl" sx={{ padding: { xs: 2, md: 1, lg: 1, xl: 1 } }}>
-        <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt={4}
-            mb={4}
-            p={{ xs: 2, sm: 3, md: 4 }}
-            boxShadow={3}
-            borderRadius={2}
-            bgcolor="background.paper"
-            sx={{
-                width: '100%',
-                maxWidth: { xs: '100%', sm: '90%', md: '85%' },
-                margin: '0 auto',
-            }}
-        >
-            <Typography
-                variant="h4"
-                gutterBottom
-                sx={{
-                    fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
-                    textAlign: 'center',
-                    color: 'text.secondary'
-                }}
+  return (
+    <div className="w-full max-w-[95%] lg:max-w-[85%] mx-auto px-2 lg:px-4 py-8">
+      <div className="flex flex-col items-center p-4 sm:p-6 md:p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl text-center text-text-primary mb-4 font-normal">
+          {articleObj.title}
+        </h1>
+        {adminStatus == "Admin_Kapil" && (
+          <div className="mb-4">
+            <CustomButton
+              className="ml-1"
+              onClick={() => handleDeleteArticle()}
             >
-                {articleObj.title}
-            </Typography>
-            {(adminStatus == "Admin_Kapil") &&
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{ marginLeft: "5px" }}
-                onClick={() => handleDeleteArticle()}
-            >
-                Delete Article
-            </Button>
-            }
-            <Box
-                sx={{
-                    width: '100%',
-                    textAlign: 'justify',
-                    '& h1, & h2, & h3': {
-                        marginTop: '1rem',
-                        fontSize: { xs: '1.2rem', md: '1.5rem' },
-                    },
-                    fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
-                    lineHeight: { xs: 1.5, sm: 1.7, md: 1.8 },
-                    color: 'text.primary',
-                    '& img': {
-                        maxWidth: '100%',
-                        height: 'auto',
-                        display: 'block',
-                        margin: '1rem auto',
-                        borderRadius: '8px',
-                    },
-                }}
-                dangerouslySetInnerHTML={{ __html: articleObj.content }}
-            />
-        </Box>
-    </Container>
-);
+              Delete Article
+            </CustomButton>
+          </div>
+        )}
+        <div
+          className="w-full text-justify text-text-primary text-base sm:text-lg leading-relaxed prose dark:prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: articleObj.content }}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default ArticleDetail;

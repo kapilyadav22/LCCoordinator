@@ -1,4 +1,3 @@
-import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
 const EditableImage = () => {
@@ -20,44 +19,31 @@ const EditableImage = () => {
   };
 
   return (
-    <Box sx={{ position: "relative", width: 300, height: 300, mx: "auto" }}>
+    <div className="relative w-[300px] h-[300px] mx-auto group">
       <img
         src={image}
         alt="Editable"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          borderRadius: "8px",
-        }}
+        className="w-full h-full object-cover rounded-lg"
       />
-      <Button
+      <button
         onClick={handleClickEdit}
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          color: "white",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          "&:hover": {
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-          },
-        }}
+        className="
+          absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+          bg-black/50 text-white flex items-center justify-center
+          hover:bg-black/80 transition-colors rounded px-4 py-2
+          opacity-0 group-hover:opacity-100 transition-opacity duration-300
+        "
       >
-        <Typography>Edit Image</Typography>
-      </Button>
+        <span>Edit Image</span>
+      </button>
       <input
         id="imageInput"
         type="file"
         accept="image/*"
-        style={{ display: "none" }}
+        className="hidden"
         onChange={handleImageChange}
       />
-    </Box>
+    </div>
   );
 };
 

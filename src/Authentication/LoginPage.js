@@ -1,24 +1,24 @@
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { HOMEROUTE, LOGINURL, navigationTimer } from '../constants/urlConstants';
-import { useMyContext } from '../Context/ContextProvider';
-import useCustomAlert from '../customHooks/customAlertHook';
-import { LoginFormData } from '../dataFields/formData';
-import CustomAlert1 from '../layout/CustomAlert1';
-import CustomAvatar from '../layout/CustomAvatar';
-import CustomTextField from '../layout/CustomTextField';
-import { CustomTitle } from '../layout/CustomTitle';
-import { validateFields } from '../utils/checkValidations';
-import { postData } from '../utils/httpRequestUtils';
-import SignIn from './Signinwithgoogle';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  HOMEROUTE,
+  LOGINURL,
+  navigationTimer,
+} from "../constants/urlConstants";
+import { useMyContext } from "../Context/ContextProvider";
+import useCustomAlert from "../customHooks/customAlertHook";
+import { LoginFormData } from "../dataFields/formData";
+import CustomAlert1 from "../layout/CustomAlert1";
+import CustomAvatar from "../layout/CustomAvatar";
+import CustomTextField from "../layout/CustomTextField";
+import { CustomTitle } from "../layout/CustomTitle";
+import { validateFields } from "../utils/checkValidations";
+import { postData } from "../utils/httpRequestUtils";
+import SignIn from "./Signinwithgoogle";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState(LoginFormData);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const { updateUserName, updateLogin, updateAdminStatus } = useMyContext();
   const { alert, showAlert } = useCustomAlert();
@@ -30,7 +30,7 @@ const LoginPage = () => {
     const name = res?.data?.name != null ? res?.data?.name : "Alien";
     const role = res?.data?.role != null ? res.data.role : "User";
 
-    if (res.status === 'success') {
+    if (res.status === "success") {
       showAlert("success", "Login Successfull");
       updateAdminStatus(role);
       updateUserName(name);
@@ -38,7 +38,7 @@ const LoginPage = () => {
 
       setTimeout(() => {
         setFormData(LoginFormData);
-        setError('');
+        setError("");
         navigate(HOMEROUTE);
       }, navigationTimer);
     } else {
@@ -46,52 +46,49 @@ const LoginPage = () => {
     }
   };
 
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const error = validateFields('login', formData.email, formData.password);
+    const error = validateFields("login", formData.email, formData.password);
     if (error) {
       setError(error);
       return;
     }
     handleLoginDetails(formData);
-
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      {/* <CssBaseline /> */}
+    <div className="container mx-auto max-w-xs mt-16 flex flex-col items-center">
       <CustomAlert1 alert={alert} />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+
+      <div className="w-full flex flex-col items-center">
         <CustomAvatar />
-        <CustomTitle 
-              title="Log In"
-              variant="h5"
-              textTransform="none"
-              fontWeight="regular"
-              fontSize="1rem"
-              marginTop="0"
-              marginBottom="0"
-              xs={6}
-              md={4}
-              color={'title.main'}
-            />
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        <CustomTitle
+          title="Log In"
+          variant="h5"
+          fontWeight="regular"
+          fontSize="1rem"
+          marginTop="0"
+          marginBottom="0"
+          color="text-title-main"
+        />
+
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+          className="w-full mt-6 space-y-4"
+        >
+          {error && (
+            <div className="mb-4 p-2 bg-red-50 border border-red-200 text-red-600 rounded text-sm dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
+              {error}
+            </div>
+          )}
 
           <CustomTextField
             label="Email Address"
@@ -99,6 +96,7 @@ const LoginPage = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            fullWidth
           />
 
           <CustomTextField
@@ -108,74 +106,42 @@ const LoginPage = () => {
             value={formData.password}
             onChange={handleChange}
             required
-          />
-          <Button
-            color = 'inherit'
-            type="submit"
             fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 ,color: 'white', backgroundColor:'title.main'}}
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-title-main text-white py-2.5 px-4 rounded-lg hover:bg-title-themecolor transition-all duration-300 font-medium shadow-sm hover:shadow-md mt-6"
           >
-            LogIn
-          </Button>
-        </Box>
-      <Link to="/forgetpassword" sx={{ textDecoration: 'none', marginLeft: 4 }}>
-          <CustomTitle 
-              title="Forget Password"
-              variant="body1"
-              textTransform="none"
-              fontWeight="regular"
-              fontSize="1rem"
-              marginTop="0"
-              marginBottom="0"
-              xs={6}
-              md={4}
-              color={'text.primary'}
-            />
+            Log In
+          </button>
+        </form>
+
+        <div className="mt-4 w-full flex justify-center">
+          <Link to="/forgetpassword" style={{ textDecoration: "none" }}>
+            <span className="text-text-secondary hover:text-title-main transition-colors text-sm">
+              Forgot Password?
+            </span>
+          </Link>
+        </div>
+      </div>
+
+      <div className="w-full border-t border-gray-200 dark:border-gray-700 my-6"></div>
+
+      <div className="flex items-center justify-center gap-1 text-sm">
+        <span className="text-text-primary">New User?</span>
+        <Link
+          to="/signup"
+          className="text-title-main hover:text-title-themecolor font-medium hover:underline"
+        >
+          Sign Up
         </Link>
-      </Box>
-      <Box display="flex" alignItems="center" justifyContent={'center'} marginTop={4}>
-      <CustomTitle 
-              title="New User?"
-              variant="body1"
-              textTransform="none"
-              fontWeight="regular"
-              fontSize="1rem"
-              marginTop="0"
-              marginBottom="0"
-              xs={6}
-              md={4}
-              color={'text.primary'}
-            />
-        <Link to="/signup" sx={{ textDecoration: 'none', marginLeft: 4 }}>
-          <CustomTitle 
-              title=" Sign Up"
-              variant="body1"
-              textTransform="none"
-              fontWeight="regular"
-              fontSize="1rem"
-              marginTop="0"
-              marginBottom="0"
-              xs={6}
-              md={4}
-              color={'text.primary'}
-            />
-        </Link>
-      </Box>
-      <CustomTitle 
-              title=" OR"
-              variant="body1"
-              textTransform="none"
-              fontWeight="regular"
-              fontSize="1rem"
-              marginTop="0"
-              marginBottom="0"
-              xs={6}
-              md={4}
-              color={'text.primary'}
-            />
+      </div>
+
+      <div className="my-4 text-text-secondary text-sm">OR</div>
+
       <SignIn />
-    </Container>
+    </div>
   );
 };
 

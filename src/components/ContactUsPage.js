@@ -1,14 +1,10 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import { SENDEMAIL } from '../constants/urlConstants';
-import { contactFormData } from '../dataFields/formData';
-import { CustomTitle } from '../layout/CustomTitle';
-import { postData } from '../utils/httpRequestUtils';
+import { useState } from "react";
+import { SENDEMAIL } from "../constants/urlConstants";
+import { contactFormData } from "../dataFields/formData";
+import CustomButton from "../layout/CustomButton";
+import CustomTextField from "../layout/CustomTextField";
+import { CustomTitle } from "../layout/CustomTitle";
+import { postData } from "../utils/httpRequestUtils";
 
 const ContactUsPage = () => {
   const [formData, setFormData] = useState(contactFormData);
@@ -20,96 +16,70 @@ const ContactUsPage = () => {
     });
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const res = await postData(SENDEMAIL,formData);
-    if(res.success){
+    const res = await postData(SENDEMAIL, formData);
+    if (res.success) {
       console.log("success", formData);
     }
-
   };
 
   return (
-    <Container component="main" maxWidth="md">
-      <Box sx={{ mt: 4, mb: 4, textAlign: 'center'}}>
-        <CustomTitle title = {"Contact Us"}/>
-        <Typography variant="body1" paragraph>
-          We would love to hear from you! Please Help us grow and share your Valuable FeedBack and Suggestions.
-        </Typography>
-      </Box>
-      <form onSubmit={handleSubmit} >
-        <Grid container spacing={1} justifyContent = "center" >
-          <Grid size={8}> 
-            <TextField
-             color='text.primary'
-              required
-              fullWidth
-              name="name" 
-              label="Your Name"
-              value={formData.name}
-              variant="outlined"
-              onChange={handleChange}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'text.primary', 
-                  },
-                },}}
-            />
-          </Grid>
-          <Grid size={8}>
-            <TextField
-              required
-              fullWidth
-              name="email"
-              label="Email Address"
-              value={formData.email}
-              variant="outlined"
-              type="email"
-              onChange={handleChange}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'text.primary', 
-                  },
-                },}}
-            />
-          </Grid>
-          <Grid size={8}>
-            <TextField
-              required
-              fullWidth
-              name="message" 
-              label="Message"
-              value={formData.message}
-              variant="outlined"
-              multiline
-              rows={4}
-              onChange={handleChange}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'text.primary', 
-                  },
-                },}}
-            />
-          </Grid>
-          <Grid size={8}>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
-              Send Message
-            </Button>
-          </Grid>
-        </Grid>
+    <div className="container mx-auto max-w-3xl px-4 py-8">
+      <div className="text-center mb-8">
+        <CustomTitle title={"Contact Us"} />
+        <p className="text-text-primary mt-2">
+          We would love to hear from you! Please Help us grow and share your
+          Valuable FeedBack and Suggestions.
+        </p>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="w-full flex flex-col items-center space-y-4"
+      >
+        <div className="w-full max-w-lg">
+          <CustomTextField
+            required
+            fullWidth
+            name="name"
+            label="Your Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="w-full max-w-lg">
+          <CustomTextField
+            required
+            fullWidth
+            name="email"
+            label="Email Address"
+            value={formData.email}
+            type="email"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="w-full max-w-lg">
+          <CustomTextField
+            required
+            fullWidth
+            name="message"
+            label="Message"
+            value={formData.message}
+            multiline
+            rows={4}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="w-full max-w-lg mt-4">
+          <CustomButton type="submit">Send Message</CustomButton>
+        </div>
       </form>
-      <Box sx={{ mt: 4, justifyItems:'center' }}>
-        <Typography variant="h6" gutterBottom>
-          Contact Information
-        </Typography>
-        <Typography variant="body1">Email: singhkapil347@gmail.com</Typography>
-      </Box>
-    </Container>
+      <div className="mt-8 text-center text-text-primary">
+        <h6 className="text-lg font-medium mb-2">Contact Information</h6>
+        <p>Email: singhkapil347@gmail.com</p>
+      </div>
+    </div>
   );
 };
 

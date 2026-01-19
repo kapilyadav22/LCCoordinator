@@ -1,28 +1,33 @@
-import { ThemeProvider } from '@mui/material/styles';
-import { createContext, useMemo, useState } from 'react';
-import darkTheme from '../themes/darkTheme';
-import lightTheme from '../themes/lightTheme';
+import { createContext, useEffect, useState } from "react";
 
 export const ThemeContext = createContext();
 
 export const ThemeContextProvider = ({ children }) => {
-  const [mode, setMode] = useState(localStorage.getItem("mode"));
+  // Initialize state from local storage or default to 'light'
+  const [mode, setMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("mode") || "light";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    // Remove both potential classes to be safe
+    root.classList.remove("light", "dark");
+    // Add the current mode class
+    root.classList.add(mode);
+    // Save to local storage
+    localStorage.setItem("mode", mode);
+  }, [mode]);
 
   const toggleTheme = () => {
-    setMode((prevMode) => {
-      const newMode = prevMode === 'light' ? 'dark' : 'light';
-      localStorage.setItem("mode", newMode);
-      return newMode;
-    });
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
   };
-  
-
-  const theme = useMemo(() => (mode === 'light' ? lightTheme : darkTheme), [mode]);
 
   return (
     <ThemeContext.Provider value={{ toggleTheme, mode }}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      {children}
     </ThemeContext.Provider>
   );
 };
-

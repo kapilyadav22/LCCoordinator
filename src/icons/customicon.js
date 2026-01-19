@@ -1,17 +1,24 @@
 import iconsMap from "./iconmap";
 
-const CustomIcon = (props) =>{
-    const Icon =  iconsMap.has(props.name)?iconsMap.get(props.name):iconsMap.get("default");
-    const customStyle = props.sx?props.sx:{}
-    const color = props.color?props.color:'black';
-    
-    return (
-        <Icon
-        onClick={props.onClick} 
-        sx={{ fontSize: 14,...customStyle, stroke: '#ffffff', strokeWidth: 0.5}}
-        color={color || 'black'}
-        aria-label = {props.arialabel || ''}
-        />
-    )
-}
+const CustomIcon = ({
+  name,
+  onClick,
+  className = "",
+  color = "currentColor",
+  ...props
+}) => {
+  const Icon = iconsMap.has(name)
+    ? iconsMap.get(name)
+    : iconsMap.get("default");
+
+  return (
+    <Icon
+      onClick={onClick}
+      className={`w-5 h-5 cursor-pointer ${className}`}
+      color={color}
+      strokeWidth={1.5}
+      {...props}
+    />
+  );
+};
 export default CustomIcon;

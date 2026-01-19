@@ -1,56 +1,35 @@
-import { TextField } from '@mui/material';
-
 const CustomTextField = ({
   label,
   name,
   value,
   onChange,
-  type = 'text',
+  type = "text",
   required = false,
+  multiline = false,
+  minRows,
+  className = "",
 }) => {
-  const titleColor = 'title.main';
+  const InputComponent = multiline ? "textarea" : "input";
 
   return (
-    <TextField
-      margin="normal"
-      required={required}
-      fullWidth
-      id={name}
-      label={label}
-      name={name}
-      type={type}
-      value={value}
-      onChange={onChange}
-      multiline
-      minRows={1}
-      maxRows={100}
-      InputLabelProps={{
-        sx: {
-          color: titleColor,
-          '&.Mui-focused': {
-            color: titleColor,
-          },
-        },
-      }}
-      InputProps={{
-        sx: {
-          color: titleColor,
-          caretColor: titleColor,
-          '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: titleColor,
-          },
-          '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: titleColor,
-          },
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: titleColor,
-          },
-          '& input, & textarea': {
-            color: titleColor,
-          },
-        },
-      }}
-    />
+    <div className={`w-full mb-4 ${className}`}>
+      <label
+        htmlFor={name}
+        className="block text-title-main text-sm font-medium mb-1 pl-1"
+      >
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      <InputComponent
+        id={name}
+        name={name}
+        type={type}
+        required={required}
+        value={value}
+        onChange={onChange}
+        rows={multiline ? minRows || 4 : undefined}
+        className="w-full px-3 py-2 bg-transparent border border-title-main rounded-md text-text-primary focus:outline-none focus:ring-2 focus:ring-title-main focus:border-transparent transition-all placeholder-gray-500"
+      />
+    </div>
   );
 };
 

@@ -1,25 +1,11 @@
-import Button from '@mui/material/Button';
-
-const CustomButton = ({ children, ...props }) => {
+const CustomButton = ({ children, className = "", ...props }) => {
   return (
-    <Button
-      type="submit"
-      fullWidth
-      variant="contained"
-      color="inherit"
-      sx={{
-        mt: 3,
-        mb: 2,
-        color: 'white',
-        backgroundColor: 'title.main',
-        '&:hover': {
-          backgroundColor: 'title.dark', 
-        },
-      }}
+    <button
+      className={`w-full bg-title-main text-white py-2 px-4 rounded hover:bg-title-themecolor transition-colors duration-300 font-medium mt-6 mb-4 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
       {...props}
     >
       {children}
-    </Button>
+    </button>
   );
 };
 

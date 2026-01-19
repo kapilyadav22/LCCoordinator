@@ -1,36 +1,40 @@
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { HOMEROUTE, navigationTimer, REGISTERURL } from '../constants/urlConstants';
-import useCustomAlert from '../customHooks/customAlertHook';
-import { SignUpFormData } from '../dataFields/formData';
-import CustomAlert1 from '../layout/CustomAlert1';
-import CustomAvatar from '../layout/CustomAvatar';
-import CustomButton from '../layout/CustomButton';
-import CustomTextField from '../layout/CustomTextField';
-import { CustomTitle } from '../layout/CustomTitle';
-import { validateFields } from '../utils/checkValidations';
-import { postData } from '../utils/httpRequestUtils';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  HOMEROUTE,
+  navigationTimer,
+  REGISTERURL,
+} from "../constants/urlConstants";
+import useCustomAlert from "../customHooks/customAlertHook";
+import { SignUpFormData } from "../dataFields/formData";
+import CustomAlert1 from "../layout/CustomAlert1";
+import CustomAvatar from "../layout/CustomAvatar";
+import CustomButton from "../layout/CustomButton";
+import CustomTextField from "../layout/CustomTextField";
+import { CustomTitle } from "../layout/CustomTitle";
+import { validateFields } from "../utils/checkValidations";
+import { postData } from "../utils/httpRequestUtils";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState(SignUpFormData);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { alert, showAlert } = useCustomAlert();
   const navigate = useNavigate();
 
   const handleSignUpDetails = async (data) => {
     const res = await postData(REGISTERURL, data);
     if (res.status === "success") {
-      showAlert("success", "SignUp Successfully, Please Verify the Email using Verification Link");
+      showAlert(
+        "success",
+        "SignUp Successfully, Please Verify the Email using Verification Link"
+      );
       setTimeout(() => {
         navigate(HOMEROUTE);
         setFormData(SignUpFormData);
-        setError('');
+        setError("");
       }, navigationTimer);
     } else {
-      showAlert('error', res.error);
+      showAlert("error", res.error);
     }
   };
 
@@ -38,48 +42,44 @@ const SignupPage = () => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const error = validateFields('signup', formData.email, formData.password, formData.name);
+    const error = validateFields(
+      "signup",
+      formData.email,
+      formData.password,
+      formData.name
+    );
     if (error) {
       setError(error);
       return;
     }
     handleSignUpDetails(formData);
-   
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      {/* <CssBaseline /> */}
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-
+    <div className="container mx-auto max-w-xs mt-16 flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
         <CustomAvatar />
-        <CustomTitle 
-              title=" Sign Up"
-              variant="h5"
-              textTransform="none"
-              fontWeight="regular"
-              fontSize="1rem"
-              marginTop="0"
-              marginBottom="0"
-              xs={6}
-              md={4}
-              color={'title.main'}
-            />
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        <CustomTitle
+          title=" Sign Up"
+          variant="h5"
+          fontWeight="regular"
+          fontSize="1rem"
+          marginTop="0"
+          marginBottom="0"
+          color={"text-title-main"}
+        />
+        <form onSubmit={handleSubmit} noValidate className="w-full mt-2">
+          {error && (
+            <div className="mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+              {error}
+            </div>
+          )}
           <CustomTextField
             label="Full Name"
             name="name"
@@ -104,40 +104,33 @@ const SignupPage = () => {
             onChange={handleChange}
             required
           />
-        <CustomButton> SignUp</CustomButton>
-          <Box display="flex" justifyContent="center">
-            <CustomTitle 
+          <CustomButton> SignUp</CustomButton>
+          <div className="flex justify-center items-center space-x-2">
+            <CustomTitle
               title="Already have an account?"
               variant="body1"
-              textTransform="none"
               fontWeight="regular"
               fontSize="1rem"
               marginTop="0"
               marginBottom="0"
-              xs={6}
-              md={4}
-              color={'text.primary'}
+              color={"text-text-primary"}
             />
-            <Link to="/login" style={{ textDecoration: 'none', marginLeft: 4 }}>
-            <CustomTitle 
-              title="Log In"
-              variant="body1"
-              textTransform="none"
-              fontWeight="regular"
-              fontSize="1rem"
-              marginTop="0"
-              marginBottom="0"
-              xs={6}
-              md={4}
-              color={'title.main'}
-            />
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <CustomTitle
+                title="Log In"
+                variant="body1"
+                fontWeight="regular"
+                fontSize="1rem"
+                marginTop="0"
+                marginBottom="0"
+                color={"text-title-main"}
+              />
             </Link>
             <CustomAlert1 alert={alert} />
-          </Box>
-         
-        </Box>
-      </Box>
-    </Container>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

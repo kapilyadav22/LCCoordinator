@@ -1,24 +1,23 @@
-import Grid from '@mui/material/Grid';
-import { SocialMediaLinks } from '../constants/urlConstants';
-import CustomIcon from '../icons/CustomIcon';
+import { SocialMediaLinks } from "../constants/urlConstants";
+import CustomIcon from "../icons/CustomIcon";
 
 const SocialMediaBar = () => {
-
   const handleButtonClick = (link) => {
-    window.open(link, '_blank', 'noopener noreferrer');
-  }
+    window.open(link, "_blank", "noopener noreferrer");
+  };
 
   return (
-    <Grid container spacing={2} justifyContent="center" sx={{ mt: '2px', padding: '1px' }}>
+    <div className="flex justify-center gap-4 mt-1 p-1 flex-wrap">
       {Object.keys(SocialMediaLinks).map((key) => (
-        <Grid item key={key}>
+        <div key={key}>
           <CustomIcon
             name={key}
-            sx={{ fontSize: 30,   color: 'text.primary' }}
-            onClick={() => handleButtonClick(SocialMediaLinks[key])} />
-        </Grid>
+            className="w-8 h-8 text-text-primary hover:text-title-main transition-colors"
+            onClick={() => handleButtonClick(SocialMediaLinks[key])}
+          />
+        </div>
       ))}
-    </Grid>
+    </div>
   );
 };
 

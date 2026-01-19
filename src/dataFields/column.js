@@ -1,82 +1,51 @@
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Rating from '@mui/material/Rating';
+import { Star } from "lucide-react";
 
 const columns = [
-  { field: 'problemId', headerName: 'Problem ID', width: 80, align: 'center' },
   {
-    field: 'problemStatement', 
-    headerName: 'Problem Statement',
-    width: 350,
-    align: 'center',
-    headerAlign: 'center',
-    renderCell: (params) => (
-      <Link
-      href={params.row.problemLink}
-      target="_blank"
-      rel="noopener"
-      sx={{
-        // color: 'problem.statement', 
-        textDecoration: 'none',
-        '&:hover': {
-          textDecoration: 'underline', 
-        },
-      }}
-    >
-      {params.value}
-    </Link>
-    ),
-  },
-  // {
-  //   field: 'attempted',
-  //   headerName: 'Attempted',
-  //   type: 'boolean',
-  //   width: 100,
-  //   editable: true,
-  //   // renderCell: (params) => {
-  //   //   return params.value ? (
-  //   //     <GridCheckIcon
-  //   //       style={{
-  //   //         color: "green",
-  //   //       }}
-  //   //     />
-  //   //   ) : (
-  //   //     <GridCloseIcon
-  //   //       style={{
-  //   //         color: "red",
-  //   //       }}
-  //   //     />
-  //   //   );
-  //   // },
-  // },
-  {
-    field: 'topic', 
-    headerName: 'Topic', 
-    width: 200,
-    align: 'center',
-    headerAlign: 'center',
+    accessorKey: "problemId",
+    header: "Problem ID",
+    size: 100,
   },
   {
-    field: 'revision',
-    headerName: 'Revision',
-    width: 150,
-    renderCell: (params) => (
-      <Box>
-        <Rating
-          value={params.value}
-          // onChange={(event, newValue) => 
-          //   params.api.setEditCellValue({ id: params.id, field: 'revision', value: newValue }, event)
-          // }
-          readOnly
-          max={5}
-          precision={1}
-        // onClick={(event) => event.stopPropagation()} 
-        />
-
-      </Box>
+    accessorKey: "problemStatement",
+    header: "Problem Statement",
+    size: 350,
+    cell: ({ row }) => (
+      <a
+        href={row.original.problemLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-title-main hover:underline decoration-title-main"
+      >
+        {row.getValue("problemStatement")}
+      </a>
     ),
-    editable: true,
-    type: 'number',
+  },
+  {
+    accessorKey: "topic",
+    header: "Topic",
+    size: 200,
+  },
+  {
+    accessorKey: "revision",
+    header: "Revision",
+    size: 150,
+    cell: ({ getValue }) => {
+      const value = getValue();
+      return (
+        <div className="flex">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              size={16}
+              className={`${
+                i < value ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+              }`}
+            />
+          ))}
+        </div>
+      );
+    },
   },
 ];
 

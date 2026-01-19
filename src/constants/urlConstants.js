@@ -1,6 +1,5 @@
 
 // export const SERVERURL = "https://localhost:8443"
-//export const SERVERURL = "http://165.22.223.85:8080"
 export const SERVERURL = "https://www.lccoordinator.com:8443"
 
 export const V1 = SERVERURL + "/api/v1";

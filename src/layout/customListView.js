@@ -1,71 +1,34 @@
-import {
-  Card,
-  CardContent,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-
 const CustomListView = ({ items, onItemClick, renderTitle }) => {
   return (
-    <Card
-      sx={{
-        borderRadius: "8px",
-        padding: "2px",
-        margin: "2px auto",
-        // minHeight: '200px',
-        maxWidth: "100%",
-        backgroundColor: "background.cardcolor",
-      }}
-    >
-      <CardContent  sx={{padding: "2px"}}>
-        <List>
+    <div className="rounded-lg p-1 mx-auto my-[2px] w-full bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="p-[2px]">
+        <ul className="list-none m-0 p-0">
           {items.map((item) => (
-            <ListItem
-              sx={{
-                padding: "2px",
-              }}
+            <li
+              className="p-[2px] mb-1 last:mb-0"
               key={`${item.id}_${
                 item.title?.trim() ? item.title : "title_" + item.id
               }`}
             >
-              <ListItemButton
+              <button
                 onClick={() => onItemClick(item)}
-                sx={{
-                  transition: "all 0.3s ease",
-                  "&:hover": {
-                    backgroundColor: "itemhover.main",
-                    transform: "scale(1.01)",
-                  },
-                  padding: "2px",
-                }}
+                className="w-full text-left rounded transition-all duration-300 hover:bg-itemhover-main dark:hover:bg-purple-900/20 hover:scale-[1.01] p-1 flex items-center group"
               >
                 {renderTitle ? (
                   renderTitle(item)
                 ) : (
-                  <ListItemText
-                    primary={
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          color: "text.primary",
-                          fontWeight: 500,
-                          pl: 5,
-                        }}
-                      >
-                        ○ {item.title}
-                      </Typography>
-                    }
-                  />
+                  <div className="flex-1 w-full pl-5">
+                    <span className="text-base font-medium text-text-primary group-hover:text-title-main transition-colors">
+                      ○ {item.title}
+                    </span>
+                  </div>
                 )}
-              </ListItemButton>
-            </ListItem>
+              </button>
+            </li>
           ))}
-        </List>
-      </CardContent>
-    </Card>
+        </ul>
+      </div>
+    </div>
   );
 };
 

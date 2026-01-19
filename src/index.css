@@ -1,10 +1,63 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode Colors */
+    --bg-default: #f8fafc; /* Slate 50 */
+    --bg-paper: #ffffff;   /* White */
+    --bg-card: #e2e8f0;    /* Slate 200 */
+    
+    --text-primary: #1e293b;   /* Slate 800 */
+    --text-secondary: #64748b; /* Slate 500 */
+    
+    --color-primary-main: #6b21a8;  /* Purple 800 */
+    --color-primary-light: #a855f7; /* Purple 500 */
+    --color-primary-dark: #3b0764;  /* Purple 950 */
+    
+    --color-secondary-main: #db2777; /* Pink 600 */
+    
+    --color-title-main: #7e22ce;      /* Purple 700 - Readable in light mode */
+    --color-title-themecolor: #581c87; /* Purple 900 */
+    
+    --bg-appbar: #ffffff;
+    --bg-itemhover: #f1f5f9;
+  }
+
+  .dark {
+    /* Dark Mode Colors */
+    --bg-default: #0f172a; /* Slate 900 */
+    --bg-paper: #1e293b;   /* Slate 800 */
+    --bg-card: #334155;    /* Slate 700 */
+    
+    --text-primary: #f8fafc;   /* Slate 50 */
+    --text-secondary: #94a3b8; /* Slate 400 */
+    
+    --color-primary-main: #a855f7;  /* Purple 500 */
+    --color-primary-light: #d8b4fe; /* Purple 300 */
+    --color-primary-dark: #581c87;  /* Purple 900 */
+    
+    --color-secondary-main: #f472b6; /* Pink 400 */
+    
+    --color-title-main: #fbbf24;       /* Amber 400 - Yellow for dark mode */
+    --color-title-themecolor: #fde68a; /* Amber 200 */
+    
+    --bg-appbar: #1e293b;
+    --bg-itemhover: #334155;
+  }
+
+  html, body {
+    @apply h-full m-0 p-0 bg-background-default text-text-primary transition-colors duration-300;
+  }
+  
+  code {
+    @apply font-mono;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Custom Utilities for smooth gradients if needed */
+.gradient-text {
+  @apply bg-clip-text text-transparent;
 }
+
