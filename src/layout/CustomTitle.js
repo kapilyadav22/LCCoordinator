@@ -11,18 +11,15 @@ export const CustomTitle = ({
   justifyContent = "center",
   className = "",
 }) => {
-  // Map variant to Tailwind text sizes if strict control is needed,
-  // but we can rely on passed props mostly or defaults.
   const sizeClass = fontSize
     ? `text-[${fontSize}]`
     : variant === "h5"
-    ? "text-xl"
-    : "text-base";
+      ? "text-xl"
+      : "text-base";
   const colorClass = color.includes(".")
     ? `text-${color.replace(".", "-")}`
     : color;
 
-  // Handle fontWeight
   const weightClass = fontWeight === "regular" ? "font-normal" : "font-bold";
 
   return (

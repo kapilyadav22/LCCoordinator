@@ -46,7 +46,7 @@ const ContactUsPage = () => {
             label="Your Name"
             value={formData.name}
             onChange={handleChange}
-          />
+          /> 
         </div>
         <div className="w-full max-w-lg">
           <CustomTextField

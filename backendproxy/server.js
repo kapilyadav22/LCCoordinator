@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post('/leetcode', async (req, res) => {
+app.post('/api/leetcode', async (req, res) => {
   try {
     const response = await fetch(LEETCODE, {
       method: 'POST',
@@ -24,7 +24,7 @@ app.post('/leetcode', async (req, res) => {
   }
 });
 
-app.get('/codeforces/:username', async (req, res) => {
+app.get('/api/codeforces/:username', async (req, res) => {
     const { username } = req.params;
     try {
       const response = await fetch(`${CODEFORCES}${username}`);

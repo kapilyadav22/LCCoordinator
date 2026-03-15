@@ -21,9 +21,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  // Note: modecolor logic is largely handled by CSS variables/classes now,
-  // but we keep it if specific JS usages exist.
-  // For Header bg, we can use Tailwind classes directly.
 
   const handleSignOut = () => {
     showAlert("success", "User SignOut Successfully");

@@ -3,7 +3,7 @@ import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from "lucide-react";
 
 const CustomAlert1 = ({ alert, closeAlert }) => {
   useEffect(() => {
-    if (alert.open) {
+    if (alert.open && closeAlert) {
       const timer = setTimeout(() => {
         closeAlert();
       }, 2000);
@@ -35,12 +35,14 @@ const CustomAlert1 = ({ alert, closeAlert }) => {
     >
       {icons[alert.severity]}
       <span className="font-medium text-sm">{alert.message}</span>
-      <button
-        onClick={closeAlert}
-        className="ml-2 hover:bg-white/20 p-1 rounded-full text-white"
-      >
-        <X className="w-4 h-4" />
-      </button>
+      {closeAlert && (
+        <button
+          onClick={closeAlert}
+          className="ml-2 hover:bg-white/20 p-1 rounded-full text-white"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      )}
     </div>
   );
 };

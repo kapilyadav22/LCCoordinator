@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 // import { ResponsiveHeatMap } from "@nivo/heatmap";
 
-// Mock data generation for 365 days
 const generateHeatmapData = () => {
   const data = [];
   const colorScale = [

@@ -18,14 +18,23 @@ const ForgetPassword = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const error = validateEmail(email);
-    if (error) {
-      setError(error);
+    const validationError = validateEmail(email);
+    if (validationError) {
+      setError(validationError);
+      showAlert("error", validationError);
       return;
     }
+    setError("");
 
     try {
       const response = await getData(FORGETPASSWORD + "?email=" + email);
+
+      if (typeof response === "string") {
+        const errorMsg = response || "Something went wrong";
+        setError(errorMsg);
+        showAlert("error", errorMsg);
+        return;
+      }
 
       if (response.status === "success") {
         showAlert("success", "OTP sent successfully to your email");
@@ -37,9 +46,12 @@ const ForgetPassword = () => {
           });
         }, navigationTimer);
       } else {
-        showAlert("error", response);
+        const errorMsg = response?.message || "Something went wrong";
+        setError(errorMsg);
+        showAlert("error", errorMsg);
       }
     } catch (error) {
+      setError("Something went wrong");
       showAlert("error", "Something went wrong");
     }
   };
@@ -65,7 +77,7 @@ const ForgetPassword = () => {
 
         <form onSubmit={handleSubmit} noValidate className="w-full mt-2">
           {error && (
-            <div className="mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+            <div className="mb-4 p-2 bg-red-50 border border-red-200 text-red-600 rounded text-sm dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
               {error}
             </div>
           )}

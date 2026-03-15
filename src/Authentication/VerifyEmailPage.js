@@ -38,8 +38,9 @@ const VerifyEmailPage = () => {
           navigate(LOGIN);
         }, navigationTimer);
       } else {
-        setVerificationStatus("Email verification failed");
-        showAlert("error", response);
+        const errorMsg = typeof response === "string" ? response : (response?.message || "Email verification failed");
+        setVerificationStatus(errorMsg);
+        showAlert("error", errorMsg);
       }
     } catch (error) {
       setVerificationStatus("Email verification failed");

@@ -23,6 +23,15 @@ const SignupPage = () => {
 
   const handleSignUpDetails = async (data) => {
     const res = await postData(REGISTERURL, data);
+
+    // postData returns a string on error, an object on success
+    if (typeof res === "string") {
+      const errorMsg = res || "Signup failed. Please try again.";
+      setError(errorMsg);
+      showAlert("error", errorMsg);
+      return;
+    }
+
     if (res.status === "success") {
       showAlert(
         "success",
@@ -34,7 +43,9 @@ const SignupPage = () => {
         setError("");
       }, navigationTimer);
     } else {
-      showAlert("error", res.error);
+      const errorMsg = res?.message || res?.error || "Signup failed. Please try again.";
+      setError(errorMsg);
+      showAlert("error", errorMsg);
     }
   };
 
@@ -48,21 +59,25 @@ const SignupPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const error = validateFields(
+    const validationError = validateFields(
       "signup",
       formData.email,
       formData.password,
       formData.name
     );
-    if (error) {
-      setError(error);
+    if (validationError) {
+      setError(validationError);
+      showAlert("error", validationError);
       return;
     }
+    setError("");
     handleSignUpDetails(formData);
   };
 
   return (
     <div className="container mx-auto max-w-xs mt-16 flex flex-col items-center">
+      <CustomAlert1 alert={alert} />
+
       <div className="w-full flex flex-col items-center">
         <CustomAvatar />
         <CustomTitle
@@ -76,7 +91,7 @@ const SignupPage = () => {
         />
         <form onSubmit={handleSubmit} noValidate className="w-full mt-2">
           {error && (
-            <div className="mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+            <div className="mb-4 p-2 bg-red-50 border border-red-200 text-red-600 rounded text-sm dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
               {error}
             </div>
           )}
@@ -126,7 +141,6 @@ const SignupPage = () => {
                 color={"text-title-main"}
               />
             </Link>
-            <CustomAlert1 alert={alert} />
           </div>
         </form>
       </div>

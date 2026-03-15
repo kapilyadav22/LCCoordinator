@@ -120,7 +120,7 @@ const VerifyOTP = () => {
 
         <form onSubmit={handleSubmit} noValidate className="w-full mt-2">
           {error && (
-            <div className="mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+            <div className="mb-4 p-2 bg-red-50 border border-red-200 text-red-600 rounded text-sm dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
               {error}
             </div>
           )}

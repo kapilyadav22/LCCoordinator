@@ -18,7 +18,7 @@ export const Profile = () => {
   const [cfData, setCfData] = useState({});
   const [gfgData, setGFGData] = useState({});
   const [githubData, setGithubData] = useState({});
-
+11
   const handleEditProfile = () => {
     setShowEditProfile(true);
   };

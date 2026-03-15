@@ -27,11 +27,20 @@ const LoginPage = () => {
 
   const handleLoginDetails = async (data) => {
     const res = await postData(LOGINURL, data);
+
+    // postData returns a string on error, an object on success
+    if (typeof res === "string") {
+      const errorMsg = res || "Login failed. Please try again.";
+      setError(errorMsg);
+      showAlert("error", errorMsg);
+      return;
+    }
+
     const name = res?.data?.name != null ? res?.data?.name : "Alien";
     const role = res?.data?.role != null ? res.data.role : "User";
 
     if (res.status === "success") {
-      showAlert("success", "Login Successfull");
+      showAlert("success", "Login Successful");
       updateAdminStatus(role);
       updateUserName(name);
       updateLogin(true);
@@ -42,7 +51,9 @@ const LoginPage = () => {
         navigate(HOMEROUTE);
       }, navigationTimer);
     } else {
-      showAlert("error", res);
+      const errorMsg = res?.message || "Login failed. Please try again.";
+      setError(errorMsg);
+      showAlert("error", errorMsg);
     }
   };
 
@@ -55,11 +66,13 @@ const LoginPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const error = validateFields("login", formData.email, formData.password);
-    if (error) {
-      setError(error);
+    const validationError = validateFields("login", formData.email, formData.password);
+    if (validationError) {
+      setError(validationError);
+      showAlert("error", validationError);
       return;
     }
+    setError("");
     handleLoginDetails(formData);
   };
 

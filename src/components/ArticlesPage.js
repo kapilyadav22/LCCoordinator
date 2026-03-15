@@ -14,6 +14,11 @@ const ArticlesPage = () => {
   const [selectedItem, setSelectedItem] = useState({});
   const { adminStatus } = useMyContext();
   const { alert, showAlert } = useCustomAlert();
+  // Provide a closeAlert function for CustomAlert1
+  const closeAlert = () => {
+    // Reset alert to initial state
+    showAlert("", "");
+  };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +47,7 @@ const ArticlesPage = () => {
 
   return (
     <div className="w-full px-4 py-8">
-      <CustomAlert1 alert={alert} />
+      <CustomAlert1 alert={alert} closeAlert={closeAlert} />
       <CustomTitle title={"Articles"} />
       <div className="flex justify-end mb-2">
         {adminStatus == "Admin_Kapil" && (

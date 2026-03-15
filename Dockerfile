@@ -1,6 +1,3 @@
-# =========================
-# Stage 1: Build with Parcel
-# =========================
 FROM node:18-alpine AS nodework
 
 WORKDIR /app
@@ -10,16 +7,12 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-# Build using Parcel
 RUN npx parcel build public/index.html --no-source-maps
 
 
-# =========================
-# Stage 2: Serve with Nginx
-# =========================
+
 FROM nginx:alpine
 
-# Remove default nginx content
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy build output
@@ -28,10 +21,8 @@ COPY --from=nodework /app/dist /usr/share/nginx/html
 # Copy nginx config to the CORRECT location
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Optional: build marker
 RUN date > /usr/share/nginx/html/version.txt
 
-# Expose ONLY internal HTTP port
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
@@ -46,7 +37,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 #docker buildx build --platform linux/amd64 --no-cache -t lc-frontend:v2  .
 #docker save -o lc-frontend.tar lc-frontend:v2
-#scp lc-frontend.tar target_machine
+#scp lc-frontend.tar root@139.59.22.18:/root/
 #docker load -i lc-frontend.tar
 #docker compose stop frontend
 #docker compose up --build -d frontend
