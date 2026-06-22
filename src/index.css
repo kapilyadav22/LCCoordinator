@@ -4,51 +4,51 @@
 
 @layer base {
   :root {
-    /* Light Mode Colors */
-    --bg-default: #f8fafc; /* Slate 50 */
-    --bg-paper: #ffffff;   /* White */
-    --bg-card: #e2e8f0;    /* Slate 200 */
+    /* 2026 Light Mode Colors - Frost & Clean White */
+    --bg-default: #fafafa;
+    --bg-paper: rgba(255, 255, 255, 0.7);
+    --bg-card: rgba(255, 255, 255, 0.8);
     
-    --text-primary: #1e293b;   /* Slate 800 */
-    --text-secondary: #64748b; /* Slate 500 */
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
     
-    --color-primary-main: #6b21a8;  /* Purple 800 */
-    --color-primary-light: #a855f7; /* Purple 500 */
-    --color-primary-dark: #3b0764;  /* Purple 950 */
+    --color-primary-main: #0891b2;  /* Cyan 600 */
+    --color-primary-light: #22d3ee; /* Cyan 400 */
+    --color-primary-dark: #155e75;  /* Cyan 800 */
     
-    --color-secondary-main: #db2777; /* Pink 600 */
+    --color-secondary-main: #0d9488; /* Teal 600 */
     
-    --color-title-main: #7e22ce;      /* Purple 700 - Readable in light mode */
-    --color-title-themecolor: #581c87; /* Purple 900 */
+    --color-title-main: #d97706;      /* Amber 600 - Readable Yellow in Light Mode */
+    --color-title-themecolor: #b45309; /* Amber 700 */
     
-    --bg-appbar: #ffffff;
-    --bg-itemhover: #f1f5f9;
+    --bg-appbar: rgba(255, 255, 255, 0.6);
+    --bg-itemhover: rgba(0, 0, 0, 0.05);
   }
 
   .dark {
-    /* Dark Mode Colors */
-    --bg-default: #0f172a; /* Slate 900 */
-    --bg-paper: #1e293b;   /* Slate 800 */
-    --bg-card: #334155;    /* Slate 700 */
+    /* 2026 Dark Mode Colors - Void & Aqua Glass */
+    --bg-default: #030712; 
+    --bg-paper: rgba(15, 23, 42, 0.6); 
+    --bg-card: rgba(255, 255, 255, 0.03); 
     
-    --text-primary: #f8fafc;   /* Slate 50 */
-    --text-secondary: #94a3b8; /* Slate 400 */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
     
-    --color-primary-main: #a855f7;  /* Purple 500 */
-    --color-primary-light: #d8b4fe; /* Purple 300 */
-    --color-primary-dark: #581c87;  /* Purple 900 */
+    --color-primary-main: #22d3ee;  /* Cyan 400 */
+    --color-primary-light: #67e8f9; /* Cyan 300 */
+    --color-primary-dark: #0891b2;  /* Cyan 600 */
     
-    --color-secondary-main: #f472b6; /* Pink 400 */
+    --color-secondary-main: #2dd4bf; /* Teal 400 */
     
-    --color-title-main: #fbbf24;       /* Amber 400 - Yellow for dark mode */
+    --color-title-main: #fbbf24;       /* Amber 400 - Neon Yellow */
     --color-title-themecolor: #fde68a; /* Amber 200 */
     
-    --bg-appbar: #1e293b;
-    --bg-itemhover: #334155;
+    --bg-appbar: rgba(3, 7, 18, 0.6); 
+    --bg-itemhover: rgba(255, 255, 255, 0.1);
   }
 
   html, body {
-    @apply h-full m-0 p-0 bg-background-default text-text-primary transition-colors duration-300;
+    @apply h-full m-0 p-0 bg-background-default text-text-primary transition-colors duration-500 selection:bg-title-main selection:text-white;
   }
   
   code {
@@ -56,8 +56,16 @@
   }
 }
 
-/* Custom Utilities for smooth gradients if needed */
+/* Custom Utilities for smooth gradients and glass panels */
 .gradient-text {
-  @apply bg-clip-text text-transparent;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-400 to-yellow-400;
+}
+
+.glass-panel {
+  @apply bg-background-paper backdrop-blur-md border border-white/5 shadow-[0_4px_20px_0_rgba(0,0,0,0.05)];
+}
+
+.glass-panel-hover {
+  @apply hover:shadow-[0_8px_25px_0_rgba(0,0,0,0.1)] hover:border-white/10 hover:-translate-y-1 transition-all duration-300;
 }
 

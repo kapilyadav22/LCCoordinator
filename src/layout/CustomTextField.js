@@ -27,7 +27,7 @@ const CustomTextField = ({
         value={value}
         onChange={onChange}
         rows={multiline ? minRows || 4 : undefined}
-        className="w-full px-3 py-2 bg-transparent border border-title-main rounded-md text-text-primary focus:outline-none focus:ring-2 focus:ring-title-main focus:border-transparent transition-all placeholder-gray-500"
+        className="w-full px-4 py-3 bg-white/5 dark:bg-black/20 border border-title-main/30 rounded-2xl text-text-primary focus:outline-none focus:ring-2 focus:ring-title-main focus:border-transparent transition-all placeholder-gray-500 shadow-inner backdrop-blur-sm"
       />
     </div>
   );

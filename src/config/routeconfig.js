@@ -27,11 +27,25 @@ import Resources from "../components/Resources";
 import StringUtilityTools from "../components/StringUtilityTools";
 import { ARTICLES } from "../constants/urlConstants";
 
+import HomePage from "../components/HomePage";
+
+import TypingMaster from "../components/TypingMaster/TypingMaster";
+
 export const RouteConfig = [
     {
         pageName: PAGES_NAME.HOMEPAGE,
         path: '/',
+        element: <HomePage />,
+    },
+    {
+        pageName: "Prepare",
+        path: '/prepare',
         element: <Landingpage />,
+    },
+    {
+        pageName: "Typing Master",
+        path: '/typing-master',
+        element: <TypingMaster />,
     },
     {
         pageName: PAGES_NAME.LOGIN,

@@ -29,6 +29,7 @@ const CustomAlert1 = ({ alert, closeAlert }) => {
 
   return (
     <div
+      role="alert"
       className={`fixed top-16 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg text-white ${
         bgColors[alert.severity] || "bg-gray-800"
       } transition-all duration-300 animate-fade-in-down`}
@@ -38,7 +39,8 @@ const CustomAlert1 = ({ alert, closeAlert }) => {
       {closeAlert && (
         <button
           onClick={closeAlert}
-          className="ml-2 hover:bg-white/20 p-1 rounded-full text-white"
+          aria-label="Close alert"
+          className="ml-2 hover:bg-white/20 p-1 rounded-full text-white focus:outline-none focus:ring-2 focus:ring-white"
         >
           <X className="w-4 h-4" />
         </button>

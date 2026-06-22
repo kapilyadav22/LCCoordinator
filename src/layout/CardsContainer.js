@@ -23,19 +23,21 @@ const CardsContainer = () => {
   };
 
   return (
-    <div
-      className={`w-full p-4 sm:p-5 rounded-2xl border border-title-main/40 ${
-        mode === "light"
-          ? "bg-gradient-to-br from-purple-800 to-black"
-          : "bg-gradient-to-br from-gray-900 to-black"
-      } h-auto`}
-    >
-      <div className="flex flex-wrap justify-center gap-5 p-2">
+    <div className="w-full p-4 sm:p-6 rounded-[2.5rem] glass-panel h-auto backdrop-blur-2xl bg-white/5 dark:bg-black/20">
+      <div className="flex flex-wrap justify-center gap-6 p-2">
         {cardData.map((card, index) => (
           <div
             key={index}
+            role="button"
+            tabIndex={0}
             onClick={() => handleCardClick(card.title)}
-            className="bg-background-paper rounded-2xl w-full sm:w-auto sm:min-w-[250px] max-w-sm flex flex-col cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl overflow-hidden"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleCardClick(card.title);
+              }
+            }}
+            className="glass-panel glass-panel-hover rounded-[1.5rem] w-full sm:w-auto sm:min-w-[260px] max-w-sm flex flex-col cursor-pointer overflow-hidden focus:outline-none focus:ring-2 focus:ring-title-main"
           >
             <img
               src={card.image}

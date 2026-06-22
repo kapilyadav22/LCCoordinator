@@ -66,7 +66,7 @@ const AboutPage = () => {
               transition={{ duration: 1 }}
             >
               <img
-                alt="Profile Picture"
+                alt="Profile photo of Kapil Kumar Yadav"
                 src={ProfilePic}
                 className="
                   w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[300px] md:h-[300px] lg:w-[320px] lg:h-[320px]

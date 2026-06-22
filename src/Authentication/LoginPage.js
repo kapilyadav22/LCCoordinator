@@ -40,6 +40,10 @@ const LoginPage = () => {
     const role = res?.data?.role != null ? res.data.role : "User";
 
     if (res.status === "success") {
+      // Store JWT token in sessionStorage
+      if (res?.data?.token) {
+        sessionStorage.setItem("jwtToken", res.data.token);
+      }
       showAlert("success", "Login Successful");
       updateAdminStatus(role);
       updateUserName(name);

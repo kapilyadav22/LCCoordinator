@@ -22,7 +22,7 @@ const EditableImage = () => {
     <div className="relative w-[300px] h-[300px] mx-auto group">
       <img
         src={image}
-        alt="Editable"
+        alt="Editable image preview"
         className="w-full h-full object-cover rounded-lg"
       />
       <button

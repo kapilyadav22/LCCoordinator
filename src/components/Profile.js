@@ -91,8 +91,16 @@ export const Profile = () => {
             </div>
             <ul className="mt-4">
               <li
-                className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded text-center text-text-primary transition-colors"
+                role="button"
+                tabIndex={0}
+                className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded text-center text-text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onClick={handleEditProfile}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleEditProfile();
+                  }
+                }}
               >
                 Edit Details
               </li>

@@ -34,11 +34,19 @@ const SignIn = () => {
 
   return (
     <div
+      role="button"
+      tabIndex={0}
       onClick={() => signInWithGoogle()}
-      className="flex items-center justify-center cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          signInWithGoogle();
+        }
+      }}
+      className="flex items-center justify-center cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
     >
       <img
-        alt="Google"
+        alt="Google Logo"
         src={googleImage}
         className="w-10 h-10 mr-4 rounded-full"
       />
