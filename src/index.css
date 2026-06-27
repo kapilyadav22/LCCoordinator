@@ -51,6 +51,16 @@
     @apply h-full m-0 p-0 bg-background-default text-text-primary transition-colors duration-500 selection:bg-title-main selection:text-white;
   }
   
+  input, textarea, select {
+    background-color: var(--bg-default) !important;
+    color: var(--text-primary) !important;
+  }
+  
+  option {
+    background-color: var(--bg-default) !important;
+    color: var(--text-primary) !important;
+  }
+  
   code {
     @apply font-mono;
   }

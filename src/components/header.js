@@ -52,9 +52,8 @@ const Header = () => {
           {/* Middle Navigation - Hidden on Mobile, visible on MD and up */}
           <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-6 lg:gap-8">
             <NavButton label="Home" to="/" />
-            <NavButton label="Prepare" to="/prepare" />
             <NavButton label="Typing Master" to="/typing-master" />
-            <NavButton label="Articles" to="/articles" />
+            <NavButton label="Developer Tools" to="/utilitytools" />
             <NavButton label="Resources" to="/resources" />
           </nav>
 
@@ -160,7 +159,7 @@ const Header = () => {
                   onClick={() => toggleDrawer(false)}
                 />
                 <NavButton
-                  label="Utility Tools"
+                  label="Developer Tools"
                   to="/utilitytools"
                   onClick={() => toggleDrawer(false)}
                 />
