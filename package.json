@@ -9,7 +9,7 @@
     "express": "^5.1.0",
     "firebase": "^11.7.1",
     "framer-motion": "^12.10.5",
-    "lucide-react": "^1.21.0",
+    "lucide-react": "^0.475.0",
     "node-fetch": "^3.3.2",
     "postcss": "^8.4.35",
     "quill": "^2.0.3",
